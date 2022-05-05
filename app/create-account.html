@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Creation Form</title>
+    <link rel="stylesheet" type="text/css" href="/css/create-account.css">
+    <script src="/js/login-form.js" defer></script>
+</head>
+
+<body>
+    <form data-multi-step class="multi-step-form">
+        <div class="card" data-step>
+            <h3 class="step-title">ACCOUNT SETUP</h3>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" required name="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" required name="password" id="password">
+            </div>
+            <button type="button" data-next id = "button">Next</button>
+        </div>
+        <div class="card" data-step>
+            <h3 class="step-title">PERSONAL DETAILS</h3>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" required name="firstName" id="firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" required name="lastName" id="lastName">
+            </div>
+            <button type="button" data-previous id="button">Previous</button>
+            <button type="button" id = "button" onclick = "redirectToLogin()">Submit</button>
+        </div>
+    </form>
+</body>
+
+</html>

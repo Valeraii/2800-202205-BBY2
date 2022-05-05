@@ -10,9 +10,8 @@ app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/imgs"));
 app.use("/fonts", express.static("./public/fonts"));
-app.use("/html", express.static("./public/html"));
 app.use("/media", express.static("./public/media"));
-
+app.use("/html", express.static("./app"));
 
 app.use(session(
     {
@@ -23,7 +22,6 @@ app.use(session(
         saveUninitialized: true
     })
 );
-
 
 app.get("/", function (req, res) {
 
@@ -38,7 +36,6 @@ app.get("/", function (req, res) {
         res.send(doc);
     }
 });
-
 
 app.get("/profile", function (req, res) {
 
@@ -68,7 +65,6 @@ app.get("/profile", function (req, res) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 // Notice that this is a "POST"
 app.post("/login", function (req, res) {
@@ -113,7 +109,6 @@ app.get("/logout", function (req, res) {
         });
     }
 });
-
 
 // RUN SERVER
 let port = 8000;

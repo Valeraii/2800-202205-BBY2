@@ -6,6 +6,7 @@
     max-width: 300px;
     margin: 0 auto;
     animation: fade 250ms ease-in-out forwards;
+    display: none;
 }
 
 .form-group {
@@ -39,6 +40,7 @@
 }
 
 .card.active {
+    display: block;
     animation: slide 250ms 125ms ease-in-out both;
 }
 
@@ -49,6 +51,21 @@
 
 .hide {
     display: none;
+}
+
+#button {
+    font-size: 16px;
+    color: #fff;
+    background-color: #827ffe;
+    line-height: 1.2;
+    text-transform:uppercase;
+    border-radius: 3px;
+    margin: 20px 0px;
+    grid-row: 5 / 6;
+}
+
+#button:hover {
+    background-color: #403866;
 }
 
 @keyframes slide {
