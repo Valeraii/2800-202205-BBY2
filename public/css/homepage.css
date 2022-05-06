@@ -1,3 +1,7 @@
+body {   
+    font-family: 'Roboto Condensed', sans-serif;    
+}
+
 /* Homepage Html - Header only */
 
 .container-homepage {
@@ -8,8 +12,8 @@
     height: 100vh;
 }
 
-.site-header{
-    background-color: #EBCF76; 
+.site-header {
+    background-color: #EBCF76;
     grid-column: 1 / 6;
 }
 
@@ -33,7 +37,7 @@
     padding: 0;
     grid-template-columns: repeat(5, 1fr);
     grid-column: 2 / 5;
-    align-self: center;           
+    align-self: center;
 }
 
 #nav-list a {
@@ -41,19 +45,19 @@
     text-decoration: none;
     text-transform: uppercase;
     display: block;
-    padding: 0.8rem;  
+    padding: 0.8rem;
     text-align: center;
     text-justify: center;
     font-size: 1.1rem;
 }
 
-#nav-list > * {
-    border: 1px solid black;  
+#nav-list>* {
+    border: 1px solid black;
 }
 
 
 
-#btn-login{
+#btn-login {
     color: black;
     background-color: white;
     border: 1px solid black;
@@ -64,7 +68,7 @@
     margin: 40px 80px;
 }
 
-.site-footer{
+.site-footer {
     grid-column: 1 / 6;
     grid-row: 3 / 4;
 }
@@ -80,14 +84,14 @@
 .site-footer a {
     text-decoration: none;
     color: black;
-    
+
 
 }
 
 .site-footer ul {
     text-decoration: none;
     list-style: none;
-    
+
 }
 
 .container-footer {
@@ -100,10 +104,10 @@
 }
 
 .quick-links {
-    justify-self: center;   
+    justify-self: center;
 }
 
-.quick-links h6{
+.quick-links h6 {
     text-align: center;
 }
 
@@ -122,33 +126,33 @@
         grid-template-rows: 12% 58% 30%;
     }
 
-    .site-footer{
+    .site-footer {
         height: 55vh;
 
     }
 
-    .container-footer { 
+    .container-footer {
         background-color: #EBCF76;
         display: grid;
         grid-template-columns: 1fr;
         grid-row: 10px 10px 10px 10px;
     }
 
-    .about-us{
+    .about-us {
         text-align: center;
         grid-row: 1 / 2;
     }
 
-    .find-us{
+    .find-us {
         text-align: center;
         grid-row: 2 / 3;
     }
 
-    .quick-links{
+    .quick-links {
         grid-row: 3 / 4;
     }
 
-    .copyright{
+    .copyright {
         grid-row: 4 / 5;
 
     }
@@ -166,98 +170,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Multipage Account Creation */
-
-.card {
-    background-color: white;
-    border: 1px solid #333;
-    border-radius: .5rem;
-    padding: .5rem;
-    max-width: 300px;
-    margin: 0 auto;
-    animation: fade 250ms ease-in-out forwards;
-}
-
-.form-group {
-    display:flex;
-    flex-direction: column;
-    margin-bottom: .5rem;
-    gap: .25em;
-}
-
-.form-group last-child {
-    margin: 0;
-}
-
-.form-group > label {
-    font-weight: bold;
-    font-size: .8em;
-    color: #333;
-}
-
-.form-group > input {
-    border: 1px solid #333;
-    border-radius: .25em;
-    font-size: 1rem;
-    padding: .25em;
-}
-
-.step-title{
-    margin: 0;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.card.active {
-    animation: slide 250ms 125ms ease-in-out both;
-}
-
-.multi-step-form {
-    overflow: hidden;
-    position: relative;
-}
-
-.hide {
-    display: none;
-}
-
-@keyframes slide {
-    0% {
-        transform: translateX(200%);
-        opacity: 0%;
-    }
-
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }  
-}
-
-@keyframes fade {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(.75);
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0);
-    }
-}
 

@@ -81,7 +81,6 @@ ready(function () {
 
         }, queryString);
     });
-
 });
 
 function ready(callback) {
