@@ -190,18 +190,6 @@ app.get("/table-async", function (req, res) {
     );
 });
 
-// async function init() {
-//     const mysql = require("mysql2/promise");
-//     const connection = await mysql.createConnection({
-//         host: "localhost",
-//         user: "root",
-//         password: "",
-//         multipleStatements: true
-//     });
-//     const [rows, fields] = await connection.query("SELECT * FROM user");
-//     connection.end();
-// }
-
 async function init() {
     const mysql = require("mysql2/promise");
     const connection = await mysql.createConnection({
@@ -210,26 +198,7 @@ async function init() {
         password: "",
         multipleStatements: true
     });
-    const createDBAndTables = `CREATE DATABASE IF NOT EXISTS COMP2800;
-    use COMP2800;
-    CREATE TABLE IF NOT EXISTS BBY-2-user (
-    ID int NOT NULL AUTO_INCREMENT,
-    adminRights varchar(10),
-    email varchar(30),
-    pass varchar(30),
-    firstName varchar(30),
-    lastName varchar(30),
-    PRIMARY KEY (ID));`;
-    await connection.query(createDBAndTables);
-    const [rows, fields] = await connection.query("SELECT * FROM BBY-2-user");
-    if (rows.length == 0) {
-        let userRecords = "insert into BBY-2-user (adminRights, email, password, firstName, lastName) values ?";
-        let recordValues = [
-            [1, "YES", "ramsay@mail.com", "123", "Ramsay", "Elhalhuli"],
-            [2, "NO", "valerie@mail.com", "123", "Valerie", "Tan"]
-        ];
-        await connection.query(userRecords, [recordValues]);
-    }
+    const [rows, fields] = await connection.query("SELECT * FROM user");
     connection.end();
 }
 
