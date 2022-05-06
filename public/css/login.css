@@ -11,9 +11,6 @@ body {
     grid-row-gap: 0px;
     width: 100vw;
     height: 100vh;
-    background: url(../img/background-2.png);
-    background-size: cover;
-    background-position: center;
 }
 
 a {
@@ -33,14 +30,6 @@ a {
 .title {
     justify-self: center;
 }
-
-/* #email {
-    position: fie
-}
-
-#password {
-    margin: 20px 0px;
-} */
 
 .input-100 {
     color: #403866;
@@ -67,16 +56,12 @@ a {
 }
 
 #creation-link {
-    grid-row: 6 / 7;
-    align-self: center;
-    justify-self: center;
-}
-
-#back-btn {
     grid-row: 7 / 8;
     align-self: center;
     justify-self: center;
 }
+
+
 
 @media (max-width: 700px) {
 
@@ -88,9 +73,6 @@ a {
         grid-row-gap: 0px;
         width: 100vw;
         height: 100vh;
-        background: url(../img/background-2.png);
-        background-size: cover;
-        background-position: center;
     }
 
 }
