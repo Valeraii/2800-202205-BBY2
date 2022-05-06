@@ -1,182 +1,6 @@
-/* Homepage Html - Header only */
-
-.container-homepage {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 12% 58% 30%;
-    width: 100vw;
-    height: 100vh;
+body {   
+    font-family: 'Roboto Condensed', sans-serif;    
 }
-
-.site-header{
-    background-color: #EBCF76; 
-    grid-column: 1 / 6;
-}
-
-.navbar {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-
-}
-
-.logo-img {
-    width: 80%;
-    min-width: 100px;
-    max-width: 100px;
-    height: auto;
-}
-
-#nav-list {
-    list-style: none;
-    display: grid;
-    gap: 20px;
-    padding: 0;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column: 2 / 5;
-    align-self: center;           
-}
-
-#nav-list a {
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    display: block;
-    padding: 0.8rem;  
-    text-align: center;
-    text-justify: center;
-    font-size: 1.1rem;
-}
-
-#nav-list > * {
-    border: 1px solid black;  
-}
-
-
-
-#btn-login{
-    color: black;
-    background-color: white;
-    border: 1px solid black;
-    padding: 10px;
-    text-decoration: none;
-    text-align: center;
-    grid-column: 5 / 6;
-    margin: 40px 80px;
-}
-
-.site-footer{
-    grid-column: 1 / 6;
-    grid-row: 3 / 4;
-}
-
-/* Homepage - Footer only */
-
-.site-footer {
-    background-color: #EBCF76;
-    grid-column: 1 / 6;
-    grid-row: 3 / 4;
-}
-
-.site-footer a {
-    text-decoration: none;
-    color: black;
-    
-
-}
-
-.site-footer ul {
-    text-decoration: none;
-    list-style: none;
-    
-}
-
-.container-footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.find-us {
-    justify-self: center;
-}
-
-.quick-links {
-    justify-self: center;   
-}
-
-.quick-links h6{
-    text-align: center;
-}
-
-.copyright {
-    justify-self: center;
-    height: 5px;
-    grid-column: 1 / 4;
-    border-top: 1px solid black;
-}
-
-@media (max-width: 700px) {
-
-    .container-homepage {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 12% 58% 30%;
-    }
-
-    .site-footer{
-        height: 55vh;
-
-    }
-
-    .container-footer { 
-        background-color: #EBCF76;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-row: 10px 10px 10px 10px;
-    }
-
-    .about-us{
-        text-align: center;
-        grid-row: 1 / 2;
-    }
-
-    .find-us{
-        text-align: center;
-        grid-row: 2 / 3;
-    }
-
-    .quick-links{
-        grid-row: 3 / 4;
-    }
-
-    .copyright{
-        grid-row: 4 / 5;
-
-    }
-
-    /* .container-footer {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-    } */
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* Multipage Account Creation */
@@ -193,7 +17,7 @@
 }
 
 .form-group {
-    display:flex;
+    display: flex;
     flex-direction: column;
     margin-bottom: .5rem;
     gap: .25em;
@@ -203,20 +27,20 @@
     margin: 0;
 }
 
-.form-group > label {
+.form-group>label {
     font-weight: bold;
     font-size: .8em;
     color: #333;
 }
 
-.form-group > input {
+.form-group>input {
     border: 1px solid #333;
     border-radius: .25em;
     font-size: 1rem;
     padding: .25em;
 }
 
-.step-title{
+.step-title {
     margin: 0;
     margin-bottom: 1rem;
     text-align: center;
@@ -241,7 +65,7 @@
     color: #fff;
     background-color: #827ffe;
     line-height: 1.2;
-    text-transform:uppercase;
+    text-transform: uppercase;
     border-radius: 3px;
     margin: 20px 0px;
     grid-row: 5 / 6;
@@ -260,7 +84,7 @@
     100% {
         transform: translateX(0);
         opacity: 1;
-    }  
+    }
 }
 
 @keyframes fade {
@@ -268,13 +92,14 @@
         transform: scale(1);
         opacity: 1;
     }
+
     50% {
         transform: scale(.75);
         opacity: 0;
     }
+
     100% {
         opacity: 0;
         transform: scale(0);
     }
 }
-
