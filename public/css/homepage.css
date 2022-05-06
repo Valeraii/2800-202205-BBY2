@@ -30,6 +30,11 @@ body {
     height: auto;
 }
 
+.logo-center {
+    grid-column: 3 / 4;
+    text-align: center;
+}
+
 #nav-list {
     list-style: none;
     display: grid;
@@ -157,11 +162,7 @@ body {
 
     }
 
-    /* .container-footer {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-    } */
+
 
 
 

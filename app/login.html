@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/homepage.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +19,17 @@
 
 <body>
 
-    <!-- <nav id="headerPlaceholder"></nav> -->
+    <header class="site-header">
+        <div class="container-header">
+            <nav class="navbar">
+                <div id="logo" class="logo-center">
+                    <img src="img/logo.svg" alt="WordJam Logo" class="logo-img">
+                </div>
+                
+            </nav>
+
+        </div>
+    </header>
 
     <div class="container-login">
         <form class="form">
@@ -31,7 +42,38 @@
 
     </div>
 
-    <!-- <footer id ="footerPlaceholder"></footer> -->
+    <footer class="site-footer">
+        <div class="container-footer">
+            <div class="about-us">
+                <h6>About Us</h6>
+                <p>WordJam is an online puzzle game that anyone can play to help relax,
+                    relieve stress,
+                    and use as a common ground to reconnect with friends and family.</p>
+            </div>
+
+            <div class="find-us">
+                <h6>Find Us</h6>
+                <p> 1234 WordJam St, Vancouver</p>
+            </div>
+
+            <div class="quick-links">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+
+            <div class="copyright">
+                <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
+                    <a href="#">WordJam</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script src="js/client.js"></script>
     <script src="js/skeleton.js"></script>
