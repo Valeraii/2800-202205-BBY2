@@ -191,6 +191,46 @@ app.get("/homepage", function (req,res) {
 
 })
 
+// the usual way
+app.get("/table-async", function (req, res) {
+
+    const mysql = require("mysql2");
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "COMP2800"
+    });
+    let myResults = null;
+    connection.connect();
+    connection.query(
+        "SELECT * FROM user",
+        function (error, results, fields) {
+            // results is an array of records, in JSON format
+            // fields contains extra meta data about results
+            console.log("Results from DB", results, "and the # of records returned", results.length);
+            // hmm, what's this?
+            myResults = results;
+            if (error) {
+                // in production, you'd really want to send an email to admin
+                // or in the very least, log it. But for now, just console
+                console.log(error);
+            }
+            // let's get the data but output it as an HTML table
+            let table = "<table><tr><th>ID</th><th>AdminRights</th><th>Email</th><th>Password</th><th>First Name</th><th>Last Name</th></tr>";
+            for (let i = 0; i < results.length; i++) {
+                table += "<tr><td>" + results[i].userID + "</td><td>" + results[i].adminRights + "</td><td>"
+                    + results[i].email + "</td><td>" + results[i].pass + "</td><td>"+ results[i].firstName + "</td><td>"  + results[i].lastName + "</td></tr>";
+            }
+            // don't forget the '+'
+            table += "</table>";
+            res.send(table);
+            connection.end();
+        }
+    );
+    console.log(myResults, "why is this null?");
+});
+
 async function init() {
     const mysql = require("mysql2/promise");
     const connection = await mysql.createConnection({
