@@ -40,9 +40,9 @@ app.get("/", function (req, res) {
 app.get("/profile", function (req, res) {
 
     // check for a session first!
-    if (req.session.loggedIn) {
+    if (req.session.loggedIn && req.session.admin == 'YES') {
 
-        let profile = fs.readFileSync("./app/profile.html", "utf8");
+        let profile = fs.readFileSync("./app/dashboard.html", "utf8");
         let profileDOM = new JSDOM(profile);
 
 
@@ -55,8 +55,21 @@ app.get("/profile", function (req, res) {
         res.set("Server", "Wazubi Engine");
         res.set("X-Powered-By", "Wazubi");
         res.send(profileDOM.serialize());
+    } else if (req.session.loggedIn && req.session.admin == 'NO') {
 
-    } else {
+            let profile = fs.readFileSync("./app/profile.html", "utf8");
+            let profileDOM = new JSDOM(profile);
+
+            // great time to get the user's data and put it into the page!
+            profileDOM.window.document.getElementsByTagName("title")[0].innerHTML
+                = req.session.name + "'s Profile";
+            profileDOM.window.document.getElementById("profile_name").innerHTML
+                = "Welcome back " + req.session.name;
+
+            res.set("Server", "Wazubi Engine");
+            res.set("X-Powered-By", "Wazubi");
+            res.send(profileDOM.serialize());
+        } else {
         // not logged in - no session and no access, redirect to home!
         res.redirect("/");
     }
@@ -87,6 +100,7 @@ app.post("/login", function(req, res) {
                 req.session.loggedIn = true;
                 req.session.email = userRecord.email;
                 req.session.name = userRecord.name;
+                req.session.admin = userRecord.admin;
                 req.session.save(function(err) {
                     // session saved, for analytics, we could record this in a DB
                 });
