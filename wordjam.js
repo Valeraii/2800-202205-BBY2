@@ -4,6 +4,22 @@ const session = require("express-session");
 const app = express();
 const fs = require("fs");
 const { JSDOM } = require('jsdom');
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "COMP2800"
+});
+
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
+app.set('view engine', 'jade');
 
 // static path mappings
 app.use("/js", express.static("./public/js"));
@@ -35,6 +51,22 @@ app.get("/", function (req, res) {
         res.set("X-Powered-By", "Wazubi");
         res.send(doc);
     }
+});
+
+app.post('/submit', urlencodedParser, function (req, res) {
+    console.log("Im here");
+    console.log(req.body.name);
+    console.log(req.body.message);
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("connected");
+        var sql = "INSERT INTO `user` (`email`, `pass`, `firstName`,`lastName`) VALUES ('" + req.body.email + "', '" + req.body.password + "' , '" + req.body.firstName + "' , '" + req.body.lastName + "')";
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("table created");
+        });
+    });
+    res.redirect("/");
 });
 
 app.get("/profile", function (req, res) {
@@ -158,37 +190,6 @@ app.get("/homepage", function (req,res) {
     res.send(doc);
 
 })
-
-app.get("/table-async", function (req, res) {
-
-    const mysql = require("mysql2");
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "COMP2800"
-    });
-    let myResults = null;
-    connection.connect();
-    connection.query(
-        "SELECT * FROM user",
-        function (error, results, fields) {
-            console.log("Results from DB", results, "and the # of records returned", results.length);
-            myResults = results;
-            if (error) {
-                console.log(error);
-            }
-            let table = "<table><tr><th>ID</th><th>Name</th><th>Email</th></tr>";
-            for (let i = 0; i < results.length; i++) {
-                table += "<tr><td>" + results[i].ID + "</td><td>" + results[i].name + "</td><td>"
-                    + results[i].email + "</td></tr>";
-            }
-            table += "</table>";
-            res.send(table);
-            connection.end();
-        }
-    );
-});
 
 async function init() {
     const mysql = require("mysql2/promise");

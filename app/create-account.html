@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <form data-multi-step class="multi-step-form" action="insert.php" method="post">
+    <form data-multi-step class="multi-step-form" action="/submit" method="post">
         <div class="card" data-step>
             <h3 class="step-title">ACCOUNT SETUP</h3>
             <div class="form-group">
@@ -42,7 +42,7 @@
                 <input type="text" required name="lastName" id="lastName">
             </div>
             <button type="button" data-previous id="button">Previous</button>
-            <input type="submit" value="Submit Data">
+            <input class="submit_message" type="submit" value="Send">
         </div>
     </form>
 </body>
