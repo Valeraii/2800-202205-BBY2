@@ -5,22 +5,81 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Open+Sans&family=Roboto+Condensed:ital,wght@1,300&family=Square+Peg&display=swap"
-        rel="stylesheet">
-
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet"
+        href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
-    <div id="profile_name">NAME</div>
-    <h1>You are ADMIN</h1>
     <form action="/logout" method="get">
         <input type="submit" value="Logout" />
     </form>
+
+    <section id="menu">
+        <div class="logo">
+            <img src="/public/img/logo.svg" alt="Word Jam">
+            <h2>Word Jam</h2>
+        </div>
+        <div class="items">
+            <li><span class="material-symbols-outlined">
+                    dashboard
+                </span><a href="#">Dashboard</a></li>
+            <li><span class="material-symbols-outlined">
+                    event
+                </span><a href="#">Event</a></li>
+            <li><span class="material-symbols-outlined">
+                    notifications_active
+                </span><a href="#">Messages(Notification)</a></li>
+            <li><span class="material-symbols-outlined">
+                    reviews
+                </span><a href="#">Complaint/Feedback</a></li>
+        </div>
+    </section>
+
+    <section id="interface">
+        <div class="navigation">
+            <div class="n1">
+                <div class="search">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+
+            <div class="profile">
+                <i class="material-symbols-outlined">
+                    person
+                </i>
+                <img src="/public/img/dp.jpg" alt="profile dp">
+            </div>
+        </div>
+        <h3 class="i-name">
+            Dashboard
+        </h3>
+
+        <div class="values">
+            <div class="val-box">
+                <i class="material-symbols-outlined">
+                    group
+                </i>
+                <div>
+                    <h3>0</h3>
+                    <span>New Users</span>
+                </div>
+            </div>
+            <div class="val-box">
+                <i class="material-symbols-outlined">
+                    extension
+                </i>
+                <div>
+                    <h3>0</h3>
+                    <span>games played</span>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

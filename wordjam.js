@@ -37,25 +37,6 @@ app.get("/", function (req, res) {
     }
 });
 
-app.get("/login", function (req, res) {
-
-    let loginbtn = fs.readFileSync("./app/login.html", "utf8");
-
-    res.set("Server", "Wazubi Engine");
-    res.set("X-Powered-By", "Wazubi");
-    res.send(loginbtn);
-});
-
-// app.get("/homepage", function (req, res) {
-
-//     let homepagebtn = fs.readFileSync("./app/homepage.html", "utf8");
-
-//     res.set("Server", "Wazubi Engine");
-//     res.set("X-Powered-By", "Wazubi");
-//     res.send(homepagebtn);
-// });
-
-
 app.get("/profile", function (req, res) {
 
     // check for a session first!
@@ -63,14 +44,6 @@ app.get("/profile", function (req, res) {
 
         let profile = fs.readFileSync("./app/dashboard.html", "utf8");
         let profileDOM = new JSDOM(profile);
-
-
-        // great time to get the user's data and put it into the page!
-        profileDOM.window.document.getElementsByTagName("title")[0].innerHTML
-            = req.session.name + "'s Profile";
-        profileDOM.window.document.getElementById("profile_name").innerHTML
-            = "Welcome back " + req.session.name;
-
         res.set("Server", "Wazubi Engine");
         res.set("X-Powered-By", "Wazubi");
         res.send(profileDOM.serialize());
