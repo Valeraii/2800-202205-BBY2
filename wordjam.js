@@ -26,7 +26,7 @@ app.use(session(
 app.get("/", function (req, res) {
 
     if (req.session.loggedIn) {
-        res.redirect("/home");
+        res.redirect("/login");
     } else {
 
         let doc = fs.readFileSync("./app/login.html", "utf8");
@@ -40,7 +40,7 @@ app.get("/", function (req, res) {
 app.get("/profile", function (req, res) {
 
     // check for a session first!
-    if (req.session.loggedIn && req.session.admin == 'YES') {
+    if (req.session.loggedIn && req.session.adminRights == 'YES') {
 
         let profile = fs.readFileSync("./app/dashboard.html", "utf8");
         let profileDOM = new JSDOM(profile);
@@ -55,7 +55,7 @@ app.get("/profile", function (req, res) {
         res.set("Server", "Wazubi Engine");
         res.set("X-Powered-By", "Wazubi");
         res.send(profileDOM.serialize());
-    } else if (req.session.loggedIn && req.session.admin == 'NO') {
+    } else if (req.session.loggedIn && req.session.adminRights == 'NO') {
 
             let profile = fs.readFileSync("./app/profile.html", "utf8");
             let profileDOM = new JSDOM(profile);
@@ -83,9 +83,7 @@ app.use(express.urlencoded({ extended: true }));
 app.post("/login", function(req, res) {
     res.setHeader("Content-Type", "application/json");
 
-
     console.log("What was sent", req.body.email, req.body.password);
-
 
     let results = authenticate(req.body.email, req.body.password,
         function(userRecord) {
@@ -100,7 +98,7 @@ app.post("/login", function(req, res) {
                 req.session.loggedIn = true;
                 req.session.email = userRecord.email;
                 req.session.name = userRecord.name;
-                req.session.admin = userRecord.admin;
+                req.session.adminRights = userRecord.adminRights;
                 req.session.save(function(err) {
                     // session saved, for analytics, we could record this in a DB
                 });
@@ -123,7 +121,7 @@ function authenticate(email, pwd, callback) {
     connection.connect();
     connection.query(
       //'SELECT * FROM user',
-      "SELECT * FROM user WHERE email = ? AND password = ?", [email, pwd],
+      "SELECT * FROM user WHERE email = ? AND pass = ?", [email, pwd],
       function(error, results, fields) {
           // results is an array of records, in JSON format
           // fields contains extra meta data about results
