@@ -1,7 +1,3 @@
-body {
-    /* background-color: #EBCF76; */
-}
-
 .container-login {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -10,6 +6,15 @@ body {
     grid-row-gap: 0px;
     width: 100vw;
     height: 100vh;
+    background: url(../img/background-2.png);
+    background-size: cover; 
+    background-position: center;
+
+
+}
+
+a {
+    text-decoration: none;
 }
 
 .form {
@@ -18,6 +23,8 @@ body {
     grid-template-rows: repeat(6, 1fr);
     grid-column: 2 / 5;
     grid-row: 2 / 5;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .title {
@@ -25,7 +32,7 @@ body {
 }
 
 /* #email {
-    margin: 20px 0px;
+    position: fie
 }
 
 #password {
@@ -36,11 +43,9 @@ body {
     color: #403866;
     line-height: 1.2;
     font-size: 18px;
-    
-    padding: 0 20px 0 38px;
-    background: transparent;
+    padding: 0 40px 0 40px;
     height: 62px;
-
+    position: static;
 }
 
 #login-button {
@@ -60,6 +65,12 @@ body {
 
 #creation-link {
     grid-row: 6 / 7;
+    align-self: center;
+    justify-self: center;
+}
+
+#back-btn {
+    grid-row: 7 / 8;
     align-self: center;
     justify-self: center;
 }

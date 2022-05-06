@@ -8,7 +8,7 @@ const { JSDOM } = require('jsdom');
 // static path mappings
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
-app.use("/img", express.static("./public/imgs"));
+app.use("/img", express.static("./public/img"));
 app.use("/fonts", express.static("./public/fonts"));
 app.use("/html", express.static("./public/html"));
 app.use("/media", express.static("./public/media"));
@@ -37,6 +37,24 @@ app.get("/", function (req, res) {
         res.set("X-Powered-By", "Wazubi");
         res.send(doc);
     }
+});
+
+app.get("/login", function (req, res) {
+
+    let loginbtn = fs.readFileSync("./app/login.html", "utf8");
+
+    res.set("Server", "Wazubi Engine");
+    res.set("X-Powered-By", "Wazubi");
+    res.send(loginbtn);
+});
+
+app.get("/homepage", function (req, res) {
+
+    let homepagebtn = fs.readFileSync("./app/homepage.html", "utf8");
+
+    res.set("Server", "Wazubi Engine");
+    res.set("X-Powered-By", "Wazubi");
+    res.send(homepagebtn);
 });
 
 
@@ -113,6 +131,16 @@ app.get("/logout", function (req, res) {
         });
     }
 });
+
+app.get("/homepage", function (req,res) {
+
+    let doc = fs.readFileSync("./app/homepage.html", "utf8");
+
+    res.set("Server", "Wazubi Engine");
+    res.set("X-Powered-By", "Wazubi");
+    res.send(doc);
+
+})
 
 
 // RUN SERVER
