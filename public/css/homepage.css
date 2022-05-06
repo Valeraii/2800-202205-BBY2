@@ -23,11 +23,6 @@ body {
 
 }
 
-.logo-center {
-    grid-column: 3 / 5;
-    text-align: start;
-}
-
 .logo-img {
     width: 80%;
     min-width: 100px;
@@ -161,6 +156,13 @@ body {
         grid-row: 4 / 5;
 
     }
+
+    /* .container-footer {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+    } */
+
 
 
 }
