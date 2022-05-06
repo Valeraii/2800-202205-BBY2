@@ -67,34 +67,69 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Notice that this is a "POST"
-app.post("/login", function (req, res) {
+app.post("/login", function(req, res) {
     res.setHeader("Content-Type", "application/json");
+
 
     console.log("What was sent", req.body.email, req.body.password);
 
-    // check to see if the user name matches
-    /*
-     * IMPORTANT: THIS IS WHERE YOU WOULD PERFORM A CHECK IN THE DB INSTEAD OF
-     *            HARD CODING THE VALUES HERE !!!
-     */
-    if (req.body.email == "taylorswift@gmail.com" && req.body.password == "12345") {
-        // user authenticated, create a session
-        req.session.loggedIn = true;
-        req.session.email = "taylorswift@gmail.com";
-        req.session.name = "Taylor";
-        req.session.save(function (err) {
-            // session saved. For analytics, we could record this in a DB
-        });
-        // all we are doing as a server is telling the client that they
-        // are logged in, it is up to them to switch to the profile page
-        res.send({ status: "success", msg: "Logged in." });
-    } else {
-        // server couldn't find that, so use AJAX response and inform
-        // the user. when we get success, we will do a complete page
-        // change. Ask why we would do this in lecture/lab :)
-        res.send({ status: "fail", msg: "User account not found." });
-    }
+
+    let results = authenticate(req.body.email, req.body.password,
+        function(userRecord) {
+            //console.log(rows);
+            if(userRecord == null) {
+                // server couldn't find that, so use AJAX response and inform
+                // the user. when we get success, we will do a complete page
+                // change. Ask why we would do this in lecture/lab 🙂
+                res.send({ status: "fail", msg: "User account not found." });
+            } else {
+                // authenticate the user, create a session
+                req.session.loggedIn = true;
+                req.session.email = userRecord.email;
+                req.session.name = userRecord.name;
+                req.session.save(function(err) {
+                    // session saved, for analytics, we could record this in a DB
+                });
+                // all we are doing as a server is telling the client that they
+                // are logged in, it is up to them to switch to the profile page
+                res.send({ status: "success", msg: "Logged in." });
+            }
+    });
 });
+
+function authenticate(email, pwd, callback) {
+
+    const mysql = require("mysql2");
+    const connection = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "",
+      database: "COMP2800"
+    });
+    connection.connect();
+    connection.query(
+      //'SELECT * FROM user',
+      "SELECT * FROM user WHERE email = ? AND password = ?", [email, pwd],
+      function(error, results, fields) {
+          // results is an array of records, in JSON format
+          // fields contains extra meta data about results
+          console.log("Results from DB", results, "and the # of records returned", results.length);
+
+          if (error) {
+              // in production, you'd really want to send an email to admin but for now, just console
+              console.log(error);
+          }
+          if(results.length > 0) {
+              // email and password found
+              return callback(results[0]);
+          } else {
+              // user not found
+              return callback(null);
+          }
+
+      }
+    );
+}
 
 app.get("/logout", function (req, res) {
 
@@ -109,6 +144,49 @@ app.get("/logout", function (req, res) {
         });
     }
 });
+
+app.get("/table-async", function (req, res) {
+
+    const mysql = require("mysql2");
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "COMP2800"
+    });
+    let myResults = null;
+    connection.connect();
+    connection.query(
+        "SELECT * FROM user",
+        function (error, results, fields) {
+            console.log("Results from DB", results, "and the # of records returned", results.length);
+            myResults = results;
+            if (error) {
+                console.log(error);
+            }
+            let table = "<table><tr><th>ID</th><th>Name</th><th>Email</th></tr>";
+            for (let i = 0; i < results.length; i++) {
+                table += "<tr><td>" + results[i].ID + "</td><td>" + results[i].name + "</td><td>"
+                    + results[i].email + "</td></tr>";
+            }
+            table += "</table>";
+            res.send(table);
+            connection.end();
+        }
+    );
+});
+
+async function init() {
+    const mysql = require("mysql2/promise");
+    const connection = await mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        multipleStatements: true
+    });
+    const [rows, fields] = await connection.query("SELECT * FROM user");
+    connection.end();
+}
 
 // RUN SERVER
 let port = 8000;
