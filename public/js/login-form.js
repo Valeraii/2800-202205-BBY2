@@ -39,7 +39,3 @@ function showCurrentStep() {
     step.classList.toggle("active", index === currentStep)
   })
 }
-
-function redirectToLogin(){
-    location.href = "/";
-}

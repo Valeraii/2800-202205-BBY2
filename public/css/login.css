@@ -10,10 +10,7 @@ body {
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     width: 100vw;
-    height: 100vh;
-    background: url(../img/background-2.png);
-    background-size: cover;
-    background-position: center;
+    height: 60vh;
 }
 
 a {
@@ -34,13 +31,7 @@ a {
     justify-self: center;
 }
 
-/* #email {
-    position: fie
-}
 
-#password {
-    margin: 20px 0px;
-} */
 
 .input-100 {
     color: #403866;
@@ -88,9 +79,7 @@ a {
         grid-row-gap: 0px;
         width: 100vw;
         height: 100vh;
-        background: url(../img/background-2.png);
-        background-size: cover;
-        background-position: center;
+
     }
 
 }

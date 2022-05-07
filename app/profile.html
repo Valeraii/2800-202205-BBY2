@@ -16,11 +16,64 @@
 </head>
 
 <body>
+    
+    <header class="site-header">
+        <div class="container-header">
+            <nav class="navbar">
+                <div id="logo" class="logo-center">
+                    <img src="img/logo.svg" alt="WordJam Logo" class="logo-img">
+                </div>
+                <a href="/logout" method = "get" id="btn-login" type = "submit" value = "Logout">Logout</a>
+            </nav>
+        </div>
+    </header>
+
     <div id="profile_name">NAME</div>
-    <h1>You are logged in</h1>
-    <form action="/logout" method="get">
-        <input type="submit" value="Logout" />
-    </form>
+     <div id="profile-center">
+        <div id="profile-info">
+            <h1>You are logged in as a user</h1>
+        </div>
+
+    </div>
+    
+    <div>  <img src = "img/admin.png" alt = "Clipart"> </div>
+  
+
+    <footer class="site-footer">
+        <div class="container-footer">
+            <div class="about-us">
+                <h6>About Us</h6>
+                <p>WordJam is an online puzzle game that anyone can play to help relax,
+                    relieve stress,
+                    and use as a common ground to reconnect with friends and family.</p>
+            </div>
+
+            <div class="find-us">
+                <h6>Find Us</h6>
+                <p> 1234 WordJam St, Vancouver</p>
+            </div>
+
+            <div class="quick-links">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+
+            <div class="copyright">
+                <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
+                    <a href="#">WordJam</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 
 </html>
+
+<script src="js/profile.js"></script>

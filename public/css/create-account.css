@@ -2,9 +2,6 @@ body {
     font-family: 'Roboto Condensed', sans-serif;    
 }
 
-
-/* Multipage Account Creation */
-
 .card {
     background-color: white;
     border: 1px solid #333;
@@ -14,6 +11,8 @@ body {
     margin: 0 auto;
     animation: fade 250ms ease-in-out forwards;
     display: none;
+    margin-bottom: 10rem;
+    margin-top: 10rem;
 }
 
 .form-group {

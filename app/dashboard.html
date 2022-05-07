@@ -5,20 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet"
-        href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="css/homepage.css">
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/dashboard.js" defer></script>
 </head>
 
 <body>
-    <form action="/logout" method="get">
-        <input type="submit" value="Logout" />
-    </form>
 
-    <section id="menu">
+     <section id="menu">
         <div class="logo">
-            <img src="/public/img/logo.svg" alt="Word Jam">
+            <img src="img/logo.svg" alt="Word Jam">
             <h2>Word Jam</h2>
         </div>
         <div class="items">
@@ -40,6 +42,11 @@
     <section id="interface">
         <div class="navigation">
             <div class="n1">
+                <div>
+                    <i id="menu-btn" class="material-symbols-outlined">
+                        menu
+                    </i>
+                </div>
                 <div class="search">
                     <span class="material-symbols-outlined">
                         search
@@ -48,11 +55,13 @@
                 </div>
             </div>
 
+            <a href="/logout" method = "get" id="btn-login" type = "submit" value = "Logout">Logout</a>
+
             <div class="profile">
                 <i class="material-symbols-outlined">
                     person
                 </i>
-                <img src="/public/img/dp.jpg" alt="profile dp">
+                <img src="img/dp.jpg" alt="profile dp">
             </div>
         </div>
         <h3 class="i-name">
@@ -79,7 +88,75 @@
                 </div>
             </div>
         </div>
+
+        <div class="board">
+           <table width="100%">
+               <thead>
+                   <tr>
+                       <td>Name</td>
+                       <td>Title</td>
+                       <td>status</td>
+                       <td></td>
+                   </tr>
+               </thead>
+               <tbody>
+                   <tr>
+                       <td class="people">
+                           <div class="people-de">
+                               <h5>john doe</h5>
+                               <p>John@gmail.com</p>
+                           </div>
+                       </td>
+                       <td class="people-des">
+                           <h5>gamer</h5>
+                       </td>
+
+                       <td class="active"><p>Active</p></td>
+
+                       <td class="edit"><a href="#">Edit</a></td>
+                   </tr>
+                   <tr>
+                    <td class="people">
+                        <div class="people-de">
+                            <h5>john doe</h5>
+                            <p>John@gmail.com</p>
+                        </div>
+                    </td>
+                    <td class="people-des">
+                        <h5>gamer</h5>
+                    </td>
+
+                    <td class="active"><p>Active</p></td>
+
+                    <td class="edit"><a href="#">Edit</a></td>
+                </tr>
+                <tr>
+                    <td class="people">
+                        <div class="people-de">
+                            <h5>john doe</h5>
+                            <p>John@gmail.com</p>
+                        </div>
+                    </td>
+                    <td class="people-des">
+                        <h5>gamer</h5>
+                    </td>
+
+                    <td class="active"><p>Active</p></td>
+
+                    <td class="edit"><a href="#">Edit</a></td>
+                </tr>
+                <tr>
+                
+                    <li><a href="/table-async">See all users</a></li>
+                </tr>
+               </tbody>
+
+           </table> 
+        </div>
     </section>
+
 </body>
 
 </html>
+
+<script src="js/profile.js"></script>

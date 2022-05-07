@@ -2,7 +2,10 @@ body {
     font-family: 'Roboto Condensed', sans-serif;    
 }
 
-/* Homepage Html - Header only */
+html {
+    position: relative;
+    min-height: 100%;
+}
 
 .container-homepage {
     display: grid;
@@ -28,6 +31,11 @@ body {
     min-width: 100px;
     max-width: 100px;
     height: auto;
+}
+
+.logo-center {
+    grid-column: 3 / 4;
+    text-align: center;
 }
 
 #nav-list {
@@ -73,8 +81,6 @@ body {
     grid-row: 3 / 4;
 }
 
-/* Homepage - Footer only */
-
 .site-footer {
     background-color: #EBCF76;
     grid-column: 1 / 6;
@@ -97,6 +103,7 @@ body {
 .container-footer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    height: 30vh;
 }
 
 .find-us {
@@ -157,16 +164,20 @@ body {
 
     }
 
-    /* .container-footer {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-    } */
-
-
-
 }
 
+#profile-center {
+    min-height: 60vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+}
+
+#profile-info {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
 
 
 

@@ -5,7 +5,23 @@ const app = express();
 const fs = require("fs");
 const { JSDOM } = require('jsdom');
 
-// static path mappings
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "COMP2800"
+});
+
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
+app.set('view engine', 'jade');
+
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/img"));
@@ -18,7 +34,6 @@ app.use(session(
         secret: "extra text that no one will guess",
         name: "wazaSessionID",
         resave: false,
-        // create a unique identifier for that client
         saveUninitialized: true
     })
 );
@@ -37,9 +52,19 @@ app.get("/", function (req, res) {
     }
 });
 
-app.get("/profile", function (req, res) {
+app.post('/submit', urlencodedParser, function (req, res) {
+    connection.connect(function (err) {
+        if (err) throw err;
+        var sql = "INSERT INTO `user` (`email`, `pass`, `firstName`,`lastName`) VALUES ('" + req.body.email + "', '" + req.body.password + "' , '" + req.body.firstName + "' , '" + req.body.lastName + "')";
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+        });
+    });
+    res.redirect("/");
+});
 
-    // check for a session first!
+
+app.get("/profile", function (req, res) {
     if (req.session.loggedIn && req.session.adminRights == 'YES') {
 
         let profile = fs.readFileSync("./app/dashboard.html", "utf8");
@@ -52,17 +77,10 @@ app.get("/profile", function (req, res) {
             let profile = fs.readFileSync("./app/profile.html", "utf8");
             let profileDOM = new JSDOM(profile);
 
-            // great time to get the user's data and put it into the page!
-            profileDOM.window.document.getElementsByTagName("title")[0].innerHTML
-                = req.session.name + "'s Profile";
-            profileDOM.window.document.getElementById("profile_name").innerHTML
-                = "Welcome back " + req.session.name;
-
             res.set("Server", "Wazubi Engine");
             res.set("X-Powered-By", "Wazubi");
             res.send(profileDOM.serialize());
         } else {
-        // not logged in - no session and no access, redirect to home!
         res.redirect("/");
     }
 
@@ -71,31 +89,23 @@ app.get("/profile", function (req, res) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Notice that this is a "POST"
+
+
 app.post("/login", function(req, res) {
     res.setHeader("Content-Type", "application/json");
 
-    console.log("What was sent", req.body.email, req.body.password);
-
     let results = authenticate(req.body.email, req.body.password,
         function(userRecord) {
-            //console.log(rows);
             if(userRecord == null) {
-                // server couldn't find that, so use AJAX response and inform
-                // the user. when we get success, we will do a complete page
-                // change. Ask why we would do this in lecture/lab 🙂
                 res.send({ status: "fail", msg: "User account not found." });
             } else {
-                // authenticate the user, create a session
                 req.session.loggedIn = true;
                 req.session.email = userRecord.email;
-                req.session.name = userRecord.name;
+                req.session.firstName = userRecord.firstName;
                 req.session.adminRights = userRecord.adminRights;
                 req.session.save(function(err) {
-                    // session saved, for analytics, we could record this in a DB
+                  
                 });
-                // all we are doing as a server is telling the client that they
-                // are logged in, it is up to them to switch to the profile page
                 res.send({ status: "success", msg: "Logged in." });
             }
     });
@@ -112,22 +122,16 @@ function authenticate(email, pwd, callback) {
     });
     connection.connect();
     connection.query(
-      //'SELECT * FROM user',
       "SELECT * FROM user WHERE email = ? AND pass = ?", [email, pwd],
       function(error, results, fields) {
-          // results is an array of records, in JSON format
-          // fields contains extra meta data about results
-          console.log("Results from DB", results, "and the # of records returned", results.length);
+      
 
           if (error) {
-              // in production, you'd really want to send an email to admin but for now, just console
-              console.log(error);
+             
           }
           if(results.length > 0) {
-              // email and password found
               return callback(results[0]);
           } else {
-              // user not found
               return callback(null);
           }
 
@@ -142,7 +146,7 @@ app.get("/logout", function (req, res) {
             if (error) {
                 res.status(400).send("Unable to log out")
             } else {
-                // session deleted, redirect to home
+
                 res.redirect("/");
             }
         });
@@ -173,15 +177,15 @@ app.get("/table-async", function (req, res) {
     connection.query(
         "SELECT * FROM user",
         function (error, results, fields) {
-            console.log("Results from DB", results, "and the # of records returned", results.length);
+           
             myResults = results;
             if (error) {
-                console.log(error);
+               
             }
-            let table = "<table><tr><th>ID</th><th>Name</th><th>Email</th></tr>";
+            let table = "<table><tr><th>ID</th><th>Admin</th><th>Email</th><th>First Name</th><th>Last Name</th></tr>";
             for (let i = 0; i < results.length; i++) {
-                table += "<tr><td>" + results[i].ID + "</td><td>" + results[i].name + "</td><td>"
-                    + results[i].email + "</td></tr>";
+                table += "<tr><td>" + results[i].userID + "</td><td>" + results[i].adminRights + "</td><td>" + results[i].email + "</td><td>"
+                    + results[i].firstName + "</td><td>" + results[i].lastName + "</td></tr>" ;
             }
             table += "</table>";
             res.send(table);
@@ -202,8 +206,7 @@ async function init() {
     connection.end();
 }
 
-// RUN SERVER
+
 let port = 8000;
 app.listen(port, function () {
-    console.log("Listening on port " + port + "!");
 });

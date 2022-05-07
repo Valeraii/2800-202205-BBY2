@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Creation Form</title>
     <link rel="stylesheet" type="text/css" href="/css/create-account.css">
+    <link rel="stylesheet" type="text/css" href="/css/homepage.css">
     <script src="/js/login-form.js" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +19,18 @@
 </head>
 
 <body>
-    <form data-multi-step class="multi-step-form" action="insert.php" method="post">
+    <header class="site-header">
+        <div class="container-header">
+            <nav class="navbar">
+                <div id="logo" class="logo-center">
+                    <img src="/img/logo.svg" alt="WordJam Logo" class="logo-img">
+                </div>
+                <a href="/logout" method = "get" id="btn-login" type = "submit" value = "Logout">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <form data-multi-step class="multi-step-form" action="/submit" method="post">
         <div class="card" data-step>
             <h3 class="step-title">ACCOUNT SETUP</h3>
             <div class="form-group">
@@ -42,9 +54,43 @@
                 <input type="text" required name="lastName" id="lastName">
             </div>
             <button type="button" data-previous id="button">Previous</button>
-            <input type="submit" value="Submit Data">
+            <input class="submit_message" type="submit" value="Send" id="button">
         </div>
     </form>
+
+    
+    <footer class="site-footer">
+        <div class="container-footer">
+            <div class="about-us">
+                <h6>About Us</h6>
+                <p>WordJam is an online puzzle game that anyone can play to help relax,
+                    relieve stress,
+                    and use as a common ground to reconnect with friends and family.</p>
+            </div>
+
+            <div class="find-us">
+                <h6>Find Us</h6>
+                <p> 1234 WordJam St, Vancouver</p>
+            </div>
+
+            <div class="quick-links">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+
+            <div class="copyright">
+                <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
+                    <a href="#">WordJam</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
