@@ -82,6 +82,8 @@ body {
 
 }
 
+
+
 #interface .navigation {
     display:flex;
     align-items: center;
@@ -267,6 +269,10 @@ tbody tr td {
     color:#594ef7;
     font-weight: 600;
 
+}
+
+#board-table{
+    width: 100%;
 }
 
 @media (max-width: 769px) {
