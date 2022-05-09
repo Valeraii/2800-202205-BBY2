@@ -13,7 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/dashboard.js" defer></script>
+    
+    
 </head>
 
 <body>
@@ -24,6 +25,7 @@
             <h2>Word Jam</h2>
         </div>
         <div class="items">
+            <ul>
             <li><span class="material-symbols-outlined">
                     dashboard
                 </span><a href="#">Dashboard</a></li>
@@ -36,6 +38,7 @@
             <li><span class="material-symbols-outlined">
                     reviews
                 </span><a href="#">Complaint/Feedback</a></li>
+            </ul>
         </div>
     </section>
 
@@ -53,9 +56,11 @@
                     </span>
                     <input type="text" placeholder="Search">
                 </div>
+
+                <a href="/logout" id="btn-login">Logout</a>
             </div>
 
-            <a href="/logout" method = "get" id="btn-login" type = "submit" value = "Logout">Logout</a>
+            
 
             <div class="profile">
                 <i class="material-symbols-outlined">
@@ -90,7 +95,7 @@
         </div>
 
         <div class="board">
-           <table width="100%">
+           <table id="board-table">
                <thead>
                    <tr>
                        <td>Name</td>
@@ -145,18 +150,18 @@
 
                     <td class="edit"><a href="#">Edit</a></td>
                 </tr>
-                <tr>
-                
-                    <li><a href="/table-async">See all users</a></li>
-                </tr>
+
                </tbody>
 
-           </table> 
+           </table>
+           
+           <a href="/table-async">See all users</a>
         </div>
     </section>
+
+    <script src="js/dashboard.js"></script>
 
 </body>
 
 </html>
 
-<script src="js/profile.js"></script>
