@@ -173,35 +173,176 @@ app.get("/homepage", function (req,res) {
 
 })
 
-app.get("/table-async", function (req, res) {
-
-    const mysql = require("mysql2");
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "COMP2800"
+app.get('/get-users', function (req, res) {
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
     });
-    let myResults = null;
     connection.connect();
-    connection.query(
-        "SELECT * FROM user",
-        function (error, results, fields) {
-           
-            myResults = results;
-            if (error) {
-               
-            }
-            let table = "<table><tr><th>ID</th><th>Admin</th><th>Email</th><th>First Name</th><th>Last Name</th></tr>";
-            for (let i = 0; i < results.length; i++) {
-                table += "<tr><td>" + results[i].userID + "</td><td>" + results[i].adminRights + "</td><td>" + results[i].email + "</td><td>"
-                    + results[i].firstName + "</td><td>" + results[i].lastName + "</td></tr>" ;
-            }
-            table += "</table>";
-            res.send(table);
-            connection.end();
+    connection.query('SELECT * FROM user', function (error, results, fields) {
+        if (error) {
+            console.log(error);
         }
-    );
+        console.log('Rows returned are: ', results);
+        res.send({ status: "success", rows: results });
+
+    });
+    connection.end();
+});
+
+// Notice that this is a 'POST'
+app.post('/add-user', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
+    });
+    connection.connect();
+    // TO PREVENT SQL INJECTION, DO THIS:
+    // (FROM https://www.npmjs.com/package/mysql#escaping-query-values)
+    connection.query('INSERT INTO user (adminRights, email, pass, firstName, lastName) values (?, ?, ?, ?, ?)',
+          [req.body.adminRights, req.body.email, req.body.pass, req.body.firstName, req.body.lastName],
+          function (error, results, fields) {
+      if (error) {
+          console.log(error);
+      }
+      //console.log('Rows returned are: ', results);
+      res.send({ status: "success", msg: "Record added." });
+
+    });
+    connection.end();
+
+});
+
+// ANOTHER POST: we are changing stuff on the server!!!
+app.post('/update-user-email', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
+    });
+    connection.connect();
+console.log("update values", req.body.email, req.body.userID)
+    connection.query('UPDATE user SET email = ? WHERE userID = ?',
+          [req.body.email, req.body.userID],
+          function (error, results, fields) {
+      if (error) {
+          console.log(error);
+      }
+      //console.log('Rows returned are: ', results);
+      res.send({ status: "success", msg: "Recorded updated." });
+
+    });
+    connection.end();
+
+});
+
+app.post('/update-user-password', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
+    });
+    connection.connect();
+console.log("update values", req.body.pass, req.body.userID)
+    connection.query('UPDATE user SET pass = ? WHERE userID = ?',
+          [req.body.pass, req.body.userID],
+          function (error, results, fields) {
+      if (error) {
+          console.log(error);
+      }
+      //console.log('Rows returned are: ', results);
+      res.send({ status: "success", msg: "Recorded updated." });
+
+    });
+    connection.end();
+
+});
+
+app.post('/update-user-firstName', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
+    });
+    connection.connect();
+console.log("update values", req.body.firstName, req.body.userID)
+    connection.query('UPDATE user SET firstName = ? WHERE userID = ?',
+          [req.body.firstName, req.body.userID],
+          function (error, results, fields) {
+      if (error) {
+          console.log(error);
+      }
+      //console.log('Rows returned are: ', results);
+      res.send({ status: "success", msg: "Recorded updated." });
+
+    });
+    connection.end();
+
+});
+
+app.post('/update-user-lastName', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
+    });
+    connection.connect();
+console.log("update values", req.body.lastName, req.body.userID)
+    connection.query('UPDATE user SET lastName = ? WHERE userID = ?',
+          [req.body.lastName, req.body.userID],
+          function (error, results, fields) {
+      if (error) {
+          console.log(error);
+      }
+      //console.log('Rows returned are: ', results);
+      res.send({ status: "success", msg: "Recorded updated." });
+
+    });
+    connection.end();
+
+});
+
+app.post('/update-user-admin', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
+    });
+    connection.connect();
+console.log("update values", req.body.adminRights, req.body.userID)
+    connection.query('UPDATE user SET adminRights = ? WHERE userID = ?',
+          [req.body.adminRights, req.body.userID],
+          function (error, results, fields) {
+      if (error) {
+          console.log(error);
+      }
+      //console.log('Rows returned are: ', results);
+      res.send({ status: "success", msg: "Recorded updated." });
+
+    });
+    connection.end();
+
 });
 
 async function init() {

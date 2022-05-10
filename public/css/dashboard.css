@@ -122,6 +122,7 @@ body {
     align-items: center;
 }
 
+/**
 #interface .navigation .profile i{
     margin-right: 20px;
     font-size: 19px;
@@ -134,6 +135,7 @@ body {
     object-fit: cover;
     border-radius: 50%;
 }
+*/
 .n1 {
     display: flex;
     justify-content: flex-start;
@@ -207,11 +209,13 @@ body {
 }
 
 .board{
-    width: 94%;
-    margin: 30px 0 30px 0;
+    width: 90%;
     overflow: auto;
     background: #fff;
     border-radius: 8px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 3rem;
 }
 
 .board h5 {
@@ -275,7 +279,7 @@ tbody tr td {
     width: 100%;
 }
 
-@media (max-width: 769px) {
+@media (max-width: 700px) {
     #menu {
         background: #111827;
         width: 270px;
@@ -314,17 +318,19 @@ tbody tr td {
 
     }
     .board {
-        width: 92%;
+        width: 90%;
         padding: 0;
         overflow-x: auto;
+        margin-left: 2rem;
     }
     table {
         width: 100%;
         border-collapse: collapse;
     }
+    
 }
-
-@media (max-width:477px) {
+/**
+@media (max-width:700px) {
     #interface .navigation { 
         padding: 15px ;  
     }
@@ -346,3 +352,4 @@ tbody tr td {
         margin: 30px 15px 30px 15px;
     }
 }
+*/
