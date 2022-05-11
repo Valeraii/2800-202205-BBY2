@@ -56,106 +56,58 @@
                     </span>
                     <input type="text" placeholder="Search">
                 </div>
-
-                <a href="/logout" id="btn-login">Logout</a>
             </div>
-
-            
-
             <div class="profile">
-                <i class="material-symbols-outlined">
-                    person
-                </i>
-                <img src="img/dp.jpg" alt="profile dp">
+                <a href="/logout" id="btn-login">Logout</a>
             </div>
         </div>
         <h3 class="i-name">
             Dashboard
         </h3>
 
-        <div class="values">
-            <div class="val-box">
-                <i class="material-symbols-outlined">
-                    group
-                </i>
-                <div>
-                    <h3>0</h3>
-                    <span>New Users</span>
-                </div>
+        <div class="board">
+           <table id="users">
+           </table>
+        </div>
+        
+        <div class="card">
+            <h3 class="step-title">Add a User</h3>
+            <div class="form-group">
+                <label for="adminRights">Admin</label>
+                <input type="text" required name="adminRights" id="adminRights">
             </div>
-            <div class="val-box">
-                <i class="material-symbols-outlined">
-                    extension
-                </i>
-                <div>
-                    <h3>0</h3>
-                    <span>games played</span>
-                </div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" required name="firstName" id="firstName">
             </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" required name="lastName" id="lastName">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" required name="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" required name="password" id="pass">
+            </div>
+            <div class="step-title">
+                <input type="button" id="submit" value="Submit"/>
+            </div>
+            <p id="add-status"></p>
         </div>
 
-        <div class="board">
-           <table id="board-table">
-               <thead>
-                   <tr>
-                       <td>Name</td>
-                       <td>Title</td>
-                       <td>status</td>
-                       <td></td>
-                   </tr>
-               </thead>
-               <tbody>
-                   <tr>
-                       <td class="people">
-                           <div class="people-de">
-                               <h5>john doe</h5>
-                               <p>John@gmail.com</p>
-                           </div>
-                       </td>
-                       <td class="people-des">
-                           <h5>gamer</h5>
-                       </td>
-
-                       <td class="active"><p>Active</p></td>
-
-                       <td class="edit"><a href="#">Edit</a></td>
-                   </tr>
-                   <tr>
-                    <td class="people">
-                        <div class="people-de">
-                            <h5>john doe</h5>
-                            <p>John@gmail.com</p>
-                        </div>
-                    </td>
-                    <td class="people-des">
-                        <h5>gamer</h5>
-                    </td>
-
-                    <td class="active"><p>Active</p></td>
-
-                    <td class="edit"><a href="#">Edit</a></td>
-                </tr>
-                <tr>
-                    <td class="people">
-                        <div class="people-de">
-                            <h5>john doe</h5>
-                            <p>John@gmail.com</p>
-                        </div>
-                    </td>
-                    <td class="people-des">
-                        <h5>gamer</h5>
-                    </td>
-
-                    <td class="active"><p>Active</p></td>
-
-                    <td class="edit"><a href="#">Edit</a></td>
-                </tr>
-
-               </tbody>
-
-           </table>
-           
-           <a href="/table-async">See all users</a>
+        <div class="card">
+            <h3 class="step-title">Delete a User</h3>
+            <div class="form-group">
+                <label for="userID">ID</label>
+                <input type="text" required name="userID" id="deleteUser">
+            </div>
+            <div class="step-title">
+                <input type="button" id="delete" value="Delete"/>
+            </div>
+            <p id="delete-status"></p>
         </div>
     </section>
 
