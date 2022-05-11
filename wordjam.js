@@ -1,8 +1,17 @@
-
 const express = require("express");
 const session = require("express-session");
 const app = express();
 const fs = require("fs");
+const multer = require("multer");
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "./img/userImages/")
+    },
+    filename: function(req, file, callback) {
+        callback(null, "my-app-" + file.originalname.split('/').pop().trim());
+    }
+});
+const upload = multer({ storage: storage });
 const { JSDOM } = require('jsdom');
 
 var mysql = require('mysql');
