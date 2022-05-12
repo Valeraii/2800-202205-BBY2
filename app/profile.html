@@ -25,6 +25,42 @@
                 <div id="logo" class="logo-center">
                     <img src="img/logo.svg" alt="WordJam Logo" class="logo-img">
                 </div>
+
+                <div class="help">
+                    <a href="#" class="btn-help" data-modal-target="#modal">Help</a>
+                    <div class="modal" id="modal">
+                        <div class="modal-header">
+                            <div class="title">Game Rules</div>
+                            <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                <li>Draw Letters (number of letters you get depends on difficulty</li>
+                                <li>Combine letters to form a word and place it on the board</li>
+                                <li>Use the bonus tile when forming a word to get bonus points</li>
+                                <li>A new board and selection of letters will be available each day</li>
+                                <li>Every player gets same word + same board everyday, compete with your friends to see who can get the highest score</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="overlay"></div>
+                </div>
+
+                <div class="stats">
+                    <a href="#" class="btn-help" data-modal-target="#modal">Game Stats</a>
+                    <div class="modal">
+                        <div class="modal-header">
+                            <div class="title">Your Statistics</div>
+                            <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Combine letters to form a word and place it on the board.</p>
+                        </div>
+                    </div>
+                    <div id="overlay1"></div>
+
+                </div>
+
                 <a href="/logout" id="btn-login">Logout</a>
             </nav>
         </div>
@@ -34,6 +70,7 @@
      <div id="profile-center">
         <div id="profile-info">
             <h1>You are logged in as a user</h1>
+            <a href="/board">Play!</a>
         </div>
 
     </div>
@@ -70,6 +107,9 @@
             </div>
         </div>
     </footer>
+
+
+    <script src="js/homepage.js"></script>
 
 </body>
 
