@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2022 at 12:45 AM
+-- Generation Time: May 11, 2022 at 08:32 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `bby_2_user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `bby_2_user` (
   `userID` int(255) NOT NULL,
   `adminRights` varchar(30) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -37,10 +37,10 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `bby_2_user`
 --
 
-INSERT INTO `user` (`userID`, `adminRights`, `email`, `pass`, `firstName`, `lastName`) VALUES
+INSERT INTO `bby_2_user` (`userID`, `adminRights`, `email`, `pass`, `firstName`, `lastName`) VALUES
 (1, 'YES', 'ramsay@mail.com', '123', 'Ramsay', 'Elhalhuli'),
 (2, 'NO', 'valerie@mail.com', '123', 'Valerie', 'Tan');
 
@@ -49,9 +49,9 @@ INSERT INTO `user` (`userID`, `adminRights`, `email`, `pass`, `firstName`, `last
 --
 
 --
--- Indexes for table `user`
+-- Indexes for table `bby_2_user`
 --
-ALTER TABLE `user`
+ALTER TABLE `bby_2_user`
   ADD PRIMARY KEY (`userID`);
 
 --
@@ -59,10 +59,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table `bby_2_user`
 --
-ALTER TABLE `user`
-  MODIFY `userID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `bby_2_user`
+  MODIFY `userID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -151,7 +151,6 @@ function editEmail(e) {
             xhr.open("POST", "/update-user-email");
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            //console.log("dataToSend", "id=" + dataToSend.id + "&email=" + dataToSend.email);
             xhr.send("userID=" + dataToSend.userID + "&adminRights=" + dataToSend.adminRights + "&firstName=" + dataToSend.firstName + "&lastName=" + dataToSend.lastName + "&email=" + dataToSend.email + "&pass=" + dataToSend.pass);
         }
     });
