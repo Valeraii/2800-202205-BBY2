@@ -1,6 +1,7 @@
 $(function() {
     var player = {}
     var shuffledBag = [];
+    var selected = false;
 
     var resetGame = function() {
         //global variables
@@ -94,18 +95,25 @@ $(function() {
         if (shuffledBag.length > 0) {
             loadRack(player);
         }
-        
+    }
+    
+    //takes all tiles placed on the board from the current turn and returns them to that player's rack
+    var returnToRack = function() {
+        $('.playerOneTile').css("display", "inline-block");
+        $('.tempInPlay').text("");
+        $('.tempInPlay').removeClass('tempInPlay');
     }
 
-        //checks that each player entered a name and removes the instruction screen and initializes the board screen
+    //Initializes the board screen
     var startGame = function() {
         turn();
         $('.start').hide();
+        $('.backToRack').show();
+        $('.submitWord').show();
     }
     
     //resets everything visually once the 'play again' button is clicked
     var startingProcedure = function() {
-        $('.playAgain').hide();
         $('.container').show();
         $('.letterValuesBox').show();
         $('.instructions').fadeIn();
@@ -113,9 +121,32 @@ $(function() {
         shuffleBag();
     }
 
+    //visually marks a tile as 'selected' when clicked
+    $(document.body).on('click', '.tileBox', function() {
+        $('.tileBox').removeClass('selected');
+        $(this).addClass('selected');
+        selected = true;
+    });
+
+    //adds a tile to the board if nothing occupies that space already
+    $(document.body).on('click', '.tile', function() {
+        if (selected) {
+            if (!($(this).hasClass('permInPlay')) && (!$(this).hasClass('tempInPlay'))) {
+                $(this).text($('.selected').text());
+                $(this).addClass('tempInPlay')
+                $('.selected').hide();
+                $('.selected').removeClass('selected');
+                selected = false;
+            }
+        }
+    });
+    $('.backToRack').click(returnToRack);
+    
+
     resetGame();
     createBag();
     startingProcedure();
 
     $('.start').click(startGame);
+   
 });
