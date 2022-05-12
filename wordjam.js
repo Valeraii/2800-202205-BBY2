@@ -354,7 +354,7 @@ console.log("update values", req.body.adminRights, req.body.userID)
 
 });
 
-app.post('/delete-all-customers', function (req, res) {
+app.post('/delete-user', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let connection = mysql.createConnection({
       host: 'localhost',
@@ -369,7 +369,7 @@ app.post('/delete-all-customers', function (req, res) {
       if (error) {
           console.log(error);
       }
-      res.send({ status: "success", msg: "Recorded all deleted." });
+      res.send({ status: "success", msg: "User deleted." });
     });
     connection.end();
 });

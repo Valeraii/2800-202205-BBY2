@@ -1,0 +1,43 @@
+body {   
+    font-family: 'Roboto Condensed', sans-serif;  
+    background-color: beige;  
+}
+
+.playerOneTilesRow {
+    clear: both;
+    position: relative;
+    top: 5px;
+    width: 224px;
+    margin: 20px auto;
+}
+
+.playerOneTilesRow{
+    width: 300px;
+}
+
+.container {
+    background-color: beige;
+}
+
+.tileBox {
+    border: 1px solid black;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    float: left;
+    font-size: 25px;
+    margin-bottom: 2rem;
+}
+
+
+#btn-draw-tiles {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    text-decoration: none;
+    text-align: center;
+    grid-column: 5 / 6;
+    margin: 40px 80px;
+}

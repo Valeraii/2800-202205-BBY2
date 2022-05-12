@@ -338,7 +338,7 @@ document.getElementById("delete").addEventListener("click", function(e) {
             console.log("ERROR", this.status);
         }
     }
-    xhr.open("POST", "/delete-all-customers");
+    xhr.open("POST", "/delete-user");
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send("userID=" + deleteUser.userID);
