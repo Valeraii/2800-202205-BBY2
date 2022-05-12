@@ -337,7 +337,7 @@ app.post('/delete-user', function (req, res) {
       if (error) {
           console.log(error);
       }
-      res.send({ status: "success", msg: "Recorded all deleted." });
+      res.send({ status: "success", msg: "User deleted." });
     });
     connection.end();
 });
