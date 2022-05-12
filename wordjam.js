@@ -73,6 +73,16 @@ app.get("/login", function (req, res) {
     }
 });
 
+app.get("/board", function (req, res) {
+
+        let doc = fs.readFileSync("./app/board.html", "utf8");
+
+        res.set("Server", "Wazubi Engine");
+        res.set("X-Powered-By", "Wazubi");
+        res.send(doc);
+    }
+);
+
 app.post('/submit', urlencodedParser, function (req, res) {
     connection.connect(function (err) {
         if (err) throw err;
