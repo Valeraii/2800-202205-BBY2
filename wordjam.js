@@ -94,9 +94,11 @@ app.post('/submit', urlencodedParser, function (req, res) {
 
 app.get("/profile", function (req, res) {
     if (req.session.loggedIn && req.session.adminRights == 'YES') {
-
         let profile = fs.readFileSync("./app/dashboard.html", "utf8");
         let profileDOM = new JSDOM(profile);
+        profileDOM.window.document.getElementById("profile_name").innerHTML
+        = "Welcome back " + req.session.firstName;
+
         res.set("Server", "Wazubi Engine");
         res.set("X-Powered-By", "Wazubi");
         res.send(profileDOM.serialize());
@@ -104,6 +106,8 @@ app.get("/profile", function (req, res) {
 
             let profile = fs.readFileSync("./app/profile.html", "utf8");
             let profileDOM = new JSDOM(profile);
+            profileDOM.window.document.getElementById("profile_name").innerHTML
+            = "Welcome back " + req.session.firstName;
 
             res.set("Server", "Wazubi Engine");
             res.set("X-Powered-By", "Wazubi");

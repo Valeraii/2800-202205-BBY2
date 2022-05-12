@@ -12,6 +12,11 @@ body {
     display: flex;
 }
 
+#profile_name {
+    padding: 1rem;
+    margin-top:2rem;
+}
+
 #menu {
     background: #111827;
     width: 300px;
@@ -261,7 +266,7 @@ body {
     border-radius: 8px;
     margin-left: 2rem;
     margin-right: 2rem;
-    margin-top: 3rem;
+    margin-top: 1rem;
     margin-bottom: 2rem;
 }
 
