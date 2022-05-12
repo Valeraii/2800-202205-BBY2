@@ -6,15 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="css/board.css">
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
     <title>Document</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Open+Sans&family=Roboto+Condensed:ital,wght@1,300&family=Square+Peg&display=swap"
-        rel="stylesheet">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Open+Sans&family=Roboto+Condensed:ital,wght@1,300&family=Square+Peg&display=swap">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/game.js"></script>
 </head>
 
 <body>
@@ -25,19 +26,108 @@
                 <div id="logo" class="logo-center">
                     <img src="img/logo.svg" alt="WordJam Logo" class="logo-img">
                 </div>
+
+                <div class="help">
+                    <a href="#" class="btn-help" data-modal-target="#modal">Help</a>
+                    <div class="modal" id="modal">
+                        <div class="modal-header">
+                            <div class="title">Game Rules</div>
+                            <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                <li>Draw Letters (number of letters you get depends on difficulty</li>
+                                <li>Combine letters to form a word and place it on the board</li>
+                                <li>Use the bonus tile when forming a word to get bonus points</li>
+                                <li>A new board and selection of letters will be available each day</li>
+                                <li>Every player gets same word + same board everyday, compete with your friends to see who can get the highest score</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="overlay"></div>
+                </div>
+
+                <div class="settings">
+                    <a href="#" class="btn-settings" data-modal-target="#modal-settings">Settings</a>
+                    <div class="modal" id="modal-settings">
+                        <div class="modal-header">
+                            <div class="title">Profile Settings</div>
+                            <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>USER INFO</p>
+                            <div id="container">
+                                <form id="upload-images-form">
+                                  <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/jpeg" multiple="multiple"/>
+                                  <input id="submit" type="submit" value="Submit"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="overlay3"></div>
+                </div>
+
+                <div class="stats">
+                    <a href="#" class="btn-stats" data-modal-target="#modal-stats">Game Stats</a>
+                    <div class="modal" id="modal-stats">
+                        <div class="modal-header">
+                            <div class="title">Your Statistics</div>
+                            <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Combine letters to form a word and place it on the board.</p>
+                        </div>
+                    </div>
+                    <div id="overlay1"></div>
+                </div>
+
                 <a href="/logout" id="btn-login">Logout</a>
             </nav>
         </div>
     </header>
 
-    <div id="profile_name">NAME</div>
-     <div id="profile-center">
-        <div id="profile-info">
-            <h1>You are logged in as a user</h1>
-        </div>
-
+    <div data-guess-grid class="guess-grid">
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
     </div>
-    
+
+    <div class="container">
+        <div class="playerOneTiles">
+            <div class="playerOneTilesRow">
+            </div>
+        </div>
+    </div>
+
+    <button class="start" id="btn-draw-tiles">Draw Tiles</button>
+    <div class="btn-container">
+        <button class="backToRack" id="btn-restart">Back to Rack</button>
+        <button class="submitWord" id="btn-submit">Submit WordJam</button>
+    </div>
+   
+
     <footer class="site-footer">
         <div class="container-footer">
             <div class="about-us">
@@ -70,6 +160,9 @@
             </div>
         </div>
     </footer>
+
+
+    <script src="js/homepage.js"></script>
 
 </body>
 

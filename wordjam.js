@@ -5,10 +5,10 @@ const fs = require("fs");
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, "./img/userImages/")
+        callback(null, "./public/img/userImages/")
     },
     filename: function(req, file, callback) {
-        callback(null, "my-app-" + file.originalname.split('/').pop().trim());
+        callback(null, "wordjam-" + file.originalname.split('/').pop().trim());
     }
 });
 const upload = multer({ storage: storage });
@@ -72,6 +72,14 @@ app.get("/login", function (req, res) {
         res.send(doc);
     }
 });
+
+// app.get("/board", function (req, res) {
+//         let doc = fs.readFileSync("./app/board.html", "utf8");
+//         res.set("Server", "Wazubi Engine");
+//         res.set("X-Powered-By", "Wazubi");
+//         res.send(doc);
+//     }
+// );
 
 app.post('/submit', urlencodedParser, function (req, res) {
     connection.connect(function (err) {

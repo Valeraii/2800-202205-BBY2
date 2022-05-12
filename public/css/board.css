@@ -26,6 +26,8 @@
     grid-auto-rows: 3em;
     gap: .25em;
     justify-content: center;
+    margin-bottom: 2rem;
+    margin-top:-3rem;
   }
   
   .key {
@@ -84,9 +86,10 @@
     align-content: center;
     flex-grow: 1;
     grid-template-columns: repeat(5, 4em);
-    grid-template-rows: repeat(6, 4em);
+    grid-template-rows: repeat(5, 4em);
     gap: .25em;
-    margin-bottom: 1em;
+    background-color: beige;
+    padding-top:2rem;
   }
   
   .tile {
