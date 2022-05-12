@@ -18,12 +18,6 @@ overlay.addEventListener('click', () => {
     })
 })
 
-overlay1.addEventListener('click', () => {
-    const modals = document.querySelectorAll('.modal.active1')
-    modals.forEach(modal => {
-        closeModal(modal);
-    })
-})
 
 closeModalButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -36,12 +30,12 @@ function openModal(modal) {
     if (modal == null) return;
     modal.classList.add('active');
     overlay.classList.add('active');
-    overlay1.classList.add('active1');
+    overlay1.classList.add('active');
 }
 
 function closeModal(modal) {
     if (modal == null) return;
     modal.classList.remove('active');
     overlay.classList.remove('active');
-    overlay1.classList.remove('active1');
+    overlay1.classList.remove('active');
 }
