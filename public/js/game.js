@@ -1,9 +1,9 @@
-$(function() {
+$(function () {
     var player = {}
     var shuffledBag = [];
     var selected = false;
 
-    var resetGame = function() {
+    var resetGame = function () {
         //global variables
         shuffledBag = [];
         tempBag = [];
@@ -53,7 +53,7 @@ $(function() {
     }
 
     //creates a temporary bag giving each tile its own array item
-    var createTileBag = function() {
+    var createTileBag = function () {
         while (tileBag.length > 0) {
             tempBag.push(tileBag[0]);
             tileBag[0].count--;
@@ -62,9 +62,9 @@ $(function() {
             }
         }
     }
-    
+
     //shuffles the bag
-    var shuffleBag = function() {
+    var shuffleBag = function () {
         while (tempBag.length > 0) {
             var rndm = Math.floor(tempBag.length * Math.random());
             shuffledBag.push(tempBag[rndm]);
@@ -72,8 +72,9 @@ $(function() {
         }
     }
 
+
     //given a player, will fill their rack with up to 7 tiles
-    var loadRack = function(player) {
+    var loadRack = function (player) {
         //adds tiles to the player's rack array until it's either at 7 or until the bag is empty
         for (i = player.rack.length; i < 7; i++) {
             if (shuffledBag.length > 0) {
@@ -86,34 +87,37 @@ $(function() {
         for (j = 0; j < $('.playerOneTile').length; j++) {
             $('.playerOneTile').eq(j).text(player.rack[j].letter);
         }
-       
+
     }
 
-    var turn = function() {
+
+
+    var turn = function () {
         $('.showTiles').show();
         console.log(shuffledBag.length);
         if (shuffledBag.length > 0) {
             loadRack(player);
         }
     }
-    
+
     //takes all tiles placed on the board from the current turn and returns them to that player's rack
-    var returnToRack = function() {
+    var returnToRack = function () {
         $('.playerOneTile').css("display", "inline-block");
         $('.tempInPlay').text("");
+        $('.permInPlay').text("");
         $('.tempInPlay').removeClass('tempInPlay');
     }
 
     //Initializes the board screen
-    var startGame = function() {
+    var startGame = function () {
         turn();
         $('.start').hide();
         $('.backToRack').show();
         $('.submitWord').show();
     }
-    
+
     //resets everything visually once the 'play again' button is clicked
-    var startingProcedure = function() {
+    var startingProcedure = function () {
         $('.container').show();
         $('.letterValuesBox').show();
         $('.instructions').fadeIn();
@@ -122,14 +126,14 @@ $(function() {
     }
 
     //visually marks a tile as 'selected' when clicked
-    $(document.body).on('click', '.tileBox', function() {
+    $(document.body).on('click', '.tileBox', function () {
         $('.tileBox').removeClass('selected');
         $(this).addClass('selected');
         selected = true;
     });
 
     //adds a tile to the board if nothing occupies that space already
-    $(document.body).on('click', '.tile', function() {
+    $(document.body).on('click', '.tile', function () {
         if (selected) {
             if (!($(this).hasClass('permInPlay')) && (!$(this).hasClass('tempInPlay'))) {
                 $(this).text($('.selected').text());
@@ -140,13 +144,69 @@ $(function() {
             }
         }
     });
-    $('.backToRack').click(returnToRack);
-    
 
-    resetGame();
-    createBag();
-    startingProcedure();
+    //takes all tiles in the player's rack and returns them to the bag
+    var refreshTiles = function () {
+        returnToRack();
+        player.rack.forEach(function (tile) {
+            shuffledBag.splice(Math.floor(Math.random() * shuffledBag.length), 0, tile);
+        });
+        while (player.rack.length > 0) {
+            player.rack.pop();
+        }
+        $('.playerOneTile').remove();
+        turn();
+    }
 
-    $('.start').click(startGame);
-   
+
+    let submitWord = function () {
+
+    $('.tempInPlay').each(function (index) {
+        arrayTest.push($(this).text());
+    })
+
+    // console.log(arrayTest);
+
+    const string = arrayTest.join("");
+    console.log(string);
+
+
+
+    fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + string)
+        .then(response => response.json())
+        .then(json => {
+            if (json.title == 'No Definitions Found') {
+
+                window.confirm("That is not a word!");
+                refreshTiles();
+
+            } else(
+                console.log(json)
+            )
+        });
+
+
+
+    $('.tempInPlay').addClass('permInPlay');
+    $('.tempInPlay').removeClass('tempInPlay');
+
+}
+
+$('.backToRack').click(returnToRack);
+resetGame(); 
+createBag();
+startingProcedure();
+$('.start').click(startGame);
+$('.submitWord').click(submitWord);
+
 });
+
+var arrayTest = [];
+
+
+// let test = document.getElementsByClassName("permInPlay");
+// console.log(test);
+
+// let idk = $(('.tile').eq(0).attr('data-row') && $('.tile').eq(0).attr('data-column'))
+
+// console.log(idk);
