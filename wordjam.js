@@ -8,6 +8,21 @@ const { JSDOM } = require('jsdom');
 
 var mysql = require('mysql');
 
+let http = require('http');
+let url = require('url');
+
+http.createServer((req,res) => {
+    let q = url.parse(req.url, true);
+    console.log(q.query);
+
+    res.writeHead(200, {
+        "Content-Type": "text/html",
+        "Access-Control-Allow-Origin": "*"
+    });
+
+    // res.send(`Hello ${q.query['name']}`);
+}).listen(process.env.PORT || 3000)
+
 var connection = mysql.createPool({
     host: "localhost",
     user: "root",
@@ -377,17 +392,3 @@ app.post('/upload-images', upload.array("files"), function (req, res) {
     }
 });
 
-let http = require('http');
-let url = require('url');
-
-http.createServer((req,res) => {
-    let q = url.parse(req.url, true);
-    console.log(q.query);
-
-    res.writeHead(200, {
-        "Content-Type": "text/html",
-        "Access-Control-Allow-Origin": "*"
-    });
-
-    // res.send(`Hello ${q.query['name']}`);
-}).listen(process.env.PORT || 3000)
