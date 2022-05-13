@@ -1,3 +1,5 @@
+var arrayTest = [];
+
 $(function () {
     var player = {}
     var shuffledBag = [];
@@ -106,6 +108,7 @@ $(function () {
         $('.tempInPlay').text("");
         $('.permInPlay').text("");
         $('.tempInPlay').removeClass('tempInPlay');
+        $('.permInPlay').removeClass('permInPlay');
     }
 
     //Initializes the board screen
@@ -145,6 +148,32 @@ $(function () {
         }
     });
 
+    //returns the score value of a given tile
+    var letterValue = function (input) {
+        var selectedLetter = input;
+        createBag();
+        var selectedTile = tileBag.find(function (tile1) {
+            return tile1.letter === selectedLetter;
+        });
+        return selectedTile.score;
+    }
+
+    var playerScore = function (array) {
+
+        var totalScore = 0;
+
+        for (let i = 0; i < array.length; i++) {
+            let letterChar = arrayTest[i];
+            let charScore = letterValue(letterChar);
+            totalScore += charScore;
+        }
+
+        return totalScore;
+
+    }
+
+
+
     //takes all tiles in the player's rack and returns them to the bag
     var refreshTiles = function () {
         returnToRack();
@@ -154,59 +183,53 @@ $(function () {
         while (player.rack.length > 0) {
             player.rack.pop();
         }
+        
         $('.playerOneTile').remove();
         turn();
     }
 
-
+    //Allow player's to click submit to confirm their word.
     let submitWord = function () {
-
-    $('.tempInPlay').each(function (index) {
-        arrayTest.push($(this).text());
-    })
-
-    // console.log(arrayTest);
-
-    const string = arrayTest.join("");
-    console.log(string);
+        $('.tempInPlay').each(function (index) {
+            arrayTest.push($(this).text());
+        })
+        const string = arrayTest.join("");
+        console.log(string);
 
 
 
-    fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + string)
-        .then(response => response.json())
-        .then(json => {
-            if (json.title == 'No Definitions Found') {
+        fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + string)
+            .then(response => response.json())
+            .then(json => {
+                if (json.title == 'No Definitions Found') {
 
-                window.confirm("That is not a word!");
-                refreshTiles();
+                    window.confirm("That is not a word!");
+                    refreshTiles();
+                    $('.permInPlay').removeClass('permInPlay');
+                    arrayTest = [];
 
-            } else(
-                console.log(json)
-            )
-        });
+                } else (
+                    document.getElementById('word-score').innerHTML = playerScore(arrayTest)
+                )
+                console.log(playerScore(arrayTest));
+            });
 
 
 
-    $('.tempInPlay').addClass('permInPlay');
-    $('.tempInPlay').removeClass('tempInPlay');
+        $('.tempInPlay').addClass('permInPlay');
+        $('.tempInPlay').removeClass('tempInPlay');
 
-}
+    }
 
-$('.backToRack').click(returnToRack);
-resetGame(); 
-createBag();
-startingProcedure();
-$('.start').click(startGame);
-$('.submitWord').click(submitWord);
+    $('.backToRack').click(returnToRack);
+    resetGame();
+    createBag();
+    startingProcedure();
+    $('.start').click(startGame);
+    $('.submitWord').click(submitWord);
 
 });
 
-var arrayTest = [];
 
 
-// let test = document.getElementsByClassName("permInPlay");
-// console.log(test);
 
-// let idk = $(('.tile').eq(0).attr('data-row') && $('.tile').eq(0).attr('data-column'))
-
-// console.log(idk);
