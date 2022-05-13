@@ -8,7 +8,7 @@ const { JSDOM } = require('jsdom');
 
 var mysql = require('mysql');
 
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "",
@@ -66,12 +66,12 @@ app.get("/login", function (req, res) {
 });
 
 app.post('/submit', urlencodedParser, function (req, res) {
-    connection.connect(function (err) {
-        if (err) throw err;
+    //connection.connect(function (err) {
+       // if (err) throw err;
         var sql = "INSERT INTO `bby_2_user` (`adminRights`, `email`, `pass`, `firstName`,`lastName`) VALUES ('NO', '" + req.body.email + "', '" + req.body.password + "' , '" + req.body.firstName + "' , '" + req.body.lastName + "')";
         connection.query(sql, function (err, result) {
             if (err) throw err;
-        });
+       // });
     });
     res.redirect("/");
 });
@@ -135,7 +135,7 @@ function authenticate(email, pwd, callback) {
       password: "",
       database: "COMP2800"
     });
-    connection.connect();
+    //connection.connect();
     connection.query(
       "SELECT * FROM bby_2_user WHERE email = ? AND pass = ?", [email, pwd],
       function(error, results, fields) {
@@ -177,7 +177,7 @@ app.get('/get-users', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
     connection.query('SELECT * FROM bby_2_user', function (error, results, fields) {
         if (error) {
             console.log(error);
@@ -186,7 +186,7 @@ app.get('/get-users', function (req, res) {
         res.send({ status: "success", rows: results });
 
     });
-    connection.end();
+    //connection.end();
 });
 
 app.get('/get-one-user', function (req, res) {
@@ -196,7 +196,7 @@ app.get('/get-one-user', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
     connection.query('SELECT userID, email, firstName, lastName, pass FROM bby_2_user WHERE userID = ?', 
     [req.session.userID],
     function (error, results, fields) {
@@ -207,7 +207,7 @@ app.get('/get-one-user', function (req, res) {
         res.send({ status: "success", rows: results });
 
     });
-    connection.end();
+    //connection.end();
 });
 
 app.post('/add-user', function (req, res) {
@@ -219,7 +219,7 @@ app.post('/add-user', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
     connection.query('INSERT INTO bby_2_user (adminRights, email, pass, firstName, lastName) values (?, ?, ?, ?, ?)',
           [req.body.adminRights, req.body.email, req.body.pass, req.body.firstName, req.body.lastName],
           function (error, results, fields) {
@@ -228,7 +228,7 @@ app.post('/add-user', function (req, res) {
       }
       res.send({ status: "success", msg: "Record added." });
     });
-    connection.end();
+    //connection.end();
 });
 
 app.post('/update-user-email', function (req, res) {
@@ -240,7 +240,7 @@ app.post('/update-user-email', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
 console.log("update values", req.body.email, req.body.userID)
     connection.query('UPDATE bby_2_user SET email = ? WHERE userID = ?',
           [req.body.email, req.body.userID],
@@ -250,7 +250,7 @@ console.log("update values", req.body.email, req.body.userID)
       }
       res.send({ status: "success", msg: "Recorded updated." });
     });
-    connection.end();
+    //connection.end();
 });
 
 app.post('/update-user-password', function (req, res) {
@@ -262,7 +262,7 @@ app.post('/update-user-password', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
 console.log("update values", req.body.pass, req.body.userID)
     connection.query('UPDATE bby_2_user SET pass = ? WHERE userID = ?',
           [req.body.pass, req.body.userID],
@@ -272,7 +272,7 @@ console.log("update values", req.body.pass, req.body.userID)
       }
       res.send({ status: "success", msg: "Recorded updated." });
     });
-    connection.end();
+    //connection.end();
 });
 
 app.post('/update-user-firstName', function (req, res) {
@@ -284,7 +284,7 @@ app.post('/update-user-firstName', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
 console.log("update values", req.body.firstName, req.body.userID)
     connection.query('UPDATE bby_2_user SET firstName = ? WHERE userID = ?',
           [req.body.firstName, req.body.userID],
@@ -294,7 +294,7 @@ console.log("update values", req.body.firstName, req.body.userID)
       }
       res.send({ status: "success", msg: "Recorded updated." });
     });
-    connection.end();
+    //connection.end();
 });
 
 app.post('/update-user-lastName', function (req, res) {
@@ -306,7 +306,7 @@ app.post('/update-user-lastName', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
 console.log("update values", req.body.lastName, req.body.userID)
     connection.query('UPDATE bby_2_user SET lastName = ? WHERE userID = ?',
           [req.body.lastName, req.body.userID],
@@ -316,7 +316,7 @@ console.log("update values", req.body.lastName, req.body.userID)
       }
       res.send({ status: "success", msg: "Recorded updated." });
     });
-    connection.end();
+    //connection.end();
 });
 
 app.post('/update-user-admin', function (req, res) {
@@ -328,7 +328,7 @@ app.post('/update-user-admin', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
     console.log("update values", req.body.adminRights, req.body.userID)
     connection.query('UPDATE bby_2_user SET adminRights = ? WHERE userID = ?',
           [req.body.adminRights, req.body.userID],
@@ -338,7 +338,7 @@ app.post('/update-user-admin', function (req, res) {
       }
       res.send({ status: "success", msg: "Recorded updated." });
     });
-    connection.end();
+    //connection.end();
 });
 
 app.post('/delete-user', function (req, res) {
@@ -349,7 +349,7 @@ app.post('/delete-user', function (req, res) {
       password: '',
       database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
     connection.query('DELETE FROM bby_2_user WHERE userID = ?',
           [req.body.userID],
           function (error, results, fields) {
@@ -358,7 +358,7 @@ app.post('/delete-user', function (req, res) {
       }
       res.send({ status: "success", msg: "Recorded all deleted." });
     });
-    connection.end();
+    //connection.end();
 });
 
 const storage = multer.diskStorage({
