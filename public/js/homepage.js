@@ -69,12 +69,7 @@ function getOneUser() {
                     for(let j = 0; j < email.length; j++) {
                         email[j].addEventListener("click", editEmail);
                     }
-                    
-                    let admin = document.querySelectorAll("td[class='adminRights'] span");
-                    for(let j = 0; j < admin.length; j++) {
-                        admin[j].addEventListener("click", editAdmin);
-                    }
-                    
+
                     let firstName = document.querySelectorAll("td[class='firstName'] span");
                     for(let j = 0; j < firstName.length; j++) {
                         firstName[j].addEventListener("click", editFirstName);

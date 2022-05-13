@@ -204,7 +204,7 @@ $(function () {
                 if (json.title == 'No Definitions Found') {
 
                     window.confirm("That is not a word!");
-                    refreshTiles();
+                    returnToRack();
                     $('.permInPlay').removeClass('permInPlay');
                     arrayTest = [];
 

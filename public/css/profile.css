@@ -1,6 +1,7 @@
 body {   
     font-family: 'Roboto Condensed', sans-serif;  
     background-color: beige;  
+    height:100%;
 }
 
 .playerOneTilesRow {
@@ -144,19 +145,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
   }
-
-  .nav-container .btn-align {
-    display: block;
-    height: 26px;
-    width: 32px;
-    position: absolute;
-    top: 17px;
-    left: 20px;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
   
   .nav-container .hamburger-lines .line {
     display: block;
@@ -188,7 +176,7 @@ body {
   .menu .menu-items {
     padding-top: 120px;
     height: 100vh;
-    width: 150vh;
+    width: 100%;
     transform: translate(-150%);
     display: flex;
     flex-direction: column;
@@ -200,6 +188,7 @@ body {
   
   .menu .menu-items .help {
     text-align: left;
+    padding-top:3rem;
   }
 
   .menu .menu-items .stats {
@@ -212,6 +201,8 @@ body {
 
   .menu .menu-items .btn-logout {
     text-align: left;
+    padding:0;
+    padding-left: 12px;
   }
   
   .nav-container input[type="checkbox"]:checked ~ .menu-items {
@@ -235,16 +226,48 @@ body {
   }
   
   @media (max-width: 700px) {
+
     .menu .menu-items {
-        padding-top: 120px;
-        height: 100vh;
-        width: 80vh;
-        transform: translate(-150%);
-        display: flex;
-        flex-direction: column;
-        margin-left: -40px;
-        padding-left: 50px;
-        transition: transform 0.5s ease-in-out;
-        text-align: center;
-      }
+      padding-top: 120px;
+      height: 100vh;
+      width: 100%;
+      transform: translate(-150%);
+      display: flex;
+      flex-direction: column;
+      padding-left: 50px;
+      transition: transform 0.5s ease-in-out;
+      text-align: center;
+      margin-left:1rem;
+    }
+
+    .menu .menu-items .help {
+      text-align: left;
+      margin-left:-55px;
+      padding-top:3rem;
+    }
+  
+    .menu .menu-items .stats {
+      text-align: left;
+      margin-left:-55px;
+    }
+  
+    .menu .menu-items .settings {
+      text-align: left;
+      margin-left:-55px;
+    }
+  
+    .menu .menu-items .btn-logout {
+      text-align: left;
+      margin-left:-55px;
+    }
+
+    .container-login {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: 1fr 20% 20% 20% 1fr;
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+      width: 100vw;
+      height: 100vh;
+    }
   }
