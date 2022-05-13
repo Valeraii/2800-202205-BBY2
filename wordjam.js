@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
         callback(null, "./public/img/userImages/")
     },
     filename: function(req, file, callback) {
-        callback(null, "wordjam-" + file.originalname.split('/').pop().trim());
+        callback(null, req.session.userID + file.originalname.split('/').pop().trim());
     }
 });
 const upload = multer({ storage: storage });
@@ -364,3 +364,5 @@ app.post('/upload-images', upload.array("files"), function (req, res) {
 let port = 8000;
 app.listen(port, function () {
 });
+
+
