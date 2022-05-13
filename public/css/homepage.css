@@ -38,19 +38,15 @@ html {
     order: 2;
 }
 
-.help {
-    flex: 1;
-    order: 1;
-    align-self: center;
-    text-align: center;
-    
-}
-
-.stats {
+#btn-login {
     flex: 0;
-    order: 3;
-    align-self: center;
-    text-align: center;
+    order: 4;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    text-decoration: none;
+    margin: 40px 20px;
 }
 
 
@@ -79,20 +75,6 @@ html {
     background-color: red;
     border: 1px solid black;
 } */
-
-
-
-#btn-login {
-    flex: 0;
-    order: 4;
-    color: black;
-    background-color: white;
-    border: 1px solid black;
-    padding: 10px;
-    text-decoration: none;
-    
-    margin: 40px 20px;
-}
 
 /* Footer CSS */
 
@@ -196,7 +178,6 @@ html {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,.5);
     pointer-events: none;
 }
 
@@ -204,6 +185,16 @@ html {
     opacity: 1;
     pointer-events: all;
 
+}
+
+#profilePicture{
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 75px;
+    width: 75px;
 }
 
 @media (max-width: 700px) {

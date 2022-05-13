@@ -23,46 +23,81 @@
     <header class="site-header">
         <div class="container-header">
             <nav class="navbar">
-                <div id="logo" class="logo-center">
-                    <img src="img/logo.svg" alt="WordJam Logo" class="logo-img">
-                </div>
-
-                <div class="help">
-                    <a href="#" class="btn-help" data-modal-target="#modal">Help</a>
-                    <div class="modal" id="modal">
-                        <div class="modal-header">
-                            <div class="title">Game Rules</div>
-                            <button data-close-button class="close-button">&times;</button>
+                <div class="menu">
+                    <div class="container nav-container">
+                        <input class="checkbox" type="checkbox" name="" id="" />
+                        <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                        </div>  
+                    <div class="menu-items">
+                        <div class="help">
+                            <a href="#" class="btn-help" data-modal-target="#modal">Help</a>
+                            <div class="modal" id="modal">
+                                <div class="modal-header">
+                                    <div class="title">Game Rules</div>
+                                    <button data-close-button class="close-button">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul>
+                                        <li>Draw Letters (number of letters you get depends on difficulty</li>
+                                        <li>Combine letters to form a word and place it on the board</li>
+                                        <li>Use the bonus tile when forming a word to get bonus points</li>
+                                        <li>A new board and selection of letters will be available each day</li>
+                                        <li>Every player gets same word + same board everyday, Compete with your friends to see who can get the highest score</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="overlay"></div>
                         </div>
-                        <div class="modal-body">
-                            <ul>
-                                <li>Draw Letters (number of letters you get depends on difficulty</li>
-                                <li>Combine letters to form a word and place it on the board</li>
-                                <li>Use the bonus tile when forming a word to get bonus points</li>
-                                <li>A new board and selection of letters will be available each day</li>
-                                <li>Every player gets same word + same board everyday, compete with your friends to see who can get the highest score</li>
-                            </ul>
+                        
+                        <div class="stats">
+                            <a href="#" class="btn-stats" data-modal-target="#modal-stats">Stats</a>
+                            <div class="modal" id="modal-stats">
+                                <div class="modal-header">
+                                    <div class="title">Your Statistics</div>
+                                    <button data-close-button class="close-button">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul>
+                                        <li>Highest Score</li>
+                                        <li>Days Played</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="overlay1"></div>
                         </div>
+                        
+                        <div class="settings">
+                            <a href="#" class="btn-settings" data-modal-target="#modal-settings">Settings</a>
+                            <div class="modal" id="modal-settings">
+                                <div class="modal-header">
+                                    <div class="title">Profile Settings</div>
+                                    <button data-close-button class="close-button">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="img/userImages/userProfile.jpg" id = "profilePicture">
+                                    <div id="container">
+                                        <form id="upload-images-form">
+                                          <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/jpeg"/>
+                                          <table id="users"></table>
+                                         
+                                          <input id="submit" type="submit" value="Submit"/>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="overlay3"></div>
+                        </div>
+                        <a href="/logout" class="btn-logout">Logout</a>
                     </div>
-                    <div id="overlay"></div>
-                </div>
-
-                <div class="stats">
-                    <a href="#" class="btn-stats" data-modal-target="#modal-stats">Game Stats</a>
-                    <div class="modal" id="modal-stats">
-                        <div class="modal-header">
-                            <div class="title">Your Statistics</div>
-                            <button data-close-button class="close-button">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Combine letters to form a word and place it on the board.</p>
-                        </div>
                     </div>
-                    <div id="overlay1"></div>
-
+                    <div id="logo" class="logo-center">
+                        <img src="img/logo.svg" alt="WordJam Logo" class="logo-img">
+                    </div>
+                   
                 </div>
-
-                <a href="/logout" id="btn-login">Logout</a>
             </nav>
         </div>
     </header>
@@ -70,31 +105,31 @@
     <div id="profile_name">NAME</div>
 
     <div data-guess-grid class="guess-grid">
-        <div class="tile" data-row="0" data-column="0"></div>
-        <div class="tile" data-row="0" data-column="1"></div>
-        <div class="tile" data-row="0" data-column="2"></div>
-        <div class="tile" data-row="0" data-column="3"></div>
-        <div class="tile" data-row="0" data-column="4"></div>
-        <div class="tile" data-row="1" data-column="0"></div>
-        <div class="tile" data-row="1" data-column="1"></div>
-        <div class="tile" data-row="1" data-column="2"></div>
-        <div class="tile" data-row="1" data-column="3"></div>
-        <div class="tile" data-row="1" data-column="4"></div>
-        <div class="tile" data-row="2" data-column="0"></div>
-        <div class="tile" data-row="2" data-column="1"></div>
-        <div class="tile" data-row="2" data-column="2"></div>
-        <div class="tile" data-row="2" data-column="3"></div>
-        <div class="tile" data-row="2" data-column="4"></div>
-        <div class="tile" data-row="3" data-column="0"></div>
-        <div class="tile" data-row="3" data-column="1"></div>
-        <div class="tile" data-row="3" data-column="2"></div>
-        <div class="tile" data-row="3" data-column="3"></div>
-        <div class="tile" data-row="3" data-column="4"></div>
-        <div class="tile" data-row="4" data-column="0"></div>
-        <div class="tile" data-row="4" data-column="1"></div>
-        <div class="tile" data-row="4" data-column="2"></div>
-        <div class="tile" data-row="4" data-column="3"></div>
-        <div class="tile" data-row="4" data-column="4"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
     </div>
 
     <div class="container">
@@ -107,7 +142,6 @@
     <button class="start" id="btn-draw-tiles">Draw Tiles</button>
     <div class="btn-container">
         <button class="backToRack" id="btn-restart">Back to Rack</button>
-        
         <button class="submitWord" id="btn-submit">Submit WordJam</button>
     </div>
    
@@ -144,7 +178,6 @@
             </div>
         </div>
     </footer>
-
 
     <script src="js/homepage.js"></script>
 

@@ -2,9 +2,6 @@ $('#menu-btn').click(function(){
     $('#menu').toggleClass("active");
  })
 
- $('#menu-btn').click(function(){
-    $('#menu').toggleClass("active");
- })
 
  function getUsers() {
     const xhr = new XMLHttpRequest();
