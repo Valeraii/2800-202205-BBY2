@@ -1,9 +1,46 @@
-$('#menu-btn').click(function(){
-    $('#menu').toggleClass("active");
- })
+const openModalButtons = document.querySelectorAll('[data-modal-target]');
+const closeModalButtons = document.querySelectorAll('[data-close-button]');
+const overlay = document.getElementById('overlay');
+const overlay1 = document.getElementById('overlay1');
 
 
- function getUsers() {
+openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget);
+        openModal(modal);
+    })
+})
+
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal.active')
+    modals.forEach(modal => {
+        closeModal(modal);
+    })
+})
+
+
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.modal')
+        closeModal(modal);
+    })
+})
+
+function openModal(modal) {
+    if (modal == null) return;
+    modal.classList.add('active');
+    overlay.classList.add('active');
+    overlay1.classList.add('active');
+}
+
+function closeModal(modal) {
+    if (modal == null) return;
+    modal.classList.remove('active');
+    overlay.classList.remove('active');
+    overlay1.classList.remove('active');
+}
+
+function getOneUser() {
     const xhr = new XMLHttpRequest();
     xhr.onload = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
@@ -12,7 +49,6 @@ $('#menu-btn').click(function(){
               if(data.status == "success") {
                 let str = `<tr>
                     <th class="userID"><span>ID</span></th>
-                    <th class="adminRights"><span>Admin</span></th>
                     <th class="firstName"><span>First Name</span></th>
                     <th class="lastName"><span>Last Name</span></th>
                     <th class="email"><span>Email</span></th>
@@ -21,7 +57,6 @@ $('#menu-btn').click(function(){
                 for (let i = 0; i < data.rows.length; i++) {
                     let row = data.rows[i];
                     str  += ("<tr><td class='userID'>" + row.userID
-                        + "</td><td class='adminRights'><span>" + row.adminRights 
                         + "</span></td><td class='firstName'><span>" + row.firstName
                         + "</span></td><td class='lastName'><span>" + row.lastName
                         + "</span></td><td class='email'><span>" + row.email
@@ -64,53 +99,10 @@ $('#menu-btn').click(function(){
             console.log("ERROR", this.status);
         }
     }
-    xhr.open("GET", "/get-users");
+    xhr.open("GET", "/get-one-user");
     xhr.send();
 }
-getUsers();
-
-function editAdmin(e) {
-    let spanText = e.target.innerHTML;
-    let parent = e.target.parentNode;
-    let input = document.createElement("input");
-    input.value = spanText;
-    input.addEventListener("keyup", function(e) {
-        let v = null;
-        if(e.which == 13) {
-            v = input.value;
-            let newSpan = document.createElement("span");
-            newSpan.addEventListener("click", editAdmin);
-            newSpan.innerHTML = v;
-            parent.innerHTML = "";
-            parent.appendChild(newSpan);
-            let dataToSend = {userID: parent.parentNode.querySelector(".userID").innerHTML,
-                              adminRights: v,
-                              firstName: parent.parentNode.querySelector(".firstName").innerHTML,
-                              lastName: parent.parentNode.querySelector(".lastName").innerHTML,
-                              email: parent.parentNode.querySelector(".email").innerHTML,
-                              pass: parent.parentNode.querySelector(".pass").innerHTML};
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () {
-                if (this.readyState == XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                      document.getElementById("add-status").innerHTML = "Record updated.";
-                      getUsers();
-                    } else {
-                      console.log(this.status);
-                    }
-                } else {
-                    console.log("ERROR", this.status);
-                }
-            }
-            xhr.open("POST", "/update-user-admin");
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send("userID=" + dataToSend.userID + "&adminRights=" + dataToSend.adminRights + "&firstName=" + dataToSend.firstName + "&lastName=" + dataToSend.lastName + "&email=" + dataToSend.email + "&pass=" + dataToSend.pass);
-        }
-    });
-    parent.innerHTML = "";
-    parent.appendChild(input);
-}
+getOneUser();
 
 function editEmail(e) {
     let spanText = e.target.innerHTML;
@@ -127,7 +119,6 @@ function editEmail(e) {
             parent.innerHTML = "";
             parent.appendChild(newSpan);
             let dataToSend = {userID: parent.parentNode.querySelector(".userID").innerHTML,
-                              adminRights: parent.parentNode.querySelector(".adminRights").innerHTML,
                               firstName: parent.parentNode.querySelector(".firstName").innerHTML,
                               lastName: parent.parentNode.querySelector(".lastName").innerHTML,
                               email: v,
@@ -136,8 +127,8 @@ function editEmail(e) {
             xhr.onload = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                      document.getElementById("add-status").innerHTML = "Record updated.";
-                      getUsers();
+                      //document.getElementById("add-status").innerHTML = "Record updated.";
+                      getOneUser();
                     } else {
                       console.log(this.status);
                     }
@@ -170,7 +161,6 @@ function editFirstName(e) {
             parent.innerHTML = "";
             parent.appendChild(newSpan);
             let dataToSend = {userID: parent.parentNode.querySelector(".userID").innerHTML,
-                              adminRights: parent.parentNode.querySelector(".adminRights").innerHTML,
                               firstName: v,
                               lastName: parent.parentNode.querySelector(".lastName").innerHTML,
                               email: parent.parentNode.querySelector(".email").innerHTML,
@@ -179,8 +169,8 @@ function editFirstName(e) {
             xhr.onload = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                      document.getElementById("add-status").innerHTML = "Record updated.";
-                      getUsers();
+                      //document.getElementById("add-status").innerHTML = "Record updated.";
+                      getOneUser();
                     } else {
                       console.log(this.status);
                     }
@@ -213,7 +203,6 @@ function editLastName(e) {
             parent.innerHTML = "";
             parent.appendChild(newSpan);
             let dataToSend = {userID: parent.parentNode.querySelector(".userID").innerHTML,
-                              adminRights: parent.parentNode.querySelector(".adminRights").innerHTML,
                               firstName: parent.parentNode.querySelector(".firstName").innerHTML,
                               lastName: v,
                               email: parent.parentNode.querySelector(".email").innerHTML,
@@ -222,8 +211,8 @@ function editLastName(e) {
             xhr.onload = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                      document.getElementById("add-status").innerHTML = "Record updated.";
-                      getUsers();
+                      //document.getElementById("add-status").innerHTML = "Record updated.";
+                      getOneUser();
                     } else {
                       console.log(this.status);
                     }
@@ -256,8 +245,8 @@ function editPassword(e) {
             newSpan.innerHTML = v;
             parent.innerHTML = "";
             parent.appendChild(newSpan);
-            let dataToSend = {userID: parent.parentNode.querySelector(".userID").innerHTML,
-                              adminRights: parent.parentNode.querySelector(".adminRights").innerHTML,
+            let dataToSend = {
+                              userID: parent.parentNode.querySelector(".userID").innerHTML,
                               firstName: parent.parentNode.querySelector(".firstName").innerHTML,
                               lastName: parent.parentNode.querySelector(".lastName").innerHTML,
                               email: parent.parentNode.querySelector(".email").innerHTML,
@@ -267,8 +256,8 @@ function editPassword(e) {
             xhr.onload = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                      document.getElementById("add-status").innerHTML = "Record updated.";
-                      getUsers();
+                      //document.getElementById("add-status").innerHTML = "Record updated.";
+                      getOneUser();
                     } else {
                       console.log(this.status);
                     }
@@ -286,56 +275,23 @@ function editPassword(e) {
     parent.appendChild(input);
 }
 
-document.getElementById("submit").addEventListener("click", function(e) {
-    e.preventDefault();
-    let formData = { adminRights: document.getElementById("adminRights").value,
-                     firstName: document.getElementById("firstName").value,
-                     lastName: document.getElementById("lastName").value,
-                     email: document.getElementById("email").value,
-                     pass: document.getElementById("pass").value};
-    document.getElementById("adminRights").value = "";
-    document.getElementById("firstName").value = "";
-    document.getElementById("lastName").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("pass").value = "";
+const upLoadForm = document.getElementById("upload-images-form");
+upLoadForm.addEventListener("submit", uploadImages);
 
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-              getUsers();
-              document.getElementById("add-status").innerHTML = "DB updated.";
-            } else {
-              console.log(this.status);
-            }
-        } else {
-            console.log("ERROR", this.status);
-        }
-    }
-    xhr.open("POST", "/add-user");
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send("adminRights=" + formData.adminRights + "&firstName=" + formData.firstName + "&lastName=" + formData.lastName + "&email=" + formData.email + "&pass=" + formData.pass);
-})
-
-document.getElementById("delete").addEventListener("click", function(e) {
+function uploadImages(e) {
     e.preventDefault();
-    let deleteUser = {userID: document.getElementById("deleteUser").value};
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-              getUsers();
-              document.getElementById("delete-status").innerHTML = "Record deleted.";
-            } else {
-              console.log(this.status);
-            }
-        } else {
-            console.log("ERROR", this.status);
-        }
-    }
-    xhr.open("POST", "/delete-user");
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send("userID=" + deleteUser.userID);
-});
+    const imageUpload = document.querySelector('#image-upload');
+    const formData = new FormData();
+    for(let i =0; i < imageUpload.files.length; i++) {
+        formData.append("files", imageUpload.files[i]);
+}
+const options = {
+    method: 'POST',
+    body: formData,
+};
+fetch("/upload-images", options
+).then(function(res) {
+    console.log(res);
+}).catch(function(err) {("Error:", err)}
+);
+}

@@ -12,6 +12,11 @@ body {
     display: flex;
 }
 
+#profile_name {
+    padding: 1rem;
+    margin-top:2rem;
+}
+
 #menu {
     background: #111827;
     width: 300px;
@@ -82,7 +87,24 @@ body {
 
 }
 
+#submit {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    text-decoration: none;
+    margin: 0;
+    text-align: center;
+}
 
+#delete {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    text-decoration: none;
+    text-align: center;
+}
 
 #interface .navigation {
     display:flex;
@@ -122,20 +144,6 @@ body {
     align-items: center;
 }
 
-/**
-#interface .navigation .profile i{
-    margin-right: 20px;
-    font-size: 19px;
-    font-weight: 400;
-}
-
-#interface .navigation .profile img{
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-*/
 .n1 {
     display: flex;
     justify-content: flex-start;
@@ -187,7 +195,6 @@ body {
     text-align: center;
     color: #fff;
     margin-right: 15px;
-    
 }
 
 .values .val-box:nth-child(1) i{
@@ -208,14 +215,59 @@ body {
     color: #828997;
 }
 
-.board{
+.card {
+    background-color: white;
     width: 90%;
     overflow: auto;
     background: #fff;
     border-radius: 8px;
     margin-left: 2rem;
     margin-right: 2rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+    gap: .25em;
+}
+
+.form-group last-child {
+    margin: 0;
+}
+
+.form-group>label {
+    font-weight: bold;
+    font-size: .8em;
+    color: #333;
+}
+
+.form-group>input {
+    border: 1px solid #333;
+    border-radius: .25em;
+    font-size: 1rem;
+    padding: .25em;
+}
+
+.step-title {
+    margin: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.board{
+    width: 90%;
+    padding: 1rem;
+    overflow: auto;
+    background: #fff;
+    border-radius: 8px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 .board h5 {

@@ -18,12 +18,11 @@ html {
 .site-header {
     background-color: #EBCF76;
     grid-column: 1 / 6;
+
 }
 
 .navbar {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-
+    display: flex;    
 }
 
 .logo-img {
@@ -34,11 +33,24 @@ html {
 }
 
 .logo-center {
-    grid-column: 3 / 4;
+    flex: 3;
     text-align: center;
+    order: 2;
 }
 
-#nav-list {
+#btn-login {
+    flex: 0;
+    order: 4;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    text-decoration: none;
+    margin: 40px 20px;
+}
+
+
+/* #nav-list {
     list-style: none;
     display: grid;
     gap: 20px;
@@ -60,21 +72,11 @@ html {
 }
 
 #nav-list>* {
+    background-color: red;
     border: 1px solid black;
-}
+} */
 
-
-
-#btn-login {
-    color: black;
-    background-color: white;
-    border: 1px solid black;
-    padding: 10px;
-    text-decoration: none;
-    text-align: center;
-    grid-column: 5 / 6;
-    margin: 40px 80px;
-}
+/* Footer CSS */
 
 .site-footer {
     grid-column: 1 / 6;
@@ -123,6 +125,76 @@ html {
     height: 5px;
     grid-column: 1 / 4;
     border-top: 1px solid black;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+}
+
+.modal.active{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 10px 15px;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+
+}
+
+#profilePicture{
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 75px;
+    width: 75px;
 }
 
 @media (max-width: 700px) {

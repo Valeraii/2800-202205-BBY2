@@ -1,9 +1,4 @@
-
-
 ready(function () {
-
-   
-
     function ajaxGET(url, callback) {
 
         const xhr = new XMLHttpRequest();
@@ -11,8 +6,6 @@ ready(function () {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                 callback(this.responseText);
 
-            } else {
-                
             }
         }
         xhr.open("GET", url);
@@ -30,8 +23,6 @@ ready(function () {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                 callback(this.responseText);
 
-            } else {
-                
             }
         }
         xhr.open("POST", url);
@@ -68,6 +59,5 @@ function ready(callback) {
       
     } else {
         document.addEventListener("DOMContentLoaded", callback);
-       
     }
 }

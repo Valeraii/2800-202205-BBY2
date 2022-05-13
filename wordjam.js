@@ -1,13 +1,14 @@
-
 const express = require("express");
 const session = require("express-session");
 const app = express();
 const fs = require("fs");
+const multer = require("multer");
+
 const { JSDOM } = require('jsdom');
 
 var mysql = require('mysql');
 
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "",
@@ -41,7 +42,7 @@ app.use(session(
 app.get("/", function (req, res) {
 
     if (req.session.loggedIn) {
-        res.redirect("/login");
+        res.redirect("/profile");
     } else {
 
         let doc = fs.readFileSync("./app/login.html", "utf8");
@@ -53,32 +54,34 @@ app.get("/", function (req, res) {
 });
 
 app.get("/login", function (req, res) {
-
+    if (req.session.loggedIn) {
+        res.redirect("/profile");
+    } else {
         let doc = fs.readFileSync("./app/login.html", "utf8");
 
         res.set("Server", "Wazubi Engine");
         res.set("X-Powered-By", "Wazubi");
         res.send(doc);
-    
+    }
 });
 
 app.post('/submit', urlencodedParser, function (req, res) {
-    connection.connect(function (err) {
-        if (err) throw err;
-        var sql = "INSERT INTO `user` (`email`, `pass`, `firstName`,`lastName`) VALUES ('" + req.body.email + "', '" + req.body.password + "' , '" + req.body.firstName + "' , '" + req.body.lastName + "')";
+    //connection.connect(function (err) {
+       // if (err) throw err;
+        var sql = "INSERT INTO `bby_2_user` (`adminRights`, `email`, `pass`, `firstName`,`lastName`) VALUES ('NO', '" + req.body.email + "', '" + req.body.password + "' , '" + req.body.firstName + "' , '" + req.body.lastName + "')";
         connection.query(sql, function (err, result) {
             if (err) throw err;
-        });
+       // });
     });
     res.redirect("/");
 });
 
-
 app.get("/profile", function (req, res) {
     if (req.session.loggedIn && req.session.adminRights == 'YES') {
-
         let profile = fs.readFileSync("./app/dashboard.html", "utf8");
         let profileDOM = new JSDOM(profile);
+        profileDOM.window.document.getElementById("profile_name").innerHTML
+        = "Welcome Back " + req.session.firstName + "!";
         res.set("Server", "Wazubi Engine");
         res.set("X-Powered-By", "Wazubi");
         res.send(profileDOM.serialize());
@@ -86,6 +89,11 @@ app.get("/profile", function (req, res) {
 
             let profile = fs.readFileSync("./app/profile.html", "utf8");
             let profileDOM = new JSDOM(profile);
+            profileDOM.window.document.getElementById("profile_name").innerHTML
+            = "Welcome Back " + req.session.firstName + "!";
+
+            profileDOM.window.document.getElementById("profilePicture").src
+            =  "img/userImages/" + req.session.userID + "id.jpg";
 
             res.set("Server", "Wazubi Engine");
             res.set("X-Powered-By", "Wazubi");
@@ -93,16 +101,13 @@ app.get("/profile", function (req, res) {
         } else {
         res.redirect("/");
     }
-
 });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
 app.post("/login", function(req, res) {
-    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Type", "application/json");    
 
     let results = authenticate(req.body.email, req.body.password,
         function(userRecord) {
@@ -113,8 +118,8 @@ app.post("/login", function(req, res) {
                 req.session.email = userRecord.email;
                 req.session.firstName = userRecord.firstName;
                 req.session.adminRights = userRecord.adminRights;
+                req.session.userID = userRecord.userID;
                 req.session.save(function(err) {
-                  
                 });
                 res.send({ status: "success", msg: "Logged in." });
             }
@@ -130,21 +135,16 @@ function authenticate(email, pwd, callback) {
       password: "",
       database: "COMP2800"
     });
-    connection.connect();
+    //connection.connect();
     connection.query(
-      "SELECT * FROM user WHERE email = ? AND pass = ?", [email, pwd],
+      "SELECT * FROM bby_2_user WHERE email = ? AND pass = ?", [email, pwd],
       function(error, results, fields) {
-      
-
-          if (error) {
-             
-          }
+          if (error) {}
           if(results.length > 0) {
               return callback(results[0]);
           } else {
               return callback(null);
           }
-
       }
     );
 }
@@ -156,17 +156,14 @@ app.get("/logout", function (req, res) {
             if (error) {
                 res.status(400).send("Unable to log out")
             } else {
-
-                res.redirect("/");
+                res.redirect("/login");
             }
         });
     }
 });
 
 app.get("/homepage", function (req,res) {
-
     let doc = fs.readFileSync("./app/homepage.html", "utf8");
-
     res.set("Server", "Wazubi Engine");
     res.set("X-Powered-By", "Wazubi");
     res.send(doc);
@@ -178,10 +175,10 @@ app.get('/get-users', function (req, res) {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'comp2800'
+      database: 'COMP2800'
     });
-    connection.connect();
-    connection.query('SELECT * FROM user', function (error, results, fields) {
+    //connection.connect();
+    connection.query('SELECT * FROM bby_2_user', function (error, results, fields) {
         if (error) {
             console.log(error);
         }
@@ -189,10 +186,30 @@ app.get('/get-users', function (req, res) {
         res.send({ status: "success", rows: results });
 
     });
-    connection.end();
+    //connection.end();
 });
 
-// Notice that this is a 'POST'
+app.get('/get-one-user', function (req, res) {
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'COMP2800'
+    });
+    //connection.connect();
+    connection.query('SELECT userID, email, firstName, lastName, pass FROM bby_2_user WHERE userID = ?', 
+    [req.session.userID],
+    function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        }
+        console.log('Rows returned are: ', results);
+        res.send({ status: "success", rows: results });
+
+    });
+    //connection.end();
+});
+
 app.post('/add-user', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
 
@@ -200,26 +217,20 @@ app.post('/add-user', function (req, res) {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'comp2800'
+      database: 'COMP2800'
     });
-    connection.connect();
-    // TO PREVENT SQL INJECTION, DO THIS:
-    // (FROM https://www.npmjs.com/package/mysql#escaping-query-values)
-    connection.query('INSERT INTO user (adminRights, email, pass, firstName, lastName) values (?, ?, ?, ?, ?)',
+    //connection.connect();
+    connection.query('INSERT INTO bby_2_user (adminRights, email, pass, firstName, lastName) values (?, ?, ?, ?, ?)',
           [req.body.adminRights, req.body.email, req.body.pass, req.body.firstName, req.body.lastName],
           function (error, results, fields) {
       if (error) {
           console.log(error);
       }
-      //console.log('Rows returned are: ', results);
       res.send({ status: "success", msg: "Record added." });
-
     });
-    connection.end();
-
+    //connection.end();
 });
 
-// ANOTHER POST: we are changing stuff on the server!!!
 app.post('/update-user-email', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
 
@@ -227,22 +238,19 @@ app.post('/update-user-email', function (req, res) {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'comp2800'
+      database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
 console.log("update values", req.body.email, req.body.userID)
-    connection.query('UPDATE user SET email = ? WHERE userID = ?',
+    connection.query('UPDATE bby_2_user SET email = ? WHERE userID = ?',
           [req.body.email, req.body.userID],
           function (error, results, fields) {
       if (error) {
           console.log(error);
       }
-      //console.log('Rows returned are: ', results);
       res.send({ status: "success", msg: "Recorded updated." });
-
     });
-    connection.end();
-
+    //connection.end();
 });
 
 app.post('/update-user-password', function (req, res) {
@@ -252,22 +260,19 @@ app.post('/update-user-password', function (req, res) {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'comp2800'
+      database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
 console.log("update values", req.body.pass, req.body.userID)
-    connection.query('UPDATE user SET pass = ? WHERE userID = ?',
+    connection.query('UPDATE bby_2_user SET pass = ? WHERE userID = ?',
           [req.body.pass, req.body.userID],
           function (error, results, fields) {
       if (error) {
           console.log(error);
       }
-      //console.log('Rows returned are: ', results);
       res.send({ status: "success", msg: "Recorded updated." });
-
     });
-    connection.end();
-
+    //connection.end();
 });
 
 app.post('/update-user-firstName', function (req, res) {
@@ -277,22 +282,19 @@ app.post('/update-user-firstName', function (req, res) {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'comp2800'
+      database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
 console.log("update values", req.body.firstName, req.body.userID)
-    connection.query('UPDATE user SET firstName = ? WHERE userID = ?',
+    connection.query('UPDATE bby_2_user SET firstName = ? WHERE userID = ?',
           [req.body.firstName, req.body.userID],
           function (error, results, fields) {
       if (error) {
           console.log(error);
       }
-      //console.log('Rows returned are: ', results);
       res.send({ status: "success", msg: "Recorded updated." });
-
     });
-    connection.end();
-
+    //connection.end();
 });
 
 app.post('/update-user-lastName', function (req, res) {
@@ -302,22 +304,19 @@ app.post('/update-user-lastName', function (req, res) {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'comp2800'
+      database: 'COMP2800'
     });
-    connection.connect();
+    //connection.connect();
 console.log("update values", req.body.lastName, req.body.userID)
-    connection.query('UPDATE user SET lastName = ? WHERE userID = ?',
+    connection.query('UPDATE bby_2_user SET lastName = ? WHERE userID = ?',
           [req.body.lastName, req.body.userID],
           function (error, results, fields) {
       if (error) {
           console.log(error);
       }
-      //console.log('Rows returned are: ', results);
       res.send({ status: "success", msg: "Recorded updated." });
-
     });
-    connection.end();
-
+    //connection.end();
 });
 
 app.post('/update-user-admin', function (req, res) {
@@ -327,37 +326,68 @@ app.post('/update-user-admin', function (req, res) {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'comp2800'
+      database: 'COMP2800'
     });
-    connection.connect();
-console.log("update values", req.body.adminRights, req.body.userID)
-    connection.query('UPDATE user SET adminRights = ? WHERE userID = ?',
+    //connection.connect();
+    console.log("update values", req.body.adminRights, req.body.userID)
+    connection.query('UPDATE bby_2_user SET adminRights = ? WHERE userID = ?',
           [req.body.adminRights, req.body.userID],
           function (error, results, fields) {
       if (error) {
           console.log(error);
       }
-      //console.log('Rows returned are: ', results);
       res.send({ status: "success", msg: "Recorded updated." });
-
     });
-    connection.end();
-
+    //connection.end();
 });
 
-async function init() {
-    const mysql = require("mysql2/promise");
-    const connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        multipleStatements: true
+app.post('/delete-user', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'COMP2800'
     });
-    const [rows, fields] = await connection.query("SELECT * FROM user");
-    connection.end();
-}
-
-
-let port = 8000;
-app.listen(port, function () {
+    //connection.connect();
+    connection.query('DELETE FROM bby_2_user WHERE userID = ?',
+          [req.body.userID],
+          function (error, results, fields) {
+      if (error) {
+          console.log(error);
+      }
+      res.send({ status: "success", msg: "Recorded all deleted." });
+    });
+    //connection.end();
 });
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "./public/img/userImages/")
+    },
+    filename: function(req, file, callback) {
+        callback(null, req.session.userID + "id.jpg".split('/').pop().trim());
+    }
+});
+const upload = multer({ storage: storage });
+
+app.post('/upload-images', upload.array("files"), function (req, res) {
+    for(let i = 0; i < req.files.length; i++) {
+        req.files[i].filename = req.files[i].originalname;
+    }
+});
+
+let http = require('http');
+let url = require('url');
+
+http.createServer((req,res) => {
+    let q = url.parse(req.url, true);
+    console.log(q.query);
+
+    res.writeHead(200, {
+        "Content-Type": "text/html",
+        "Access-Control-Allow-Origin": "*"
+    });
+
+    // res.send(`Hello ${q.query['name']}`);
+}).listen(process.env.PORT || 3000)
