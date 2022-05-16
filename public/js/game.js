@@ -1,4 +1,6 @@
 var arrayTest = [];
+var boardArray =[];
+var bonusArr = ["tripleLetter", "doubleLetter", "tripleWord", "doubleWord"]
 
 $(function () {
     var player = {}
@@ -109,10 +111,9 @@ $(function () {
 
     var startingProcedure = function () {
         $('.container').show();
-        $('.letterValuesBox').show();
-        $('.instructions').fadeIn();
         createTileBag();
         shuffleBag();
+        bonusTile();
     }
 
     $(document.body).on('click', '.tileBox', function () {
@@ -162,6 +163,30 @@ $(function () {
         }
         $('.playerOneTile').remove();
         turn();
+    }
+
+    var bonusTile = function() {
+        $('.tile').each(function (index) {
+            boardArray.push($(this));
+        })
+        randomTile(boardArray).addClass('bonus');
+        var bonus = randomTile(bonusArr);
+        if(bonus === "doubleWord") {
+            $('.bonus').text("Double Word Score");
+        }
+        if(bonus === "tripleLetter") {
+            $('.bonus').text("Triple Letter Score");
+        }
+        if(bonus === "doubleLetter") {
+            $('.bonus').text("Double Letter Score");
+        }
+        if(bonus === "tripleWord") {
+            $('.bonus').text("Triple Word Score");
+        }
+    }
+
+    function randomTile(items) {
+        return items[Math.floor(Math.random()*items.length)];
     }
 
     let submitWord = function () {

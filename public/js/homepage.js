@@ -2,6 +2,7 @@ const openModalButtons = document.querySelectorAll('[data-modal-target]');
 const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.getElementById('overlay');
 const overlay1 = document.getElementById('overlay1');
+const overlay2 = document.getElementById('overlay2');
 
 
 openModalButtons.forEach(button => {
@@ -31,6 +32,7 @@ function openModal(modal) {
     modal.classList.add('active');
     overlay.classList.add('active');
     overlay1.classList.add('active');
+    overlay2.classList.add('active');
 }
 
 function closeModal(modal) {
@@ -38,6 +40,7 @@ function closeModal(modal) {
     modal.classList.remove('active');
     overlay.classList.remove('active');
     overlay1.classList.remove('active');
+    overlay2.classList.remove('active');
 }
 
 function getOneUser() {
@@ -69,7 +72,6 @@ function getOneUser() {
                     for(let j = 0; j < email.length; j++) {
                         email[j].addEventListener("click", editEmail);
                     }
-
                     let firstName = document.querySelectorAll("td[class='firstName'] span");
                     for(let j = 0; j < firstName.length; j++) {
                         firstName[j].addEventListener("click", editFirstName);
