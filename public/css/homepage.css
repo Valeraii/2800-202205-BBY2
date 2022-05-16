@@ -214,7 +214,7 @@ html {
         background-color: #EBCF76;
         display: grid;
         grid-template-columns: 1fr;
-        grid-row: 10px 10px 10px 10px;
+        grid-template-rows: 10px 10px 10px 10px;
     }
 
     .about-us {

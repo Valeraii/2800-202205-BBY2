@@ -85,13 +85,13 @@ function getOneUser() {
                         pass[j].addEventListener("click", editPassword);
                     }
                 } else {
-                    console.log("Error!");
+                   
                 }
             } else {
-              console.log(this.status);
+           
             }
         } else {
-            console.log("ERROR", this.status);
+           
         }
     }
     xhr.open("GET", "/get-one-user");
@@ -122,13 +122,12 @@ function editEmail(e) {
             xhr.onload = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                      //document.getElementById("add-status").innerHTML = "Record updated.";
                       getOneUser();
                     } else {
-                      console.log(this.status);
+                   
                     }
                 } else {
-                    console.log("ERROR", this.status);
+                  
                 }
             }
             xhr.open("POST", "/update-user-email");
@@ -164,13 +163,12 @@ function editFirstName(e) {
             xhr.onload = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                      //document.getElementById("add-status").innerHTML = "Record updated.";
                       getOneUser();
                     } else {
-                      console.log(this.status);
+                      
                     }
                 } else {
-                    console.log("ERROR", this.status);
+                   
                 }
             }
             xhr.open("POST", "/update-user-firstName");
@@ -206,13 +204,12 @@ function editLastName(e) {
             xhr.onload = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                      //document.getElementById("add-status").innerHTML = "Record updated.";
                       getOneUser();
                     } else {
-                      console.log(this.status);
+                    
                     }
                 } else {
-                    console.log("ERROR", this.status);
+              
                 }
             }
             xhr.open("POST", "/update-user-lastName");
@@ -251,13 +248,12 @@ function editPassword(e) {
             xhr.onload = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                      //document.getElementById("add-status").innerHTML = "Record updated.";
                       getOneUser();
                     } else {
-                      console.log(this.status);
+                    
                     }
                 } else {
-                    console.log("ERROR", this.status);
+                 
                 }
             }
             xhr.open("POST", "/update-user-password");
@@ -286,7 +282,6 @@ const options = {
 };
 fetch("/upload-images", options
 ).then(function(res) {
-    console.log(res);
 }).catch(function(err) {("Error:", err)}
 );
 }

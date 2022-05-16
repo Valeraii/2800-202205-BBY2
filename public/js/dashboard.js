@@ -55,13 +55,13 @@ $('#menu-btn').click(function(){
                         pass[j].addEventListener("click", editPassword);
                     }
                 } else {
-                    console.log("Error!");
+                 
                 }
             } else {
-              console.log(this.status);
+           
             }
         } else {
-            console.log("ERROR", this.status);
+            
         }
     }
     xhr.open("GET", "/get-users");
@@ -96,10 +96,10 @@ function editAdmin(e) {
                       document.getElementById("add-status").innerHTML = "Record updated.";
                       getUsers();
                     } else {
-                      console.log(this.status);
+                     
                     }
                 } else {
-                    console.log("ERROR", this.status);
+                   
                 }
             }
             xhr.open("POST", "/update-user-admin");
@@ -139,10 +139,10 @@ function editEmail(e) {
                       document.getElementById("add-status").innerHTML = "Record updated.";
                       getUsers();
                     } else {
-                      console.log(this.status);
+                    
                     }
                 } else {
-                    console.log("ERROR", this.status);
+                   
                 }
             }
             xhr.open("POST", "/update-user-email");
@@ -182,10 +182,10 @@ function editFirstName(e) {
                       document.getElementById("add-status").innerHTML = "Record updated.";
                       getUsers();
                     } else {
-                      console.log(this.status);
+                      
                     }
                 } else {
-                    console.log("ERROR", this.status);
+                 
                 }
             }
             xhr.open("POST", "/update-user-firstName");
@@ -225,10 +225,10 @@ function editLastName(e) {
                       document.getElementById("add-status").innerHTML = "Record updated.";
                       getUsers();
                     } else {
-                      console.log(this.status);
+                     
                     }
                 } else {
-                    console.log("ERROR", this.status);
+               
                 }
             }
             xhr.open("POST", "/update-user-lastName");
@@ -270,10 +270,10 @@ function editPassword(e) {
                       document.getElementById("add-status").innerHTML = "Record updated.";
                       getUsers();
                     } else {
-                      console.log(this.status);
+                     
                     }
                 } else {
-                    console.log("ERROR", this.status);
+                 ;
                 }
             }
             xhr.open("POST", "/update-user-password");
@@ -306,10 +306,10 @@ document.getElementById("submit").addEventListener("click", function(e) {
               getUsers();
               document.getElementById("add-status").innerHTML = "DB updated.";
             } else {
-              console.log(this.status);
+             
             }
         } else {
-            console.log("ERROR", this.status);
+         
         }
     }
     xhr.open("POST", "/add-user");
@@ -328,10 +328,10 @@ document.getElementById("delete").addEventListener("click", function(e) {
               getUsers();
               document.getElementById("delete-status").innerHTML = "Record deleted.";
             } else {
-              console.log(this.status);
+            
             }
         } else {
-            console.log("ERROR", this.status);
+           
         }
     }
     xhr.open("POST", "/delete-user");

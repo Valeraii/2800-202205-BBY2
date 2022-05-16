@@ -6,7 +6,6 @@ $(function () {
     var selected = false;
 
     var resetGame = function () {
-        //global variables
         shuffledBag = [];
         tempBag = [];
         selected = false;
@@ -15,7 +14,6 @@ $(function () {
         sameColumn = true;
         sameRow = true;
 
-        //player objects
         player = {
             name: "",
             score: 0,
@@ -54,7 +52,6 @@ $(function () {
         ]
     }
 
-    //creates a temporary bag giving each tile its own array item
     var createTileBag = function () {
         while (tileBag.length > 0) {
             tempBag.push(tileBag[0]);
@@ -65,7 +62,6 @@ $(function () {
         }
     }
 
-    //shuffles the bag
     var shuffleBag = function () {
         while (tempBag.length > 0) {
             var rndm = Math.floor(tempBag.length * Math.random());
@@ -74,10 +70,7 @@ $(function () {
         }
     }
 
-
-    //given a player, will fill their rack with up to 7 tiles
     var loadRack = function (player) {
-        //adds tiles to the player's rack array until it's either at 7 or until the bag is empty
         for (i = player.rack.length; i < 7; i++) {
             if (shuffledBag.length > 0) {
                 player.rack.push(shuffledBag[0]);
@@ -92,17 +85,13 @@ $(function () {
 
     }
 
-
-
     var turn = function () {
         $('.showTiles').show();
-        console.log(shuffledBag.length);
         if (shuffledBag.length > 0) {
             loadRack(player);
         }
     }
 
-    //takes all tiles placed on the board from the current turn and returns them to that player's rack
     var returnToRack = function () {
         $('.playerOneTile').css("display", "inline-block");
         $('.tempInPlay').text("");
@@ -111,7 +100,6 @@ $(function () {
         $('.permInPlay').removeClass('permInPlay');
     }
 
-    //Initializes the board screen
     var startGame = function () {
         turn();
         $('.start').hide();
@@ -119,7 +107,6 @@ $(function () {
         $('.submitWord').show();
     }
 
-    //resets everything visually once the 'play again' button is clicked
     var startingProcedure = function () {
         $('.container').show();
         $('.letterValuesBox').show();
@@ -128,14 +115,12 @@ $(function () {
         shuffleBag();
     }
 
-    //visually marks a tile as 'selected' when clicked
     $(document.body).on('click', '.tileBox', function () {
         $('.tileBox').removeClass('selected');
         $(this).addClass('selected');
         selected = true;
     });
 
-    //adds a tile to the board if nothing occupies that space already
     $(document.body).on('click', '.tile', function () {
         if (selected) {
             if (!($(this).hasClass('permInPlay')) && (!$(this).hasClass('tempInPlay'))) {
@@ -148,7 +133,6 @@ $(function () {
         }
     });
 
-    //returns the score value of a given tile
     var letterValue = function (input) {
         var selectedLetter = input;
         createBag();
@@ -159,22 +143,15 @@ $(function () {
     }
 
     var playerScore = function (array) {
-
         var totalScore = 0;
-
         for (let i = 0; i < array.length; i++) {
             let letterChar = arrayTest[i];
             let charScore = letterValue(letterChar);
             totalScore += charScore;
         }
-
         return totalScore;
-
     }
 
-
-
-    //takes all tiles in the player's rack and returns them to the bag
     var refreshTiles = function () {
         returnToRack();
         player.rack.forEach(function (tile) {
@@ -183,42 +160,29 @@ $(function () {
         while (player.rack.length > 0) {
             player.rack.pop();
         }
-        
         $('.playerOneTile').remove();
         turn();
     }
 
-    //Allow player's to click submit to confirm their word.
     let submitWord = function () {
         $('.tempInPlay').each(function (index) {
             arrayTest.push($(this).text());
         })
         const string = arrayTest.join("");
-        console.log(string);
-
-
-
         fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + string)
             .then(response => response.json())
             .then(json => {
                 if (json.title == 'No Definitions Found') {
-
                     window.confirm("That is not a word!");
                     returnToRack();
                     $('.permInPlay').removeClass('permInPlay');
                     arrayTest = [];
-
                 } else (
                     document.getElementById('word-score').innerHTML = playerScore(arrayTest)
                 )
-                console.log(playerScore(arrayTest));
             });
-
-
-
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
-
     }
 
     $('.backToRack').click(returnToRack);
@@ -227,7 +191,6 @@ $(function () {
     startingProcedure();
     $('.start').click(startGame);
     $('.submitWord').click(submitWord);
-
 });
 
 
