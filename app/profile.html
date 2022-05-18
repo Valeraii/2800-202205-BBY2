@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/homepage.css">
     <link rel="stylesheet" type="text/css" href="css/board.css">
     <link rel="stylesheet" type="text/css" href="css/profile.css">
-    <title>Document</title>
+    <title>WordJam</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,10 +16,10 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/game.js"></script>
+    <script src="https://kit.fontawesome.com/771aa97244.js"></script>
 </head>
 
 <body>
-    
     <header class="site-header">
         <div class="container-header">
             <nav class="navbar">
@@ -33,7 +33,7 @@
                         </div>  
                     <div class="menu-items">
                         <div class="help">
-                            <a href="#" class="btn-help" data-modal-target="#modal">Help</a>
+                            <a href="#" class="fa-regular fa-circle-question" data-modal-target="#modal"></a>
                             <div class="modal" id="modal">
                                 <div class="modal-header">
                                     <div class="title">Game Rules</div>
@@ -45,6 +45,7 @@
                                         <li>Combine letters to form a word and place it on the board</li>
                                         <li>Use the bonus tile when forming a word to get bonus points</li>
                                         <li>A new board and selection of letters will be available each day</li>
+                                        <br>
                                         <li>Every player gets same word + same board everyday, Compete with your friends to see who can get the highest score</li>
                                     </ul>
                                 </div>
@@ -187,6 +188,9 @@
         <button class="submitWord" id="btn-submit">Submit WordJam</button>
     </div>
    
+    <p id="sharetext" class="offscreen" aria-hidden="true">My WordJam Score Today was (9000)!<br>https://boiling-sea-13536.herokuapp.com/login</p>
+
+    <button onclick="copyToClipboard('#sharetext')">SHARE</button>
 
     <footer class="site-footer">
         <div class="container-footer">
