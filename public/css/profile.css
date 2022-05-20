@@ -1,9 +1,9 @@
 body {   
   font-family: 'Roboto Condensed', sans-serif;  
   background-color: beige;  
-  height:100%;
-  --accent-color: orangered;
-  --background-color: white;
+  height:auto;
+  --accent-color: #ff4500;
+  --background-color: beige;
   --text-color: black;
   --button-text-color: var(--background-color);
   --transition-delay: 1s;
@@ -15,7 +15,6 @@ body {
 
 .easter-container{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -82,7 +81,6 @@ body.dark {
 .theme-toggle-button {
   background-color: var(--accent-color);
   color: var(--button-text-color);
-
   display: flex;
   justify-content:center;
   align-items: center;
@@ -106,14 +104,13 @@ body.dark {
 
 .sun-moon-container {
   --rotation: 0;
-
   position: absolute;
   pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
   top: 0;
-  height: 200vmin;
+  height: auto;
   transform: rotate(calc(var(--rotation) * 1deg));
   transition: transform var(--transition-delay);
 }
@@ -146,11 +143,20 @@ body.dark {
   opacity: 12;
 }
 
-.easter-bttn{
+#easter-bttn{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  visibility: hidden;
+  padding: 2rem;
+}
+
+#hidden_msg {
+  text-align: center;
+  border: 1px solid beige;
+  color: beige;
+  display: none;
 }
 
 .tileBox {
@@ -314,7 +320,6 @@ body.dark {
 #scoreCount {
   border: 1px solid black;
   padding: 10px 50px;
-
 }
 
 .menu .menu-items {
@@ -332,27 +337,39 @@ body.dark {
 
 .menu .menu-items .help {
   text-align: left;
-  padding-top:3rem;
+  margin-top: 6rem;
+  font-size: 12pt;
+  padding: .25em;
 }
 
-#timeline-link {
+.menu .menu-items .stats{
   text-align: left;
-  padding: 0;
-  padding-left: 10px;
+  font-size: 12pt;
+  padding: .25em;
+}
+
+.menu .menu-items .timeline-link {
+  text-align: left;
+  margin-left: -10px;
+  padding: .25em;
 }
 
 .menu .menu-items .score {
   text-align: left;
+  font-size: 12pt;
+  padding: .25em;
 }
 
 .menu .menu-items .settings {
   text-align: left;
+  font-size: 12pt;
+  padding: .25em;
 }
 
 .menu .menu-items .btn-logout {
   text-align: left;
-  padding:0;
-  padding-left: 12px;
+  margin-left: -10px;
+  padding: .25em;
 }
 
 .nav-container input[type="checkbox"]:checked ~ .menu-items {
@@ -399,14 +416,19 @@ body.dark {
   .menu .menu-items .help {
     text-align: left;
     margin-left:-55px;
-    padding-top:3rem;
+   
   }
 
-  #timeline-link {
+  .menu .menu-items .timeline-link {
     text-align: left;
-    margin-left:-45px;
-    padding: 0;
+    margin-left:-65px;
   }
+
+  .menu .menu-items .btn-logout {
+    text-align: left;
+    margin-left:-65px;
+  }
+  
 
   .menu .menu-items .score {
     text-align: left;
@@ -416,12 +438,19 @@ body.dark {
   .menu .menu-items .settings {
     text-align: left;
     margin-left:-55px;
+    
   }
 
-  .menu .menu-items .btn-logout {
+  .menu .menu-items .icon {
+    text-align: left;
+ 
+  }
+  
+  .menu .menu-items .stats{
     text-align: left;
     margin-left:-55px;
   }
+  
 
   .container-login {
     display: grid;

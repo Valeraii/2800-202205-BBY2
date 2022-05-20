@@ -4,6 +4,18 @@ var usersWord = [];
 var bonusArr = ["tripleLetter", "doubleLetter", "tripleWord", "doubleWord"]
 var blankTile = {letter: "?", score: 1, count: 1};
 
+function show() {
+    if(document.getElementById("easter-bttn").style.visibility = "hidden") {
+        document.getElementById("easter-bttn").style.visibility = "visible"
+    } 
+}
+
+function showMsg() {
+    if(document.getElementById("hidden_msg").style.display = "none") {
+        document.getElementById("hidden_msg").style.display = "block"
+    } 
+}
+
 function copyToClipboard(element) {
     var text = $(element).clone().find('br').prepend('\r\n').end().text()
     element = $('<textarea>').appendTo('body').val(text).select()
@@ -125,7 +137,7 @@ $(function () {
 
     var loadRack = function (player) {
         player.rack.push(blankTile);
-        for (i = player.rack.length; i < 7; i++) {
+        for (i = player.rack.length; i < 8; i++) {
             if (shuffledBag.length > 0) {
                 player.rack.push(shuffledBag[0]);
                 shuffledBag.shift();
@@ -217,6 +229,7 @@ $(function () {
     // }
 
     var playerScore = function(arr) {
+        console.log("here");
         var totalScore = 0;
         for (let i = 0; i < arr.length; i++) {
           let j = 0;
@@ -227,7 +240,7 @@ $(function () {
             j++
           }
         }
-        return totalScore;
+        document.getElementById('scoreCount').innerHTML = "Score " + totalScore
     }
 
     var bonusTile = function() {
@@ -338,8 +351,8 @@ $(function () {
         }
 
         console.log(usersWord);
-        let userScore = playerScore(usersWord);
-        document.getElementById('scoreCount').innerHTML = "Score " + userScore
+        playerScore(usersWord);
+
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
     }

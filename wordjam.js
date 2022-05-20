@@ -126,7 +126,6 @@ app.post("/login", function(req, res) {
 });
 
 function authenticate(email, pwd, callback) {
-
     const mysql = require("mysql2");
     const connection = mysql.createConnection({
       host: "localhost",
@@ -395,6 +394,7 @@ app.post('/update-timeline-caption', function (req, res) {
     connection.end();
 });
 
+/*
 app.post('/update-timeline-date', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
 
@@ -415,7 +415,7 @@ app.post('/update-timeline-date', function (req, res) {
       res.send({ status: "success", msg: "Recorded updated." });
     });
     connection.end();
-});
+}); */
 
 app.post('/delete-user', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
