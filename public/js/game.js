@@ -1,5 +1,6 @@
-var arrayTest = [];
-var boardArray =[];
+var arrayTest2 = [];
+var boardArray = [];
+var usersWord = [];
 var bonusArr = ["tripleLetter", "doubleLetter", "tripleWord", "doubleWord"]
 var blankTile = {letter: "?", score: 1, count: 1};
 
@@ -10,6 +11,47 @@ function copyToClipboard(element) {
     element.remove()
     alert("Copied Score!")
   }
+
+
+  function chunkArray(myArray, chunk_size) {
+    var index = 0;
+    var arrayLength = myArray.length;
+    var tempArray = [];
+
+    for (index = 0; index < arrayLength; index += chunk_size) {
+        myChunk = myArray.slice(index, index + chunk_size);
+        tempArray.push(myChunk);
+    }
+
+    return tempArray;
+}
+
+function getAllIndexes(arr, val) {
+    let indexes = [],
+        i;
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i] === val) {
+            indexes.push(i);
+        }
+    }
+    return indexes;
+}
+
+function wordsValidation (wordInput) {
+    let booleanCheck;
+    return fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + wordInput)
+    .then(response => {return response.json()})
+    .then(json => {
+            if (json.title == "No Definitions Found") {
+                console.log(json.title)
+                booleanCheck = false;
+            } else {
+                booleanCheck = true;
+            }
+            return booleanCheck;
+        })
+        .catch(err => console.log(err))
+}
 
 $(function () {
     var player = {}
@@ -164,12 +206,26 @@ $(function () {
         return selectedTile.score;
     }
 
-    var playerScore = function (array) {
+    // var playerScore = function (array) {
+    //     var totalScore = 0;
+    //     for (let i = 0; i < array.length; i++) {
+    //         let letterChar = arrayTest[i];
+    //         let charScore = letterValue(letterChar);
+    //         totalScore += charScore;
+    //     }
+    //     return totalScore;
+    // }
+
+    var playerScore = function(arr) {
         var totalScore = 0;
-        for (let i = 0; i < array.length; i++) {
-            let letterChar = arrayTest[i];
+        for (let i = 0; i < arr.length; i++) {
+          let j = 0;
+          while(j < arr[i].length) {
+            let letterChar = arr[i].charAt(j).toUpperCase();
             let charScore = letterValue(letterChar);
             totalScore += charScore;
+            j++
+          }
         }
         return totalScore;
     }
@@ -209,22 +265,81 @@ $(function () {
     }
     
     let submitWord = function () {
-        $('.tempInPlay').each(function (index) {
-            arrayTest.push($(this).text());
+        $('.tile').each(function (index) {
+            arrayTest2.push($(this).text());
         })
-        const string = arrayTest.join("");
-        fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + string)
-            .then(response => response.json())
-            .then(json => {
-                if (json.title == 'No Definitions Found') {
-                    window.confirm("That is not a word!");
-                    returnToRack();
-                    $('.permInPlay').removeClass('permInPlay');
-                    arrayTest = [];
-                } else (
-                    document.getElementById('word-score').innerHTML = playerScore(arrayTest)
-                )
-            });
+        console.log(arrayTest2);
+        let blackList = [];
+        var verticleArray = [];
+        let horizontalArray = [];
+        let word = "";
+        let currentTileV = 0;
+        var chunkThisArray = chunkArray(arrayTest2, 5);
+
+        // Get Verticle Words
+
+        for (let i = 0; i < arrayTest2.length; i++) {
+            let isThereString = arrayTest2[i];
+            currentTileV = i;
+            if ((isThereString !== "" && arrayTest2[i + 5] !== "") && (!blackList.includes(i))) {
+                while (currentTileV < 25) {
+                    word += arrayTest2[currentTileV]
+                    currentTileV += 5;
+                    if (arrayTest2[currentTileV] !== "" && blackList.indexOf(currentTileV) === -1 && currentTileV < 25) {
+                        blackList.push(currentTileV);
+                    }
+                }
+                if (word.length > 2) {
+                    verticleArray.push(word);
+                }
+                word = "";
+            }
+        }
+
+        // Get Horizontal Words
+
+        for (let rows = 0; rows < chunkThisArray.length; rows++) {
+            let allSpaces = getAllIndexes(chunkThisArray[rows], "");
+            let middleSpaces = chunkThisArray[rows].indexOf("");
+            let wordTemp = [];
+            if (middleSpaces == 2 || (allSpaces.includes(1) && allSpaces.includes(3)) || (allSpaces.length > 2)) {
+                chunkThisArray[rows] = [];
+            } else if (middleSpaces !== 2) {
+                wordTemp = chunkThisArray[rows].splice(0, middleSpaces);
+                if (wordTemp.length > 2) {
+                    for (let z = 0; z < wordTemp.length; z++) {
+                        word += wordTemp[z];
+                    }
+                    horizontalArray.push(word);
+                    word = "";
+                    wordTemp = [];
+                }
+                if (chunkThisArray[rows].length > 2) {
+                    for (let z = 0; z < chunkThisArray[rows].length; z++) {
+                        word += chunkThisArray[rows][z];
+                    }
+                    horizontalArray.push(word);
+                    word = "";
+                }
+            }
+        }
+
+        let tempCombWords = verticleArray.concat(horizontalArray);
+
+        // Loop for combined array to test for words and transfer to a new array
+        for (let index = 0; index < tempCombWords.length; index++) {
+            let testForTrue = (wordsValidation(tempCombWords[index].toLowerCase()));
+            testForTrue.then(results => {
+                console.log(results);
+                if (results == true) {
+                    usersWord.push(tempCombWords[index]);
+                }
+            })
+        }
+
+        console.log(usersWord);
+        let userScore = playerScore(usersWord);
+        document.getElementById('scoreCount').innerHTML = "Score " + userScore
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
     }
