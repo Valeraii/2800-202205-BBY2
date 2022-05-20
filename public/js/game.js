@@ -1,5 +1,6 @@
-var arrayTest = [];
-var boardArray =[];
+var arrayTest2 = [];
+var boardArray = [];
+var usersWord = [];
 var bonusArr = ["tripleLetter", "doubleLetter", "tripleWord", "doubleWord"]
 var blankTile = {letter: "?", score: 1, count: 1};
 
@@ -166,6 +167,22 @@ $(function () {
         return totalScore;
     }
 
+    // var playerScore = function(arr) {
+    //     var totalScore = 0;
+    //     for (let i = 0; i < arr.length; i++) {
+    //       let j = 0;
+    //       while(j < arr[i].length) {
+    //         // console.log("incoming");
+    //         console.log(arr[i].charAt(j));
+    //         let letterChar = arr[i].charAt(j).toUpperCase();
+    //         let charScore = letterValue(letterChar);
+    //         totalScore += charScore;
+    //         j++
+    //       }
+    //     }
+    //     return totalScore;
+    // }
+
     var bonusTile = function() {
         $('.tile').each(function (index) {
             boardArray.push($(this));
@@ -200,23 +217,78 @@ $(function () {
         bonusTile();
     }
     
-    let submitWord = function () {
-        $('.tempInPlay').each(function (index) {
-            arrayTest.push($(this).text());
+    var submitWord = function () {
+        $('.tile').each(function (index) {
+            arrayTest2.push($(this).text());
         })
-        const string = arrayTest.join("");
-        fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + string)
-            .then(response => response.json())
-            .then(json => {
-                if (json.title == 'No Definitions Found') {
-                    window.confirm("That is not a word!");
-                    returnToRack();
-                    $('.permInPlay').removeClass('permInPlay');
-                    arrayTest = [];
-                } else (
-                    document.getElementById('word-score').innerHTML = playerScore(arrayTest)
-                )
-            });
+        console.log(arrayTest2);
+        let blackList = [];
+        var verticleArray = [];
+        let horizontalArray = [];
+        let word = "";
+        let currentTileV = 0;
+        var chunkThisArray = chunkArray(arrayTest2, 5);
+
+        // Get Verticle Words
+
+        for (let i = 0; i < arrayTest2.length; i++) {
+            let isThereString = arrayTest2[i];
+            currentTileV = i;
+            if ((isThereString !== "" && arrayTest2[i + 5] !== "") && (!blackList.includes(i))) {
+                while (currentTileV < 25) {
+                    word += arrayTest2[currentTileV]
+                    currentTileV += 5;
+                    if (arrayTest2[currentTileV] !== "" && blackList.indexOf(currentTileV) === -1 && currentTileV < 25) {
+                        blackList.push(currentTileV);
+                    }
+                }
+                if (word.length > 2) {
+                    verticleArray.push(word);
+                }
+                word = "";
+            }
+        }
+
+        // Get Horizontal Words
+
+        for (let rows = 0; rows < chunkThisArray.length; rows++) {
+            let allSpaces = getAllIndexes(chunkThisArray[rows], "");
+            let middleSpaces = chunkThisArray[rows].indexOf("");
+            let wordTemp = [];
+            if (middleSpaces == 2 || (allSpaces.includes(1) && allSpaces.includes(3)) || (allSpaces.length > 2)) {
+                chunkThisArray[rows] = [];
+            } else if (middleSpaces !== 2) {
+                wordTemp = chunkThisArray[rows].splice(0, middleSpaces);
+                if (wordTemp.length > 2) {
+                    for (let z = 0; z < wordTemp.length; z++) {
+                        word += wordTemp[z];
+                    }
+                    horizontalArray.push(word);
+                    word = "";
+                    wordTemp = [];
+                }
+                if (chunkThisArray[rows].length > 2) {
+                    for (let z = 0; z < chunkThisArray[rows].length; z++) {
+                        word += chunkThisArray[rows][z];
+                    }
+                    horizontalArray.push(word);
+                    word = "";
+                }
+            }
+        }
+
+        console.log(verticleArray);
+        console.log(horizontalArray);
+        var tempCombWords = verticleArray.concat(horizontalArray);
+        tempCombWords.forEach(function(tempCombWords) {
+            wordsValidation(tempCombWords.toLowerCase());
+        });
+        console.log(usersWord);
+        
+        console.log(playerScore(usersWord));
+        // let userScore = playerScore(usersWord);
+        // document.getElementById('scoreCount').innerHTML = userScore
+
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
     }
@@ -227,6 +299,50 @@ $(function () {
     startingProcedure();
     
 });
+
+function chunkArray(myArray, chunk_size) {
+    var index = 0;
+    var arrayLength = myArray.length;
+    var tempArray = [];
+
+    for (index = 0; index < arrayLength; index += chunk_size) {
+        myChunk = myArray.slice(index, index + chunk_size);
+        // Do something if you want with the group
+        tempArray.push(myChunk);
+    }
+
+    return tempArray;
+}
+
+function getAllIndexes(arr, val) {
+    let indexes = [],
+        i;
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i] === val) {
+            indexes.push(i);
+        }
+    }
+    return indexes;
+}
+
+function wordsValidation (wordInput) {
+
+    let apiKey = ""
+    // const api_url = `http://localhost:8000/check/${wordInput}`;
+    const api_url = "https://api.wordnik.com/v4/word.json/"+wordInput+"/definitions?limit=1&includeRelated=false&useCanonical=false&includeTags=false&api_key="+ apiKey
+    fetch(api_url)
+        .then(response => response.json())
+        .then(json => {
+            if (json.statusCode == 404) {
+                
+                console.log(wordInput.toUpperCase() + " is not a word! You need help!");
+            } else {
+                console.log("LGTM!");
+                usersWord.push(wordInput);
+            }
+        })
+        .catch(err => console.log(err))
+}
 
 
 
