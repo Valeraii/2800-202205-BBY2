@@ -76,7 +76,7 @@ $(function () {
 
     var loadRack = function (player) {
         player.rack.push(blankTile);
-        for (i = player.rack.length; i < 7; i++) {
+        for (i = player.rack.length; i < 14; i++) {
             if (shuffledBag.length > 0) {
                 player.rack.push(shuffledBag[0]);
                 shuffledBag.shift();
@@ -157,31 +157,31 @@ $(function () {
         return selectedTile.score;
     }
 
-    var playerScore = function (array) {
-        var totalScore = 0;
-        for (let i = 0; i < array.length; i++) {
-            let letterChar = arrayTest[i];
-            let charScore = letterValue(letterChar);
-            totalScore += charScore;
-        }
-        return totalScore;
-    }
-
-    // var playerScore = function(arr) {
+    // var playerScore = function (array) {
     //     var totalScore = 0;
-    //     for (let i = 0; i < arr.length; i++) {
-    //       let j = 0;
-    //       while(j < arr[i].length) {
-    //         // console.log("incoming");
-    //         console.log(arr[i].charAt(j));
-    //         let letterChar = arr[i].charAt(j).toUpperCase();
+    //     for (let i = 0; i < array.length; i++) {
+    //         let letterChar = arrayTest[i];
     //         let charScore = letterValue(letterChar);
     //         totalScore += charScore;
-    //         j++
-    //       }
     //     }
     //     return totalScore;
     // }
+
+    var playerScore = function(arr) {
+        var totalScore = 0;
+        for (let i = 0; i < arr.length; i++) {
+          let j = 0;
+          while(j < arr[i].length) {
+            // console.log("incoming");
+            console.log(arr[i].charAt(j));
+            let letterChar = arr[i].charAt(j).toUpperCase();
+            let charScore = letterValue(letterChar);
+            totalScore += charScore;
+            j++
+          }
+        }
+        return totalScore;
+    }
 
     var bonusTile = function() {
         $('.tile').each(function (index) {
@@ -280,12 +280,14 @@ $(function () {
         console.log(verticleArray);
         console.log(horizontalArray);
         var tempCombWords = verticleArray.concat(horizontalArray);
-        tempCombWords.forEach(function(tempCombWords) {
-            wordsValidation(tempCombWords.toLowerCase());
-        });
-        console.log(usersWord);
+        // Loop for combined array to test for words and transfer to a new array
+        for (let index = 0; index < tempCombWords.length; index++) {
+            wordsValidation(tempCombWords[index].toLowerCase());
+        }
+        // console.log(tempCombWords);
+        // console.log(usersWord);
         
-        console.log(playerScore(usersWord));
+        console.log(playerScore(tempCombWords));
         // let userScore = playerScore(usersWord);
         // document.getElementById('scoreCount').innerHTML = userScore
 
@@ -300,6 +302,8 @@ $(function () {
     
 });
 
+
+
 function chunkArray(myArray, chunk_size) {
     var index = 0;
     var arrayLength = myArray.length;
@@ -307,7 +311,6 @@ function chunkArray(myArray, chunk_size) {
 
     for (index = 0; index < arrayLength; index += chunk_size) {
         myChunk = myArray.slice(index, index + chunk_size);
-        // Do something if you want with the group
         tempArray.push(myChunk);
     }
 
@@ -327,7 +330,7 @@ function getAllIndexes(arr, val) {
 
 function wordsValidation (wordInput) {
 
-    let apiKey = ""
+    let apiKey = "";
     // const api_url = `http://localhost:8000/check/${wordInput}`;
     const api_url = "https://api.wordnik.com/v4/word.json/"+wordInput+"/definitions?limit=1&includeRelated=false&useCanonical=false&includeTags=false&api_key="+ apiKey
     fetch(api_url)
