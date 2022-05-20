@@ -4,6 +4,37 @@ body {
   height:100%;
 }
 
+.icon {
+  justify-self: left;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: larger;
+}
+
+.a .icon {
+  justify-self: left;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: larger;
+}
+
+.offscreen {
+  position: absolute;
+  left: -999em;
+}
+
+#share {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+#share:hover {
+  background-color: rgb(207, 207, 200);
+}
+
 .playerOneTilesRow {
   clear: both;
   position: relative;

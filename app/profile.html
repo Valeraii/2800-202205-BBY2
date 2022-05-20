@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/homepage.css">
     <link rel="stylesheet" type="text/css" href="css/board.css">
     <link rel="stylesheet" type="text/css" href="css/profile.css">
-    <title>Document</title>
+    <title>WordJam</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,6 @@
 </head>
 
 <body>
-    
     <header class="site-header">
         <div class="container-header">
             <nav class="navbar">
@@ -34,7 +33,7 @@
                         </div>  
                     <div class="menu-items">
                         <div class="help">
-                            <a href="#" class="btn-help" data-modal-target="#modal">Help</a>
+                            <button class="icon" data-modal-target="#modal"><span class="material-symbols-outlined">help</span></button>
                             <div class="modal" id="modal">
                                 <div class="modal-header">
                                     <div class="title">Game Rules</div>
@@ -52,15 +51,16 @@
                             </div>
                             <div id="overlay"></div>
                         </div>
-                        <a href="html/timelinev2.html" id="timeline-link">Timeline</a>
-                        
+                        <br>
+                        <button><a class="icon" href="html/timelinev2.html"><span class="material-symbols-outlined">view_timeline</span></a></button>
+                        <p id="sharetext" class="offscreen" aria-hidden="true">My WordJam Score Today was 9000!<br>https://boiling-sea-13536.herokuapp.com/login</p>
+                        <br>
                         <div class="stats">
-                            <a href="#" class="btn-stats" data-modal-target="#modal-stats">Stats</a>
+                            <button class="icon" data-modal-target="#modal-stats"><span class="material-symbols-outlined">bar_chart</span></button>
                             <div class="modal" id="modal-stats">
                                 <div class="modal-header">
                                     <div class="title">Your Statistics</div>
-                                    <a href="" class="icon"><span class="material-symbols-outlined">
-                                        share</span></a>
+                                    <button id="share" onclick="copyToClipboard('#sharetext')" class="icon"><span class="material-symbols-outlined"> share</span></button>
                                     <button data-close-button class="close-button">&times;</button>
                                 </div>
                                 <div class="modal-body">
@@ -73,12 +73,12 @@
                             </div>
                             <div id="overlay1"></div>
                         </div>
-                        
+                        <br>
                         <div class="score">
-                            <a href="#" class="btn-score" data-modal-target="#modal-score">Score</a>
+                            <button class="icon" data-modal-target="#modal-score"><span class="material-symbols-outlined">scoreboard</span></button>
                             <div class="modal" id="modal-score">
                                 <div class="modal-header">
-                                    <div class="title">Tile Distribution and Point</div>
+                                    <div class="title">Tile Distribution and Point Values</div>
                                     <button data-close-button class="close-button">&times;</button>
                                 </div>
                                 <div class="modal-body">
@@ -114,9 +114,9 @@
                             </div>
                             <div id="overlay2"></div>
                         </div>
-                        
+                        <br>
                         <div class="settings">
-                            <a href="#" class="btn-settings" data-modal-target="#modal-settings">Profile</a>
+                            <button class="icon" data-modal-target="#modal-settings"><span class="material-symbols-outlined">account_circle</span></button>
                             <div class="modal" id="modal-settings">
                                 <div class="modal-header">
                                     <div class="title">Profile Settings</div>
@@ -127,22 +127,21 @@
                                     <div id="container">
                                         <form id="upload-images-form">
                                           <input id="image-upload" type="file" accept="image/png, image/jpeg"/>
-                                          <table id="users"></table>
-                                         
                                           <input id="submit" type="submit" value="Submit"/>
+                                          <table id="users"></table>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                             <div id="overlay3"></div>
                         </div>
-                        <a href="/logout" class="btn-logout">Logout</a>
+                        <br>
+                        <button><a class="icon" href="\logout"><span class="material-symbols-outlined">logout</span></a></button>
                     </div>
                     </div>
                     <div id="logo" class="logo-center">
                         <img src="img/logo.svg" alt="WordJam Logo" class="logo-img">
                     </div>
-                   
                 </div>
             </nav>
         </div>
@@ -228,7 +227,5 @@
     <script src="js/homepage.js"></script>
     <script src="js/editProfile.js"></script>
 
-</body>
-
+    </body>
 </html>
-

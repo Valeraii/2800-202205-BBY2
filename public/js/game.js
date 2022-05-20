@@ -3,6 +3,14 @@ var boardArray =[];
 var bonusArr = ["tripleLetter", "doubleLetter", "tripleWord", "doubleWord"]
 var blankTile = {letter: "?", score: 1, count: 1};
 
+function copyToClipboard(element) {
+    var text = $(element).clone().find('br').prepend('\r\n').end().text()
+    element = $('<textarea>').appendTo('body').val(text).select()
+    document.execCommand('copy')
+    element.remove()
+    alert("Copied Score!")
+  }
+
 $(function () {
     var player = {}
     var shuffledBag = [];
