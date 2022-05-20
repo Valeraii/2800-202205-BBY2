@@ -18,11 +18,11 @@ html {
 .site-header {
     background-color: #EBCF76;
     grid-column: 1 / 6;
-
 }
 
 .navbar {
     display: flex;    
+    margin-bottom: 2rem;
 }
 
 .logo-img {

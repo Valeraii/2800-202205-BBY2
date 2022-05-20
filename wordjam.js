@@ -3,7 +3,6 @@ const session = require("express-session");
 const app = express();
 const fs = require("fs");
 const multer = require("multer");
-
 const { JSDOM } = require('jsdom');
 
 var mysql = require('mysql');
@@ -167,8 +166,26 @@ app.get("/homepage", function (req,res) {
     res.set("Server", "Wazubi Engine");
     res.set("X-Powered-By", "Wazubi");
     res.send(doc);
-
 })
+
+app.get('/get-timeline', function (req, res) {
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'COMP2800'
+    });
+    connection.connect();
+    connection.query('SELECT * FROM bby_2_score', function (error, results, fields) {
+        if (error) {
+           
+        }
+      
+        res.send({ status: "success", rows: results });
+
+    });
+    connection.end();
+});
 
 app.get('/get-users', function (req, res) {
     let connection = mysql.createConnection({
@@ -204,6 +221,28 @@ app.get('/get-one-user', function (req, res) {
           
         }
         res.send({ status: "success", rows: results });
+    });
+    connection.end();
+});
+
+app.post('/add-timeline', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'COMP2800'
+    });
+    connection.connect();
+    console.log(req.body.userID, req.body.caption);
+    connection.query('INSERT INTO bby_2_score (userID, scoreValue, caption, playdate, playtime, playimage) values (?, ?, ?, CURDATE(), CURTIME(), ?)',
+          [req.body.userID, req.body.scoreValue, req.body.caption, req.body.playimage],
+          function (error, results, fields) {
+      if (error) {
+          console.log(error);
+      }
+      res.send({ status: "success", msg: "Record added." });
     });
     connection.end();
 });
@@ -334,6 +373,50 @@ app.post('/update-user-admin', function (req, res) {
     connection.end();
 });
 
+app.post('/update-timeline-caption', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
+    });
+    connection.connect();
+    console.log("update values", req.body.caption, req.body.scoreID)
+    connection.query('UPDATE bby_2_score SET caption = ? WHERE scoreID = ?',
+          [req.body.caption, req.body.scoreID],
+          function (error, results, fields) {
+      if (error) {
+        console.log(error);
+      }
+      res.send({ status: "success", msg: "Recorded updated." });
+    });
+    connection.end();
+});
+
+app.post('/update-timeline-date', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'comp2800'
+    });
+    connection.connect();
+    console.log("update values", req.body.scoreDate, req.body.userID)
+    connection.query('UPDATE bby_2_scores SET scoreDate = ? WHERE userID = ?',
+          [req.body.scoreDate, req.body.userID],
+          function (error, results, fields) {
+      if (error) {
+        console.log(error);
+      }
+      res.send({ status: "success", msg: "Recorded updated." });
+    });
+    connection.end();
+});
+
 app.post('/delete-user', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let connection = mysql.createConnection({
@@ -345,6 +428,27 @@ app.post('/delete-user', function (req, res) {
     connection.connect();
     connection.query('DELETE FROM bby_2_user WHERE userID = ?',
           [req.body.userID],
+          function (error, results, fields) {
+      if (error) {
+       
+      }
+      res.send({ status: "success", msg: "Recorded all deleted." });
+    });
+    connection.end();
+});
+
+app.post('/delete-post', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'COMP2800'
+    });
+    connection.connect();
+    console.log(req.body.scoreID);
+    connection.query('DELETE FROM bby_2_score WHERE scoreID = ?',
+          [req.body.scoreID],
           function (error, results, fields) {
       if (error) {
        
@@ -369,6 +473,29 @@ app.post('/upload-images', upload.array("files"), function (req, res) {
         req.files[i].filename = req.files[i].originalname;
     }
 });
+
+const timelineStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "./public/img/timelineImages/")
+    },
+    filename: function(req, file, callback) {
+        const current = new Date();
+        const time = current.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+        callback(null, time + ".jpg".split('/').pop().trim());
+    }
+});
+const uploadTimeline = multer({ storage: timelineStorage });
+
+app.post('/upload-timeline', uploadTimeline.array("files"), function (req, res) {
+    console.log(req.files);
+    for(let i = 0; i < req.files.length; i++) {
+        req.files[i].filename = req.files[i].originalname;
+    }
+});
+
 
 let port = 8000;
 app.listen(port, function () {

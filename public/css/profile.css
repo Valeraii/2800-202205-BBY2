@@ -191,8 +191,10 @@ body {
   padding-top:3rem;
 }
 
-.menu .menu-items .stats {
+#timeline-link {
   text-align: left;
+  padding: 0;
+  padding-left: 10px;
 }
 
 .menu .menu-items .score {
@@ -256,9 +258,10 @@ body {
     padding-top:3rem;
   }
 
-  .menu .menu-items .stats {
+  #timeline-link {
     text-align: left;
-    margin-left:-55px;
+    margin-left:-45px;
+    padding: 0;
   }
 
   .menu .menu-items .score {
@@ -284,5 +287,11 @@ body {
     grid-row-gap: 0px;
     width: 100vw;
     height: 100vh;
+  }
+
+  .bonus {
+    background-color: lightblue;
+    font-size: 9pt;
+    text-align: center;
   }
 }

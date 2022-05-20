@@ -1,6 +1,7 @@
 var arrayTest = [];
 var boardArray =[];
 var bonusArr = ["tripleLetter", "doubleLetter", "tripleWord", "doubleWord"]
+var blankTile = {letter: "?", score: 1, count: 1};
 
 $(function () {
     var player = {}
@@ -73,6 +74,7 @@ $(function () {
     }
 
     var loadRack = function (player) {
+        player.rack.push(blankTile);
         for (i = player.rack.length; i < 7; i++) {
             if (shuffledBag.length > 0) {
                 player.rack.push(shuffledBag[0]);
@@ -84,36 +86,40 @@ $(function () {
         for (j = 0; j < $('.playerOneTile').length; j++) {
             $('.playerOneTile').eq(j).text(player.rack[j].letter);
         }
-
     }
 
-    var turn = function () {
+    var returnToRack = function () {
+        let lastBonus = localStorage.getItem('dailyBonus');
+        $('.playerOneTile').css("display", "inline-block");
+        $('.tempInPlay').text("");
+        $('.permInPlay').text("");
+        $('.bonusTile').text("");
+        if(lastBonus === "doubleWord") {
+            $('.bonus').text("Double Word Score");
+        }
+        if(lastBonus === "tripleLetter") {
+            $('.bonus').text("Triple Letter Score");
+        }
+        if(lastBonus === "doubleLetter") {
+            $('.bonus').text("Double Letter Score");
+        }
+        if(lastBonus === "tripleWord") {
+            $('.bonus').text("Triple Word Score");
+        }
+
+        $('.tempInPlay').removeClass('tempInPlay');
+        $('.permInPlay').removeClass('permInPlay');
+        $('.bonusTile').removeClass('bonusTile');
+    }
+
+    var startGame = function () {
         $('.showTiles').show();
         if (shuffledBag.length > 0) {
             loadRack(player);
         }
-    }
-
-    var returnToRack = function () {
-        $('.playerOneTile').css("display", "inline-block");
-        $('.tempInPlay').text("");
-        $('.permInPlay').text("");
-        $('.tempInPlay').removeClass('tempInPlay');
-        $('.permInPlay').removeClass('permInPlay');
-    }
-
-    var startGame = function () {
-        turn();
         $('.start').hide();
         $('.backToRack').show();
         $('.submitWord').show();
-    }
-
-    var startingProcedure = function () {
-        $('.container').show();
-        createTileBag();
-        shuffleBag();
-        bonusTile();
     }
 
     $(document.body).on('click', '.tileBox', function () {
@@ -131,6 +137,13 @@ $(function () {
                 $('.selected').removeClass('selected');
                 selected = false;
             }
+        }
+        if($(this).text() === "?"){
+            $(this).addClass('bonusTile');
+            window.addEventListener('keydown', function(event) {
+                let blank = event.key;
+                $('.bonusTile').text(blank);
+            })
         }
     });
 
@@ -153,24 +166,13 @@ $(function () {
         return totalScore;
     }
 
-    var refreshTiles = function () {
-        returnToRack();
-        player.rack.forEach(function (tile) {
-            shuffledBag.splice(Math.floor(Math.random() * shuffledBag.length), 0, tile);
-        });
-        while (player.rack.length > 0) {
-            player.rack.pop();
-        }
-        $('.playerOneTile').remove();
-        turn();
-    }
-
     var bonusTile = function() {
         $('.tile').each(function (index) {
             boardArray.push($(this));
         })
         randomTile(boardArray).addClass('bonus');
         var bonus = randomTile(bonusArr);
+        localStorage.setItem('dailyBonus', bonus);
         if(bonus === "doubleWord") {
             $('.bonus').text("Double Word Score");
         }
@@ -188,7 +190,16 @@ $(function () {
     function randomTile(items) {
         return items[Math.floor(Math.random()*items.length)];
     }
-
+    
+    function startingProcedure() {
+        $('.container').show();
+        resetGame();
+        createBag();
+        createTileBag();
+        shuffleBag();
+        bonusTile();
+    }
+    
     let submitWord = function () {
         $('.tempInPlay').each(function (index) {
             arrayTest.push($(this).text());
@@ -211,12 +222,14 @@ $(function () {
     }
 
     $('.backToRack').click(returnToRack);
-    resetGame();
-    createBag();
-    startingProcedure();
     $('.start').click(startGame);
     $('.submitWord').click(submitWord);
+    startingProcedure();
+    
 });
+
+
+
 
 
 
