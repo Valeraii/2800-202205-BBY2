@@ -78,7 +78,7 @@ $(function () {
 
     var loadRack = function (player) {
         player.rack.push(blankTile);
-        for (i = player.rack.length; i < 14; i++) {
+        for (i = player.rack.length; i < 21; i++) {
             if (shuffledBag.length > 0) {
                 player.rack.push(shuffledBag[0]);
                 shuffledBag.shift();
@@ -164,7 +164,6 @@ $(function () {
         for (let i = 0; i < arr.length; i++) {
           let j = 0;
           while(j < arr[i].length) {
-            // console.log("incoming");
             let letterChar = arr[i].charAt(j).toUpperCase();
             let charScore = letterValue(letterChar);
             totalScore += charScore;
@@ -269,20 +268,21 @@ $(function () {
         }
 
         let tempCombWords = verticleArray.concat(horizontalArray);
-        
+
         // Loop for combined array to test for words and transfer to a new array
         for (let index = 0; index < tempCombWords.length; index++) {
             let testForTrue = (wordsValidation(tempCombWords[index].toLowerCase()));
-            console.log(tempCombWords[index]);
-            if (testForTrue) {
-                usersWord.push(tempCombWords[index]);
-            }
+            testForTrue.then(results => {
+                console.log(results);
+                if (results == true) {
+                    usersWord.push(tempCombWords[index]);
+                }
+            })
         }
 
         console.log(usersWord);
         let userScore = playerScore(usersWord);
         document.getElementById('scoreCount').innerHTML = "Score " + userScore
-
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
     }
