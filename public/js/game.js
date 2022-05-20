@@ -1,3 +1,5 @@
+// const { response } = require("express");
+
 var arrayTest2 = [];
 var boardArray = [];
 var usersWord = [];
@@ -157,23 +159,12 @@ $(function () {
         return selectedTile.score;
     }
 
-    // var playerScore = function (array) {
-    //     var totalScore = 0;
-    //     for (let i = 0; i < array.length; i++) {
-    //         let letterChar = arrayTest[i];
-    //         let charScore = letterValue(letterChar);
-    //         totalScore += charScore;
-    //     }
-    //     return totalScore;
-    // }
-
     var playerScore = function(arr) {
         var totalScore = 0;
         for (let i = 0; i < arr.length; i++) {
           let j = 0;
           while(j < arr[i].length) {
             // console.log("incoming");
-            console.log(arr[i].charAt(j));
             let letterChar = arr[i].charAt(j).toUpperCase();
             let charScore = letterValue(letterChar);
             totalScore += charScore;
@@ -277,19 +268,20 @@ $(function () {
             }
         }
 
-        console.log(verticleArray);
-        console.log(horizontalArray);
-        var tempCombWords = verticleArray.concat(horizontalArray);
+        let tempCombWords = verticleArray.concat(horizontalArray);
+        
         // Loop for combined array to test for words and transfer to a new array
         for (let index = 0; index < tempCombWords.length; index++) {
-            wordsValidation(tempCombWords[index].toLowerCase());
+            let testForTrue = (wordsValidation(tempCombWords[index].toLowerCase()));
+            console.log(tempCombWords[index]);
+            if (testForTrue) {
+                usersWord.push(tempCombWords[index]);
+            }
         }
-        // console.log(tempCombWords);
-        // console.log(usersWord);
-        
-        console.log(playerScore(tempCombWords));
-        // let userScore = playerScore(usersWord);
-        // document.getElementById('scoreCount').innerHTML = userScore
+
+        console.log(usersWord);
+        let userScore = playerScore(usersWord);
+        document.getElementById('scoreCount').innerHTML = "Score " + userScore
 
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
@@ -301,7 +293,6 @@ $(function () {
     startingProcedure();
     
 });
-
 
 
 function chunkArray(myArray, chunk_size) {
@@ -329,23 +320,22 @@ function getAllIndexes(arr, val) {
 }
 
 function wordsValidation (wordInput) {
-
-    let apiKey = "";
-    // const api_url = `http://localhost:8000/check/${wordInput}`;
-    const api_url = "https://api.wordnik.com/v4/word.json/"+wordInput+"/definitions?limit=1&includeRelated=false&useCanonical=false&includeTags=false&api_key="+ apiKey
-    fetch(api_url)
-        .then(response => response.json())
-        .then(json => {
-            if (json.statusCode == 404) {
-                
-                console.log(wordInput.toUpperCase() + " is not a word! You need help!");
+    let booleanCheck;
+    return fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + wordInput)
+    .then(response => {return response.json()})
+    .then(json => {
+            if (json.title == "No Definitions Found") {
+                console.log(json.title)
+                booleanCheck = false;
             } else {
-                console.log("LGTM!");
-                usersWord.push(wordInput);
+                booleanCheck = true;
             }
+            return booleanCheck;
         })
         .catch(err => console.log(err))
 }
+
+
 
 
 
