@@ -109,6 +109,7 @@ $(function () {
         if(lastBonus === "tripleWord") {
             $('.bonus').text("Triple Word Score");
         }
+
         $('.tempInPlay').removeClass('tempInPlay');
         $('.permInPlay').removeClass('permInPlay');
         $('.bonusTile').removeClass('bonusTile');
@@ -168,7 +169,6 @@ $(function () {
             totalScore += charScore;
             j++
           }
-          return totalScore;
         }
         return totalScore;
     }
@@ -267,17 +267,21 @@ $(function () {
             }
         }
 
-        // let tempCombWords = verticleArray.concat(horizontalArray);
+        let tempCombWords = verticleArray.concat(horizontalArray);
 
-        let tempCombWords = [];
-        tempCombWords.push("check");
-        tempCombWords.push("asdzxc");
-        tempCombWords.push("results");
-        setArraysWithWords(tempCombWords);
-        console.log(usersWord);
+        // Loop for combined array to test for words and transfer to a new array
+        for (let index = 0; index < tempCombWords.length; index++) {
+            let testForTrue = (wordsValidation(tempCombWords[index].toLowerCase()));
+            testForTrue.then(results => {
+                console.log(results);
+                if (results == true) {
+                    usersWord.push(tempCombWords[index]);
+                }
+            })
+        }
+
         let userScore = playerScore(usersWord);
-        console.log(userScore);
-        document.getElementById('scoreCount').innerHTML = userScore
+        document.getElementById('scoreCount').innerHTML = "Score " + userScore
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
     }
@@ -288,26 +292,6 @@ $(function () {
     startingProcedure();
     
 });
-
-function setArraysWithWords(arr) {
-
-    for (let index = 0; index < arr.length; index++) {
-        let testForTrue = (wordsValidation(arr[index].toLowerCase()));
-        console.log(arr[index]);
-        console.log(testForTrue);
-        testForTrue.then(results => {
-            console.log(results);
-            if(results == true) {
-                console.log("Working");
-                return usersWord.push(arr[index]);
-            } else {
-                console.log("Wrong!");
-            }
-        })
-    }
-
-}
-
 
 
 function chunkArray(myArray, chunk_size) {
@@ -335,14 +319,12 @@ function getAllIndexes(arr, val) {
 }
 
 function wordsValidation (wordInput) {
-
     let booleanCheck;
     return fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + wordInput)
     .then(response => {return response.json()})
-        
     .then(json => {
-        test = JSON.stringify(json);       
             if (json.title == "No Definitions Found") {
+                console.log(json.title)
                 booleanCheck = false;
             } else {
                 booleanCheck = true;
