@@ -78,7 +78,7 @@ $(function () {
 
     var loadRack = function (player) {
         player.rack.push(blankTile);
-        for (i = player.rack.length; i < 14; i++) {
+        for (i = player.rack.length; i < 21; i++) {
             if (shuffledBag.length > 0) {
                 player.rack.push(shuffledBag[0]);
                 shuffledBag.shift();
@@ -109,7 +109,6 @@ $(function () {
         if(lastBonus === "tripleWord") {
             $('.bonus').text("Triple Word Score");
         }
-
         $('.tempInPlay').removeClass('tempInPlay');
         $('.permInPlay').removeClass('permInPlay');
         $('.bonusTile').removeClass('bonusTile');
@@ -164,12 +163,12 @@ $(function () {
         for (let i = 0; i < arr.length; i++) {
           let j = 0;
           while(j < arr[i].length) {
-            // console.log("incoming");
             let letterChar = arr[i].charAt(j).toUpperCase();
             let charScore = letterValue(letterChar);
             totalScore += charScore;
             j++
           }
+          return totalScore;
         }
         return totalScore;
     }
@@ -268,21 +267,17 @@ $(function () {
             }
         }
 
-        let tempCombWords = verticleArray.concat(horizontalArray);
-        
-        // Loop for combined array to test for words and transfer to a new array
-        for (let index = 0; index < tempCombWords.length; index++) {
-            let testForTrue = (wordsValidation(tempCombWords[index].toLowerCase()));
-            console.log(tempCombWords[index]);
-            if (testForTrue) {
-                usersWord.push(tempCombWords[index]);
-            }
-        }
+        // let tempCombWords = verticleArray.concat(horizontalArray);
 
+        let tempCombWords = [];
+        tempCombWords.push("check");
+        tempCombWords.push("asdzxc");
+        tempCombWords.push("results");
+        setArraysWithWords(tempCombWords);
         console.log(usersWord);
         let userScore = playerScore(usersWord);
-        document.getElementById('scoreCount').innerHTML = "Score " + userScore
-
+        console.log(userScore);
+        document.getElementById('scoreCount').innerHTML = userScore
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
     }
@@ -293,6 +288,26 @@ $(function () {
     startingProcedure();
     
 });
+
+function setArraysWithWords(arr) {
+
+    for (let index = 0; index < arr.length; index++) {
+        let testForTrue = (wordsValidation(arr[index].toLowerCase()));
+        console.log(arr[index]);
+        console.log(testForTrue);
+        testForTrue.then(results => {
+            console.log(results);
+            if(results == true) {
+                console.log("Working");
+                return usersWord.push(arr[index]);
+            } else {
+                console.log("Wrong!");
+            }
+        })
+    }
+
+}
+
 
 
 function chunkArray(myArray, chunk_size) {
@@ -320,12 +335,14 @@ function getAllIndexes(arr, val) {
 }
 
 function wordsValidation (wordInput) {
+
     let booleanCheck;
     return fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + wordInput)
     .then(response => {return response.json()})
+        
     .then(json => {
+        test = JSON.stringify(json);       
             if (json.title == "No Definitions Found") {
-                console.log(json.title)
                 booleanCheck = false;
             } else {
                 booleanCheck = true;

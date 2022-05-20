@@ -64,29 +64,6 @@ app.get("/login", function (req, res) {
     }
 });
 
-// app.get('/check/:wordInput', function (req, res) {
-//     const word = req.params.wordInput;
-//     const options = {
-//         method: 'GET',
-//         url: 'https://api.wordnik.com/v4/word.json/' + word + '/definitions?limit=1&includeRelated=false&sourceDictionaries=webster&useCanonical=false&includeTags=false&api_key=YOUR-APIKEYS',
-        //    header: {
-        //     'Content-Type': 'application/json'
-        //    }
-//     }
-
-
-//     axios.request(options).then((response) => {
-//         console.log("this is the word" + word);
-//         console.log(response.data);
-//         res.json(response.data)
-//     }).catch((error) => {
-        
-//         console.error(error.response)
-//         return error
-//     })
-
-// })
-
 app.post('/submit', urlencodedParser, function (req, res) {
     connection.connect(function (err) {
         if (err) throw err;
