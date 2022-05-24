@@ -184,6 +184,7 @@ html {
 #overlay.active {
     opacity: 1;
     pointer-events: all;
+    left: 25%;
 
 }
 

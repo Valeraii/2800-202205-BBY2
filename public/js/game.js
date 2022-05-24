@@ -1,8 +1,12 @@
 var arrayTest2 = [];
+var findBonus = [];
 var boardArray = [];
 var usersWord = [];
-var bonusArr = ["tripleLetter", "doubleLetter", "tripleWord", "doubleWord"]
+var bonusArr = ["tripleLetter", "doubleLetter"]
 var blankTile = {letter: "?", score: 1, count: 1};
+var bonusIndex = 0;
+var bonus = "";
+var bonusLetter = "";
 
 function show() {
     if(document.getElementById("easter-bttn").style.visibility = "hidden") {
@@ -215,41 +219,45 @@ $(function () {
         var selectedTile = tileBag.find(function (tile1) {
             return tile1.letter === selectedLetter;
         });
-        return selectedTile.score;
+        if(bonus === "doubleLetter" && selectedLetter === bonusLetter) {
+            return selectedTile.score * 2;
+        }
+        if(bonus === "tripleLetter" && selectedLetter === bonusLetter) {
+            return selectedTile.score * 3;
+        }  
+        return selectedTile.score;   
     }
-
-    // var playerScore = function (array) {
-    //     var totalScore = 0;
-    //     for (let i = 0; i < array.length; i++) {
-    //         let letterChar = arrayTest[i];
-    //         let charScore = letterValue(letterChar);
-    //         totalScore += charScore;
-    //     }
-    //     return totalScore;
-    // }
 
     var playerScore = function(arr) {
-        console.log("here");
         var totalScore = 0;
+        bonusLetter = arrayTest2[bonusIndex - 1].toUpperCase();
+        console.log("bonusLetter: " + bonusLetter);
+
         for (let i = 0; i < arr.length; i++) {
-          let j = 0;
-          while(j < arr[i].length) {
-            let letterChar = arr[i].charAt(j).toUpperCase();
-            let charScore = letterValue(letterChar);
-            totalScore += charScore;
-            j++
-          }
+            let j = 0;
+            while(j < arr[i].length) {
+                let letterChar = arr[i].charAt(j).toUpperCase();
+                let charScore = letterValue(letterChar);
+                console.log("charScore " + charScore)
+                totalScore += charScore;
+                j++;    
+            }
         }
-        document.getElementById('scoreCount').innerHTML = "Score " + totalScore
-    }
+        document.getElementById('scoreCount').innerHTML = "Score " + totalScore;
+        document.getElementById('word-score').innerHTML = totalScore;
+                    
+    } 
 
     var bonusTile = function() {
         $('.tile').each(function (index) {
             boardArray.push($(this));
         })
         randomTile(boardArray).addClass('bonus');
-        var bonus = randomTile(bonusArr);
-        localStorage.setItem('dailyBonus', bonus);
+        bonus = randomTile(bonusArr);
+
+        console.log("bonus: " + bonus);
+        
+        //localStorage.setItem('dailyBonus', bonus);
         if(bonus === "doubleWord") {
             $('.bonus').text("Double Word Score");
         }
@@ -262,6 +270,17 @@ $(function () {
         if(bonus === "tripleWord") {
             $('.bonus').text("Triple Word Score");
         }
+
+        $('.tile').each(function (index) {
+            if($(this).hasClass('bonus')) {
+                findBonus.push($(this).text());
+                bonusIndex = findBonus.length;
+            } else {
+                findBonus.push($(this).text());
+            }
+        })
+        console.log("findBonus: " + findBonus + "length: " + findBonus.length);
+        console.log("bonusIndex: " + bonusIndex);
     }
 
     function randomTile(items) {
@@ -279,9 +298,14 @@ $(function () {
     
     let submitWord = function () {
         $('.tile').each(function (index) {
-            arrayTest2.push($(this).text());
+            if($(this).text().length > 2) {
+                arrayTest2.push("");
+            } else {
+                arrayTest2.push($(this).text());
+            }
         })
-        console.log(arrayTest2);
+        console.log("arrayTest2: " + arrayTest2);
+
         let blackList = [];
         var verticleArray = [];
         let horizontalArray = [];
@@ -309,8 +333,9 @@ $(function () {
             }
         }
 
-        // Get Horizontal Words
+        console.log("vertical: " + verticleArray);
 
+        // Get Horizontal Words
         for (let rows = 0; rows < chunkThisArray.length; rows++) {
             let allSpaces = getAllIndexes(chunkThisArray[rows], "");
             let middleSpaces = chunkThisArray[rows].indexOf("");
@@ -337,6 +362,8 @@ $(function () {
             }
         }
 
+        console.log("horizontal: " + horizontalArray);
+        
         let tempCombWords = verticleArray.concat(horizontalArray);
 
         // Loop for combined array to test for words and transfer to a new array
@@ -350,7 +377,7 @@ $(function () {
             })
         }
 
-        console.log(usersWord);
+        console.log("userWord: " + usersWord);
         playerScore(usersWord);
 
         $('.tempInPlay').addClass('permInPlay');
@@ -359,7 +386,11 @@ $(function () {
 
     $('.backToRack').click(returnToRack);
     $('.start').click(startGame);
-    $('.submitWord').click(submitWord);
+
+    $(".submitWord").on("click", function() {
+        submitWord();
+        $(".stats-overlay, .popup-content").addClass("active");
+    });
     startingProcedure();
     
 });
