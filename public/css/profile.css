@@ -198,7 +198,9 @@ body.dark {
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
-
+.playerOneTilesRow{
+  color: #000;
+}
 .btn-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

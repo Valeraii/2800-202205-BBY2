@@ -170,7 +170,28 @@ html {
 .modal-body {
     padding: 10px 15px;
 }
-
+.text-style{
+    text-align:unset;
+    margin: 0px auto;
+    color: rgb(45, 42, 42);
+    top: 50%;
+    font-weight:600;
+    text-shadow: -1px -1px 0px rgb(67, 65, 65)
+  }
+  .text-style0{
+      color: rgb(45, 42, 42);
+      font-weight:600;
+      text-shadow: -1px -1px 0px rgb(67, 65, 65) 
+  }
+  .text-style1{
+      text-align:unset;
+    margin: 0px auto;
+    color: rgb(45, 42, 42);
+    top: 50%;
+    font-weight:600;
+    text-shadow: -0.5px -0.5px 0px rgb(67, 65, 65) 
+  }
+  
 #overlay {
     position: fixed;
     opacity: 0;
@@ -196,6 +217,12 @@ html {
     width: 50%;
     height: 75px;
     width: 75px;
+    border-style: solid;
+    border: 3px solid #aaa
+}
+#users{
+    display: flex;
+    justify-content:space-evenly;
 }
 
 @media (max-width: 700px) {
