@@ -209,7 +209,7 @@ app.get('/get-timeline', function (req, res) {
       database: 'COMP2800'
     });
     connection.connect();
-    connection.query('SELECT * FROM bby_2_score', function (error, results, fields) {
+    connection.query('SELECT * FROM bby_2_timeline', function (error, results, fields) {
         if (error) {
            
         }
@@ -258,6 +258,7 @@ app.get('/get-one-user', function (req, res) {
     connection.end();
 });
 
+
 app.post('/add-timeline', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
 
@@ -269,8 +270,8 @@ app.post('/add-timeline', function (req, res) {
     });
     connection.connect();
     console.log(req.body.userID, req.body.caption);
-    connection.query('INSERT INTO bby_2_score (userID, scoreValue, caption, playdate, playtime, playimage) values (?, ?, ?, CURDATE(), CURTIME(), ?)',
-          [req.body.userID, req.body.scoreValue, req.body.caption, req.body.playimage],
+    connection.query('INSERT INTO bby_2_timeline (userID, caption, playdate, playtime, playimage) values (?, ?, CURDATE(), CURTIME(), ?)',
+          [req.body.userID, req.body.caption, req.body.playimage],
           function (error, results, fields) {
       if (error) {
           console.log(error);
@@ -416,9 +417,9 @@ app.post('/update-timeline-caption', function (req, res) {
       database: 'comp2800'
     });
     connection.connect();
-    console.log("update values", req.body.caption, req.body.scoreID)
-    connection.query('UPDATE bby_2_score SET caption = ? WHERE scoreID = ?',
-          [req.body.caption, req.body.scoreID],
+    console.log("update values", req.body.caption, req.body.timelineID)
+    connection.query('UPDATE bby_2_timeline SET caption = ? WHERE timelineID = ?',
+          [req.body.caption, req.body.timelineID],
           function (error, results, fields) {
       if (error) {
         console.log(error);
@@ -458,8 +459,8 @@ app.post('/delete-post', function (req, res) {
     });
     connection.connect();
     console.log(req.body.scoreID);
-    connection.query('DELETE FROM bby_2_score WHERE scoreID = ?',
-          [req.body.scoreID],
+    connection.query('DELETE FROM bby_2_timeline WHERE timelineID = ?',
+          [req.body.timelineID],
           function (error, results, fields) {
       if (error) {
        

@@ -11,8 +11,8 @@ function getTimeline() {
                     let card = document.createElement("section");
                     card.setAttribute("class", "notification-section");
                     let cardText2 = document.createElement("span");
-                    cardText2.setAttribute("id", "scoreID");
-                    cardText2.innerHTML = row.scoreID;
+                    cardText2.setAttribute("id", "timelineID");
+                    cardText2.innerHTML = row.timelineID;
 
                     let photo = document.createElement("img");
                     photo.setAttribute("src", "/img/timelineImages/" + row.playimage + ".jpg");
@@ -56,7 +56,7 @@ function getTimeline() {
                     cardText1.setAttribute("type", "button");
                     cardText1.innerHTML = "delete";
                     cardText1.setAttribute("onclick", "removePost(this.id)");
-                    cardText1.setAttribute("id", row.scoreID);
+                    cardText1.setAttribute("id", row.timelineID);
                   
                     document.getElementById("timeline-cards").appendChild(card);
                     card.appendChild(cardText2);
@@ -105,7 +105,7 @@ function editCaption(e) {
             newSpan.innerHTML = v;
             parent.innerHTML = "";
             parent.appendChild(newSpan);
-            let dataToSend = {scoreID: document.getElementById("scoreID").innerHTML,
+            let dataToSend = {timelineID: document.getElementById("timelineID").innerHTML,
                               caption: v};         
             const xhr = new XMLHttpRequest();
             xhr.onload = function () {
@@ -122,7 +122,7 @@ function editCaption(e) {
             xhr.open("POST", "/update-timeline-caption");
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send("scoreID=" + dataToSend.scoreID + "&caption=" + dataToSend.caption);
+            xhr.send("timelineID=" + dataToSend.timelineID + "&caption=" + dataToSend.caption);
         }
     });
     parent.innerHTML = "";
@@ -154,7 +154,7 @@ document.getElementById("submit").addEventListener("click", function(e) {
 
     let formData = {playimage: time,
                     userID: document.getElementById("avatar-id").innerHTML,
-                    scoreID: document.getElementById("scoreID").innerHTML,
+                    timelineID: document.getElementById("timelineID").innerHTML,
                     caption: document.getElementById("caption").value};
     document.getElementById("caption").value = "";
 
@@ -175,7 +175,7 @@ document.getElementById("submit").addEventListener("click", function(e) {
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
-    xhr.send("caption=" + formData.caption + "&scoreID=" + formData.scoreID + "&userID=" + formData.userID + "&playimage=" + formData.playimage);
+    xhr.send("caption=" + formData.caption + "&timelineID=" + formData.timelineID + "&userID=" + formData.userID + "&playimage=" + formData.playimage);
 })
 
 function removePost(clicked_id) {
@@ -196,6 +196,6 @@ function removePost(clicked_id) {
     xhr.open("POST", "/delete-post");
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send("scoreID=" + clicked_id);
+    xhr.send("timelineID=" + clicked_id);
 }
 

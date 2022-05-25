@@ -20,6 +20,7 @@ function getOneUser() {
                         + "</span></td><td class='email'><span>" + row.email
                         + "</span></td><td class='pass'><span>" + row.pass
                         + "</span></td></tr>");
+                    document.getElementById("profilePicture").src = "img/userImages/" + row.userID + "id.jpg";
                 }
                     document.getElementById("users").innerHTML = str;
 
@@ -241,4 +242,8 @@ fetch("/upload-images", options
 ).then(function(res) {
 }).catch(function(err) {("Error:", err)}
 );
+}
+
+function imgError() {
+    document.getElementById("profilePicture").src = "img/userImages/dp.jpg";
 }

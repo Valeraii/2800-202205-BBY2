@@ -46,7 +46,7 @@
                                         <button data-close-button class="close-button">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="text-style">
+                                        <div class="text-style1">
                                             <ul>
                                                 <li>Draw Letters (number of letters you get depends on difficulty</li>
                                                 <li>Combine letters to form a word and place it on the board</li>
@@ -126,8 +126,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="text-style1">
-                                            <img src="img/userImages/userProfile.jpg" id="profilePicture"
-                                                alt="profilePic">
+                                            <img id = "profilePicture" alt="profilePic" onerror="imgError()">
                                             <div id="container">
                                                 <form id="upload-images-form">
                                                     <input id="image-upload" type="file"
@@ -242,9 +241,19 @@
                 <p>Highest Score: <span id="highScore"></span></p>
                 <p>Days Played: <span id="daysPlayed"></span></p>
                 <p>Today's Score: <span id="word-score"></span></p>
-                <p>Valid Word: <span id="correct-word"></span></p>
-                <p>Invalid Word: <span id="incorrect-word"></span></p>
             </div>
+            <br>
+            <button class="playAgain" id="btn-playAgain">Play Again</button>
+        </div>
+    </div>
+
+    <div class="error-overlay">
+        <div class="error-popup-content">
+            <div id="incorrect-word"></div>
+            <button class="close" id="btn-close">Close</button>
+        </div>
+    </div>
+
     <div id="hidden_msg">
         <p>A massive thank you to each one of you from the developer team WordJam! </p>
     </div>
@@ -253,7 +262,6 @@
         <button class="backToRack" id="btn-restart">Back to Rack</button>
         <button class="submitWord" id="btn-submit">Submit WordJam</button>
     </div>
-
 
     <footer class="site-footer">
         <div class="container-footer">

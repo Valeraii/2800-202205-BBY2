@@ -413,65 +413,47 @@ $(function () {
         
         let tempCombWords = verticleArray.concat(horizontalArray);
 
-        // let tempCombWords = [];
-
-        // tempCombWords.push("this");
-        // tempCombWords.push("qwez");
-        // tempCombWords.push("asdqwez");
-        // tempCombWords.push("hello");
-
-
         // Loop for combined array to test for words and transfer to a new array
         for (let index = 0; index < tempCombWords.length; index++) {
             let testForTrue = await (wordsValidation(tempCombWords[index].toLowerCase()));
             if (testForTrue) {
                 usersWord.push(tempCombWords[index]);
+                $(".stats-overlay, .popup-content").addClass("active");
             } else {
                 invalidWord.push(tempCombWords[index]);
+                $(".error-overlay, .error-popup-content").addClass("active");
+                returnToRack();
             }
         }
+        playerScore(usersWord);
 
-        // Add text to stats page for valid words
-        let validContent = document.getElementById("correct-word")
-        validContent.innerHTML = "";
-        if(usersWord.length >0) {
-            let index = 0;
-            while( index < usersWord.length) {
-                let number = index + 1
-                validContent.innerHTML += " [" + number + "] " + usersWord[index];
-                index++
-                
-            }
-            
-        }
-
-
+        
         // Add text to stats page for invalid words
         let errorContent = document.getElementById("incorrect-word")
         errorContent.innerHTML = "";
         if(invalidWord.length > 0) {
-            
             let index = 0;
             while (index < invalidWord.length) {
                 let number = index + 1
-                errorContent.innerHTML += " [" + number + "] " + invalidWord[index];
+                errorContent.innerHTML += " [" + number + "] " + invalidWord[index] + " is not a word! <br>";
                 index++
             }
         }
-        
-        console.log("usersWord: " + usersWord);
         console.log("invalidWord: " + invalidWord);
+
+        /*
         let userCurrentScore = playerScore(usersWord);
         if (userCurrentScore > player.score) {
             player.score = userCurrentScore;
         }
         console.log(userCurrentScore);
-        // document.getElementById('scoreCount').innerHTML = "Score " + player.score
+        */
+    
+       
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
         arrayTest2 = [];
         usersWord = [];
-        returnToRack();
     }
 
     $('.backToRack').click(returnToRack);
@@ -479,10 +461,14 @@ $(function () {
 
     $(".submitWord").on("click", function() {
         submitWord();
-        $(".stats-overlay, .popup-content").addClass("active");
     });
 
-    $(".close-btn").on("click", function() {
+    $(".close, .error-overlay").on("click", function() {
+        $(".error-overlay, .error-popup-content").removeClass("active");
+    });
+
+    $('.playAgain').on("click", function() {
+        returnToRack();
         $(".stats-overlay, .popup-content").removeClass("active");
     })
     startingProcedure();
