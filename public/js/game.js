@@ -42,7 +42,7 @@ function getDaysPlayed() {
             if (xhr.status === 200) {
               let data = JSON.parse(this.responseText);
               if(data.status == "success") {
-                let count = data.rows.length;
+                let count = data.rows.length + 1;
                 document.getElementById("daysPlayed").innerHTML = count;
               }
             }
@@ -277,7 +277,6 @@ $(function () {
     var playerScore = function(arr) {
         bonusLetter = arrayTest2[bonusIndex - 1].toUpperCase();
         console.log("bonusLetter: " + bonusLetter);
-
         for (let i = 0; i < arr.length; i++) {
             let j = 0;
             while(j < arr[i].length) {
@@ -454,6 +453,8 @@ $(function () {
         $('.tempInPlay').removeClass('tempInPlay');
         arrayTest2 = [];
         usersWord = [];
+
+        addScore();
     }
 
     function addScore() {
@@ -470,11 +471,7 @@ $(function () {
 
     $(".submitWord").on("click", function() {
         submitWord();
-<<<<<<< HEAD
-=======
-        addScore();
         $(".stats-overlay, .popup-content").addClass("active");
->>>>>>> feature/ramsay_elhalhuli_DB_updates
     });
 
     $(".close, .error-overlay").on("click", function() {
