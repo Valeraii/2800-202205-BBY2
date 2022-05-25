@@ -481,7 +481,7 @@ body.dark {
 
 .bonus {
   background-color: lightblue;
-  font-size: 11pt;
+  font-size: 22pt;
   text-align: center;
 }
 
@@ -551,7 +551,7 @@ body.dark {
 
   .bonus {
     background-color: lightblue;
-    font-size: 9pt;
+    font-size: 22pt;
     text-align: center;
   }
 }

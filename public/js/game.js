@@ -187,7 +187,7 @@ $(function () {
 
     var loadRack = function (player) {
         player.rack.push(blankTile);
-        for (i = player.rack.length; i < 8; i++) {
+        for (i = player.rack.length; i < 15; i++) {
             if (shuffledBag.length > 0) {
                 player.rack.push(shuffledBag[0]);
                 shuffledBag.shift();
@@ -207,16 +207,16 @@ $(function () {
         $('.permInPlay').text("");
         $('.bonusTile').text("");
         if(lastBonus === "doubleWord") {
-            $('.bonus').text("Double Word Score");
+            $('.bonus').text("DW");
         }
         if(lastBonus === "tripleLetter") {
-            $('.bonus').text("Triple Letter Score");
+            $('.bonus').text("TL");
         }
         if(lastBonus === "doubleLetter") {
-            $('.bonus').text("Double Letter Score");
+            $('.bonus').text("DL");
         }
         if(lastBonus === "tripleWord") {
-            $('.bonus').text("Triple Word Score");
+            $('.bonus').text("TW");
         }
 
         $('.tempInPlay').removeClass('tempInPlay');
@@ -303,16 +303,16 @@ $(function () {
         
         //localStorage.setItem('dailyBonus', bonus);
         if(bonus === "doubleWord") {
-            $('.bonus').text("Double Word Score");
+            $('.bonus').text("DW");
         }
         if(bonus === "tripleLetter") {
-            $('.bonus').text("Triple Letter Score");
+            $('.bonus').text("TL");
         }
         if(bonus === "doubleLetter") {
-            $('.bonus').text("Double Letter Score");
+            $('.bonus').text("DL");
         }
         if(bonus === "tripleWord") {
-            $('.bonus').text("Triple Word Score");
+            $('.bonus').text("TW");
         }
 
         $('.tile').each(function (index) {
@@ -480,6 +480,7 @@ $(function () {
 
     $('.playAgain').on("click", function() {
         returnToRack();
+        totalScore = 0;
         $(".stats-overlay, .popup-content").removeClass("active");
     })
     startingProcedure();
