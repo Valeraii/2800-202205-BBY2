@@ -31,6 +31,7 @@ CREATE TABLE `bby_2_score` (
   `scoreID` int(11) NOT NULL,
   `userID` int(11) DEFAULT NULL,
   `scoreValue` int(11) DEFAULT NULL
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -46,15 +47,33 @@ CREATE TABLE `bby_2_timeline` (
   `playdate` date DEFAULT NULL,
   `playtime` time DEFAULT NULL,
   `playimage` varchar(20) DEFAULT NULL
+=======
+>>>>>>> feature/ramsay_elhalhuli_DB_updates
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
+<<<<<<< HEAD
 -- Dumping data for table `bby_2_timeline`
 --
 
 INSERT INTO `bby_2_timeline` (`timelineID`, `userID`, `caption`, `playdate`, `playtime`, `playimage`) VALUES
 (1, '2','New highscore!', '2022-05-25', '11:02:05', "dog");
 
+=======
+-- Table structure for table `bby_2_timeline`
+--
+
+CREATE TABLE `bby_2_timeline` (
+  `timelineID` int(11) NOT NULL,
+  `userID` int(11) DEFAULT NULL,
+  `caption` varchar(100) DEFAULT NULL,
+  `playdate` date DEFAULT NULL,
+  `playtime` time DEFAULT NULL,
+  `playimage` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+>>>>>>> feature/ramsay_elhalhuli_DB_updates
 
 -- --------------------------------------------------------
 

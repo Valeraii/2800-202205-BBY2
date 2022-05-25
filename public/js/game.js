@@ -7,6 +7,7 @@ var blankTile = {letter: "?", score: 1, count: 1};
 var bonusIndex = 0;
 var bonus = "";
 var bonusLetter = "";
+var totalScore = 0;
 
 function getHighScore() {
     const xhr = new XMLHttpRequest();
@@ -274,7 +275,6 @@ $(function () {
     }
 
     var playerScore = function(arr) {
-        var totalScore = 0;
         bonusLetter = arrayTest2[bonusIndex - 1].toUpperCase();
         console.log("bonusLetter: " + bonusLetter);
 
@@ -456,11 +456,25 @@ $(function () {
         usersWord = [];
     }
 
+    function addScore() {
+        let thisID = {userID: document.getElementById("userID").innerHTML};
+            const xhr = new XMLHttpRequest();
+                xhr.open("POST", "/add-score");
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send("userID=" + thisID.userID + "&scoreValue=" + totalScore);
+    }
+
     $('.backToRack').click(returnToRack);
     $('.start').click(startGame);
 
     $(".submitWord").on("click", function() {
         submitWord();
+<<<<<<< HEAD
+=======
+        addScore();
+        $(".stats-overlay, .popup-content").addClass("active");
+>>>>>>> feature/ramsay_elhalhuli_DB_updates
     });
 
     $(".close, .error-overlay").on("click", function() {
@@ -474,10 +488,3 @@ $(function () {
     startingProcedure();
     
 });
-
-
-
-
-
-
-
