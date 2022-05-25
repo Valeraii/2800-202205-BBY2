@@ -8,6 +8,50 @@ var bonusIndex = 0;
 var bonus = "";
 var bonusLetter = "";
 
+function getHighScore() {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              let data = JSON.parse(this.responseText);
+              if(data.status == "success") {
+                let check = 0;
+                let str = 0;
+                for (let i = 0; i < data.rows.length; i++) {
+                    let row = data.rows[i];
+                    check = row.scoreValue;
+                    if(check > str){
+                        str = check;
+                    }
+                }
+                document.getElementById("highScore").innerHTML = str;
+              }
+            }
+        }
+    }
+    xhr.open("GET", "/getHighScore");
+    xhr.send();
+}
+getHighScore();
+
+function getDaysPlayed() {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              let data = JSON.parse(this.responseText);
+              if(data.status == "success") {
+                let count = data.rows.length;
+                document.getElementById("daysPlayed").innerHTML = count;
+              }
+            }
+        }
+    }
+    xhr.open("GET", "/getDaysPlayed");
+    xhr.send();
+}
+getDaysPlayed();
+
 function show() {
     if(document.getElementById("easter-bttn").style.visibility = "hidden") {
         document.getElementById("easter-bttn").style.visibility = "visible"
@@ -245,7 +289,7 @@ $(function () {
         }
         document.getElementById('scoreCount').innerHTML = "Score " + totalScore;
         document.getElementById('word-score').innerHTML = totalScore;
-                    
+        document.getElementById('stat-score').innerHTML = totalScore;
     } 
 
     var bonusTile = function() {

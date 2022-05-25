@@ -38,6 +38,40 @@ app.use(session(
     })
 );
 
+app.get('/getHighScore', function(req, res) {
+     let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'COMP2800'
+    });
+    connection.connect();
+    connection.query('SELECT scoreValue FROM bby_2_score WHERE userID = ?',
+    [req.session.userID],
+    function (error, results, fields) {
+        if (error) {}
+        res.send({ status: "success", rows: results });
+    });
+    connection.end();
+})
+
+app.get('/getDaysPlayed', function(req, res) {
+    let connection = mysql.createConnection({
+     host: 'localhost',
+     user: 'root',
+     password: '',
+     database: 'COMP2800'
+   });
+   connection.connect();
+   connection.query('SELECT * FROM bby_2_score WHERE userID = ?',
+   [req.session.userID],
+   function (error, results, fields) {
+       if (error) {}
+       res.send({ status: "success", rows: results });
+   });
+   connection.end();
+})
+
 app.get("/", function (req, res) {
 
     if (req.session.loggedIn) {
@@ -393,29 +427,6 @@ app.post('/update-timeline-caption', function (req, res) {
     });
     connection.end();
 });
-
-/*
-app.post('/update-timeline-date', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-
-    let connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'comp2800'
-    });
-    connection.connect();
-    console.log("update values", req.body.scoreDate, req.body.userID)
-    connection.query('UPDATE bby_2_scores SET scoreDate = ? WHERE userID = ?',
-          [req.body.scoreDate, req.body.userID],
-          function (error, results, fields) {
-      if (error) {
-        console.log(error);
-      }
-      res.send({ status: "success", msg: "Recorded updated." });
-    });
-    connection.end();
-}); */
 
 app.post('/delete-user', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

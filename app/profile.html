@@ -55,7 +55,7 @@
                         <div class="timeline-link">
                             <a class="icon" href="html/timelinev2.html"><span class="material-symbols-outlined">view_timeline</span>Timeline</a>
                         </div>
-                        <p id="sharetext" class="offscreen" aria-hidden="true">My WordJam Score Today was 9000!<br>https://boiling-sea-13536.herokuapp.com/login</p>
+                        <p id="sharetext" class="offscreen" aria-hidden="true">My WordJam Score Today was <span id="stat-score"></span>!<br>https://wordjambby2.herokuapp.com/</p>
                         <br>
                         <div class="score">
                             <button class="icon" data-modal-target="#modal-score"><span class="material-symbols-outlined">scoreboard</span>Scoring</button>
@@ -202,9 +202,9 @@
         <div class="popup-content">
             <h1>Statistics</h1>
             <button id="share" onclick="copyToClipboard('#sharetext')" class="icon"><span class="material-symbols-outlined"> share</span></button>
-            <p>Highest Score: </p>
-            <p>Days Played: </p>
-            <p>Recent Score: <span id="word-score"></span></p>
+            <p>Highest Score: <span id="highScore"></span></p>
+            <p>Days Played: <span id="daysPlayed"></span></p>
+            <p>Today's Score: <span id="word-score"></span></p>
         </div>      
     </div>
 
