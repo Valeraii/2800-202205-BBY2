@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2022 at 06:38 PM
+-- Generation Time: May 25, 2022 at 07:40 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -30,20 +30,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `bby_2_score` (
   `scoreID` int(11) NOT NULL,
   `userID` int(11) DEFAULT NULL,
-  `scoreValue` int(11) DEFAULT NULL,
+  `scoreValue` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bby_2_timeline`
+--
+
+CREATE TABLE `bby_2_timeline` (
+  `timelineID` int(11) NOT NULL,
+  `userID` int(11) DEFAULT NULL,
   `caption` varchar(100) DEFAULT NULL,
-  `playdate` date NOT NULL,
+  `playdate` date DEFAULT NULL,
   `playtime` time DEFAULT NULL,
   `playimage` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `bby_2_user`
---
-
-INSERT INTO `bby_2_score` (`scoreID`, `userID`, `scoreValue`, `caption`, `playdate`, `playtime`, `playimage`) VALUES
-(1, 2, 40, 'Beat my highscore!', '2022-05-18', '22:16:43', 'dog');
-
 
 -- --------------------------------------------------------
 
@@ -80,6 +83,13 @@ ALTER TABLE `bby_2_score`
   ADD KEY `userID` (`userID`);
 
 --
+-- Indexes for table `bby_2_timeline`
+--
+ALTER TABLE `bby_2_timeline`
+  ADD PRIMARY KEY (`timelineID`),
+  ADD KEY `userID` (`userID`);
+
+--
 -- Indexes for table `bby_2_user`
 --
 ALTER TABLE `bby_2_user`
@@ -90,16 +100,22 @@ ALTER TABLE `bby_2_user`
 --
 
 --
+-- AUTO_INCREMENT for table `bby_2_score`
+--
+ALTER TABLE `bby_2_score`
+  MODIFY `scoreID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bby_2_timeline`
+--
+ALTER TABLE `bby_2_timeline`
+  MODIFY `timelineID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `bby_2_user`
 --
 ALTER TABLE `bby_2_user`
   MODIFY `userID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
-  --
--- AUTO_INCREMENT for table `bby_2_score`
---
-ALTER TABLE `bby_2_score`
-  MODIFY `scoreID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -110,6 +126,12 @@ ALTER TABLE `bby_2_score`
 --
 ALTER TABLE `bby_2_score`
   ADD CONSTRAINT `bby_2_score_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `bby_2_user` (`userID`);
+
+--
+-- Constraints for table `bby_2_timeline`
+--
+ALTER TABLE `bby_2_timeline`
+  ADD CONSTRAINT `bby_2_timeline_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `bby_2_user` (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
