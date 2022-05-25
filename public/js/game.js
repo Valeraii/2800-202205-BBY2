@@ -342,7 +342,7 @@ $(function () {
     
     async function submitWord() {
         $('.tile').each(function (index) {
-            if($(this).text().length > 2) {
+            if($(this).text().length > 1) {
                 arrayTest2.push("");
             } else {
                 arrayTest2.push($(this).text());
