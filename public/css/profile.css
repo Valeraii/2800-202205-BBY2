@@ -1,7 +1,7 @@
-body {   
-  font-family: 'Roboto Condensed', sans-serif;  
-  background-color: beige;  
-  height:auto;
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  background-color: beige;
+  height: auto;
   --accent-color: #ff4500;
   --background-color: beige;
   --text-color: black;
@@ -41,12 +41,12 @@ body {
   visibility: visible;
 }
 
-.easter-container{
+.easter-container {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  margin:0;
+  margin: 0;
 }
 
 body.dark {
@@ -94,13 +94,14 @@ body.dark {
   width: 224px;
 }
 
-.playerOneTilesRow{
+.playerOneTilesRow {
   width: 300px;
 }
 
 .container {
   background-color: beige;
 }
+
 .title {
   margin: 0;
   margin-bottom: .5rem;
@@ -110,7 +111,7 @@ body.dark {
   background-color: var(--accent-color);
   color: var(--button-text-color);
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   cursor: pointer;
   padding: .2rem 1rem;
@@ -171,7 +172,7 @@ body.dark {
   opacity: 12;
 }
 
-#easter-bttn{
+#easter-bttn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -199,11 +200,15 @@ body.dark {
   margin-top: 1rem;
 }
 
+.playerOneTilesRow {
+  color: #000;
+}
+
 .btn-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   height: 10vh;
-  margin-bottom:2rem;
+  margin-bottom: 2rem;
 }
 
 #btn-draw-tiles {
@@ -226,7 +231,7 @@ body.dark {
   text-align: center;
   display: none;
   margin: 40px 40px;
-  width:10rem;
+  width: 10rem;
   grid-column: 1/3;
 }
 
@@ -239,7 +244,7 @@ body.dark {
   text-align: center;
   margin: 40px 40px;
   display: none;
-  width:10rem;
+  width: 10rem;
   grid-column: 3/3;
 }
 
@@ -250,7 +255,7 @@ body.dark {
 
 .permInPlay,
 .tempInPlay {
-  color:black;
+  color: black;
 }
 
 .menu {
@@ -277,8 +282,8 @@ body.dark {
   padding: 0.7rem;
 }
 
-.menu .nav-container a:hover{
-    font-weight: bolder;
+.menu .nav-container a:hover {
+  font-weight: bolder;
 }
 
 .nav-container {
@@ -336,8 +341,8 @@ body.dark {
 }
 
 #profile_name {
-    padding-top: 2rem;
-    text-align: center;
+  padding-top: 2rem;
+  text-align: center;
 }
 
 #scoreCount-container {
@@ -370,7 +375,7 @@ body.dark {
   padding: .25em;
 }
 
-.menu .menu-items .stats{
+.menu .menu-items .stats {
   text-align: left;
   font-size: 12pt;
   padding: .25em;
@@ -400,23 +405,23 @@ body.dark {
   padding: .25em;
 }
 
-.nav-container input[type="checkbox"]:checked ~ .menu-items {
+.nav-container input[type="checkbox"]:checked~.menu-items {
   transform: translateX(0);
 }
 
-.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line1 {
+.nav-container input[type="checkbox"]:checked~.hamburger-lines .line1 {
   transform: rotate(45deg);
 }
 
-.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line2 {
+.nav-container input[type="checkbox"]:checked~.hamburger-lines .line2 {
   transform: scaleY(0);
 }
 
-.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line3 {
+.nav-container input[type="checkbox"]:checked~.hamburger-lines .line3 {
   transform: rotate(-45deg);
 }
 
-.nav-container input[type="checkbox"]:checked ~ .logo{
+.nav-container input[type="checkbox"]:checked~.logo {
   display: none;
 }
 
@@ -438,47 +443,47 @@ body.dark {
     padding-left: 50px;
     transition: transform 0.5s ease-in-out;
     text-align: center;
-    margin-left:1rem;
+    margin-left: 1rem;
   }
 
   .menu .menu-items .help {
     text-align: left;
-    margin-left:-55px;
-   
+    margin-left: -55px;
+
   }
 
   .menu .menu-items .timeline-link {
     text-align: left;
-    margin-left:-65px;
+    margin-left: -65px;
   }
 
   .menu .menu-items .btn-logout {
     text-align: left;
-    margin-left:-65px;
+    margin-left: -65px;
   }
-  
+
 
   .menu .menu-items .score {
     text-align: left;
-    margin-left:-55px;
+    margin-left: -55px;
   }
 
   .menu .menu-items .settings {
     text-align: left;
-    margin-left:-55px;
-    
+    margin-left: -55px;
+
   }
 
   .menu .menu-items .icon {
     text-align: left;
- 
+
   }
-  
-  .menu .menu-items .stats{
+
+  .menu .menu-items .stats {
     text-align: left;
-    margin-left:-55px;
+    margin-left: -55px;
   }
-  
+
 
   .container-login {
     display: grid;
