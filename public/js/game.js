@@ -97,20 +97,21 @@ function getAllIndexes(arr, val) {
     return indexes;
 }
 
-function wordsValidation (wordInput) {
+async function wordsValidation (wordInput) {
     let booleanCheck;
-    return fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + wordInput)
-    .then(response => {return response.json()})
-    .then(json => {
-            if (json.title == "No Definitions Found") {
-                console.log(json.title)
-                booleanCheck = false;
-            } else {
-                booleanCheck = true;
-            }
-            return booleanCheck;
-        })
-        .catch(err => console.log(err))
+    try {
+        const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + wordInput);
+        const json = await response.json();
+        if (json.title == "No Definitions Found") {
+            console.log(json.title);
+            booleanCheck = false;
+        } else {
+            booleanCheck = true;
+        }
+        return booleanCheck;
+    } catch (err) {
+        return console.log(err);
+    }
 }
 
 $(function () {
@@ -340,7 +341,7 @@ $(function () {
         bonusTile();
     }
     
-    let submitWord = function () {
+    async function submitWord() {
         $('.tile').each(function (index) {
             if($(this).text().length > 2) {
                 arrayTest2.push("");
@@ -350,6 +351,8 @@ $(function () {
         })
         console.log("arrayTest2: " + arrayTest2);
 
+        var usersWord = [];
+        var invalidWord = [];
         let blackList = [];
         var verticleArray = [];
         let horizontalArray = [];
@@ -410,22 +413,65 @@ $(function () {
         
         let tempCombWords = verticleArray.concat(horizontalArray);
 
+        // let tempCombWords = [];
+
+        // tempCombWords.push("this");
+        // tempCombWords.push("qwez");
+        // tempCombWords.push("asdqwez");
+        // tempCombWords.push("hello");
+
+
         // Loop for combined array to test for words and transfer to a new array
         for (let index = 0; index < tempCombWords.length; index++) {
-            let testForTrue = (wordsValidation(tempCombWords[index].toLowerCase()));
-            testForTrue.then(results => {
-                console.log(results);
-                if (results == true) {
-                    usersWord.push(tempCombWords[index]);
-                }
-            })
+            let testForTrue = await (wordsValidation(tempCombWords[index].toLowerCase()));
+            if (testForTrue) {
+                usersWord.push(tempCombWords[index]);
+            } else {
+                invalidWord.push(tempCombWords[index]);
+            }
         }
 
-        console.log("userWord: " + usersWord);
-        playerScore(usersWord);
+        // Add text to stats page for valid words
+        let validContent = document.getElementById("correct-word")
+        validContent.innerHTML = "";
+        if(usersWord.length >0) {
+            let index = 0;
+            while( index < usersWord.length) {
+                let number = index + 1
+                validContent.innerHTML += " [" + number + "] " + usersWord[index];
+                index++
+                
+            }
+            
+        }
 
+
+        // Add text to stats page for invalid words
+        let errorContent = document.getElementById("incorrect-word")
+        errorContent.innerHTML = "";
+        if(invalidWord.length > 0) {
+            
+            let index = 0;
+            while (index < invalidWord.length) {
+                let number = index + 1
+                errorContent.innerHTML += " [" + number + "] " + invalidWord[index];
+                index++
+            }
+        }
+        
+        console.log("usersWord: " + usersWord);
+        console.log("invalidWord: " + invalidWord);
+        let userCurrentScore = playerScore(usersWord);
+        if (userCurrentScore > player.score) {
+            player.score = userCurrentScore;
+        }
+        console.log(userCurrentScore);
+        // document.getElementById('scoreCount').innerHTML = "Score " + player.score
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
+        arrayTest2 = [];
+        usersWord = [];
+        returnToRack();
     }
 
     $('.backToRack').click(returnToRack);
@@ -435,6 +481,10 @@ $(function () {
         submitWord();
         $(".stats-overlay, .popup-content").addClass("active");
     });
+
+    $(".close-btn").on("click", function() {
+        $(".stats-overlay, .popup-content").removeClass("active");
+    })
     startingProcedure();
     
 });
