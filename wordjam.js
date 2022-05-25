@@ -211,7 +211,11 @@ app.get('/get-timeline', function (req, res) {
       database: 'COMP2800'
     });
     connection.connect();
-    connection.query('SELECT * FROM bby_2_timeline WHERE userID = ?', function (error, results, fields) {
+    connection.query('SELECT * FROM bby_2_timeline', function (error, results, fields) {
+        if (error) {
+           
+        }
+      
         res.send({ status: "success", rows: results });
 
     });
@@ -511,6 +515,10 @@ app.post('/upload-timeline', uploadTimeline.array("files"), function (req, res) 
     for(let i = 0; i < req.files.length; i++) {
         req.files[i].filename = req.files[i].originalname;
     }
+});
+
+app.use(function (req, res, next) {
+    res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Page not found! Nothing Here.</p></body></html>");
 });
 
 let port = 8000;

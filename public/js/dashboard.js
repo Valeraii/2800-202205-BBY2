@@ -2,7 +2,6 @@ $('#menu-btn').click(function(){
     $('#menu').toggleClass("active");
  })
 
-
  function getUsers() {
     const xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -284,12 +283,13 @@ function editPassword(e) {
 
 document.getElementById("submit").addEventListener("click", function(e) {
     e.preventDefault();
-    let formData = { adminRights: document.getElementById("adminRights").value,
+    var mylist = document.getElementById("myList");
+    let formData = { adminRights: mylist.options[mylist.selectedIndex].text,
                      firstName: document.getElementById("firstName").value,
                      lastName: document.getElementById("lastName").value,
                      email: document.getElementById("email").value,
                      pass: document.getElementById("pass").value};
-    document.getElementById("adminRights").value = "";
+
     document.getElementById("firstName").value = "";
     document.getElementById("lastName").value = "";
     document.getElementById("email").value = "";
