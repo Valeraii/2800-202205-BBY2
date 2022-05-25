@@ -269,11 +269,7 @@ function editPassword(e) {
                     if (xhr.status === 200) {
                       document.getElementById("add-status").innerHTML = "Record updated.";
                       getUsers();
-                    } else {
-                     
                     }
-                } else {
-                 ;
                 }
             }
             xhr.open("POST", "/update-user-password");
@@ -305,11 +301,7 @@ document.getElementById("submit").addEventListener("click", function(e) {
             if (xhr.status === 200) {
               getUsers();
               document.getElementById("add-status").innerHTML = "DB updated.";
-            } else {
-             
             }
-        } else {
-         
         }
     }
     xhr.open("POST", "/add-user");

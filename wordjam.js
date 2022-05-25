@@ -124,6 +124,8 @@ app.get("/profile", function (req, res) {
             let profileDOM = new JSDOM(profile);
             profileDOM.window.document.getElementById("profile_name").innerHTML
             = "Welcome Back " + req.session.firstName + "!";
+            profileDOM.window.document.getElementById("userID").innerHTML
+            = req.session.userID;
 
             profileDOM.window.document.getElementById("profilePicture").src
             =  "img/userImages/" + req.session.userID + "id.jpg";
@@ -225,10 +227,6 @@ app.get('/get-users', function (req, res) {
     });
     connection.connect();
     connection.query('SELECT * FROM bby_2_user', function (error, results, fields) {
-        if (error) {
-           
-        }
-      
         res.send({ status: "success", rows: results });
 
     });
@@ -246,9 +244,6 @@ app.get('/get-one-user', function (req, res) {
     connection.query('SELECT userID, email, firstName, lastName, pass FROM bby_2_user WHERE userID = ?', 
     [req.session.userID],
     function (error, results, fields) {
-        if (error) {
-          
-        }
         res.send({ status: "success", rows: results });
     });
     connection.end();
@@ -288,6 +283,25 @@ app.post('/add-user', function (req, res) {
     connection.connect();
     connection.query('INSERT INTO bby_2_user (adminRights, email, pass, firstName, lastName) values (?, ?, ?, ?, ?)',
           [req.body.adminRights, req.body.email, req.body.pass, req.body.firstName, req.body.lastName],
+          function (error, results, fields) {
+      if (error) {}
+      res.send({ status: "success", msg: "Record added." });
+    });
+    connection.end();
+});
+
+app.post('/add-score', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'COMP2800'
+    });
+    connection.connect();
+    connection.query('INSERT INTO bby_2_score (userID, scoreValue) values (?, ?)',
+          [req.body.userID, req.body.scoreValue],
           function (error, results, fields) {
       if (error) {}
       res.send({ status: "success", msg: "Record added." });
@@ -500,9 +514,6 @@ app.post('/upload-timeline', uploadTimeline.array("files"), function (req, res) 
     }
 });
 
-
 let port = 8000;
 app.listen(port, function () {
 });
-
-
