@@ -179,6 +179,19 @@ body.dark {
   margin-right: .5em;
 }
 
+.close-stats {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
 .theme-toggle-button:hover,
 .theme-toggle-button:focus {
   transform: scale(1.1);

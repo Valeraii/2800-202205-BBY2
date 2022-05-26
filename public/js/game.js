@@ -469,11 +469,14 @@ $(function () {
 
     $(".submitWord").on("click", function() {
         submitWord();
-        $(".stats-overlay, .popup-content").addClass("active");
     });
 
     $(".game-stats").on("click", function() {
         $(".stats-overlay, .popup-content").addClass("active");
+    });
+
+    $(".close-stats").on("click", function() {
+        $(".stats-overlay, .popup-content").removeClass("active");
     });
 
     $(".close, .error-overlay").on("click", function() {
@@ -486,6 +489,8 @@ $(function () {
         $(".stats-overlay, .popup-content").removeClass("active");
         location.reload();
     });
+
+
     startingProcedure();
     
 });

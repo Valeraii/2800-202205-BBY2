@@ -497,7 +497,10 @@ const timelineStorage = multer.diskStorage({
             hour: "2-digit",
             minute: "2-digit",
         });
-        callback(null, time + ".jpg".split('/').pop().trim());
+        let text = time.toString();
+        text = text.replace(/:/g, '');
+        text = text.replace(/\s/g, '');
+        callback(null, text + ".jpg".split('/').pop().trim());
     }
 });
 const uploadTimeline = multer({ storage: timelineStorage });
