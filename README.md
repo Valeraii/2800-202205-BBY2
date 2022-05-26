@@ -5,6 +5,7 @@ Our team, BBY-2, is developing an online puzzle game that anyone can play to hel
 HTML, CSS, JavaScript, Jquery, Multer, Heroku, and SQL were used.
 
 # File Contents 
+```bash
 C:.
 │   comp2800.sql
 │   dev.txt
@@ -60,6 +61,7 @@ C:.
             theme.js
             timeline.js
             timelinev2.js
+```
 
 # How to run Wordjam
 Programs to Install: 
@@ -93,10 +95,10 @@ Users can draw 14 tiles and form words with them by placing the tiles onto the g
 
 # Contact Information
 Team Members:
-Valerie Tan - vtan15@my.bcit.ca
-Ramsay Elhalhuli - relhalhuli@my.bcit.ca
-Gareth Ng Set - gng51@my.bcit.ca
-Tushar Gandhi - 
+* Valerie Tan - vtan15@my.bcit.ca
+* Ramsay Elhalhuli - relhalhuli@my.bcit.ca
+* Gareth Ng Set - gng51@my.bcit.ca
+* Tushar Gandhi - tgandhi2@my.bcit.ca
 
 
 
