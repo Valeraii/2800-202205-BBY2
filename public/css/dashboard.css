@@ -381,27 +381,3 @@ tbody tr td {
     }
     
 }
-/**
-@media (max-width:700px) {
-    #interface .navigation { 
-        padding: 15px ;  
-    }
-    #interface .navigation .search input{
-        width: 150px;
-    }
-    .i-name{
-        padding: 30px 30px 0 30px;
-       
-    }
-    .values{
-        padding: 15px 15px 0 15px;
-    }
-    .values.val-box {
-        width: 100%;
-        margin: 8px 0;
-     }
-    .board{
-        margin: 30px 15px 30px 15px;
-    }
-}
-*/
