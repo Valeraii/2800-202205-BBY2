@@ -474,6 +474,10 @@ $(function () {
         $(".stats-overlay, .popup-content").addClass("active");
     });
 
+    $(".game-stats").on("click", function() {
+        $(".stats-overlay, .popup-content").addClass("active");
+    });
+
     $(".close, .error-overlay").on("click", function() {
         $(".error-overlay, .error-popup-content").removeClass("active");
     });
@@ -482,6 +486,7 @@ $(function () {
         returnToRack();
         totalScore = 0;
         $(".stats-overlay, .popup-content").removeClass("active");
+        location.reload();
     })
     startingProcedure();
     
