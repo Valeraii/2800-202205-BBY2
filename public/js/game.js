@@ -456,6 +456,10 @@ $(function () {
         $(".error-overlay, .error-popup-content").removeClass("active");
     });
 
+    $(".close-stats").on("click", function() {
+        $(".stats-overlay, .popup-content").removeClass("active");
+    });
+
     $('.playAgain').on("click", function() {
         returnToRack();
         totalScore = 0;

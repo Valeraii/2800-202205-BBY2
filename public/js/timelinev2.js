@@ -15,7 +15,10 @@ function getTimeline() {
                     cardText2.innerHTML = row.timelineID;
 
                     let photo = document.createElement("img");
-                    photo.setAttribute("src", "/img/timelineImages/" + row.playimage + ".jpg");
+                    let text = row.playimage;
+                    text = text.replace(/:/g, '');
+                    text = text.replace(/\s/g, '');
+                    photo.setAttribute("src", "/img/timelineImages/" + text + ".jpg");
 
                     let cardHeader = document.createElement("div");
                     cardHeader.setAttribute("class", "group-header");
