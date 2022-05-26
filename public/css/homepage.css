@@ -49,33 +49,6 @@ html {
     margin: 40px 20px;
 }
 
-
-/* #nav-list {
-    list-style: none;
-    display: grid;
-    gap: 20px;
-    padding: 0;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column: 2 / 5;
-    align-self: center;
-}
-
-#nav-list a {
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    display: block;
-    padding: 0.8rem;
-    text-align: center;
-    text-justify: center;
-    font-size: 1.1rem;
-}
-
-#nav-list>* {
-    background-color: red;
-    border: 1px solid black;
-} */
-
 /* Footer CSS */
 
 .site-footer {
@@ -246,7 +219,7 @@ html {
         background-color: #EBCF76;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 10px 10px 10px 10px;
+        grid-template-rows: 100px 100px 100px 100px 100px;
     }
 
     .about-us {
@@ -264,7 +237,7 @@ html {
     }
 
     .copyright {
-        grid-row: 4 / 5;
+        grid-row: 5 / 6;
 
     }
 

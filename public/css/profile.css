@@ -592,41 +592,4 @@ body.dark {
     font-size: 22pt;
     text-align: center;
   }
-
-  .container-homepage {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 12% 58% 30%;
-}
-
-.site-footer {
-    height: 55vh;
-
-}
-
-.container-footer {
-    background-color: #EBCF76;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 10px 10px 10px 10px;
-}
-
-.about-us {
-    text-align: center;
-    grid-row: 1 / 2;
-}
-
-.find-us {
-    text-align: center;
-    grid-row: 2 / 3;
-}
-
-.quick-links {
-    grid-row: 3 / 4;
-}
-
-.copyright {
-    grid-row: 4 / 5;
-
-}
 }

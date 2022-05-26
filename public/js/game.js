@@ -103,7 +103,7 @@ async function wordsValidation (wordInput) {
         const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + wordInput);
         const json = await response.json();
         if (json.title == "No Definitions Found") {
-            console.log(json.title);
+        
             booleanCheck = false;
         } else {
             booleanCheck = true;
@@ -275,13 +275,11 @@ $(function () {
 
     var playerScore = function(arr) {
         bonusLetter = arrayTest2[bonusIndex - 1].toUpperCase();
-        console.log("bonusLetter: " + bonusLetter);
         for (let i = 0; i < arr.length; i++) {
             let j = 0;
             while(j < arr[i].length) {
                 let letterChar = arr[i].charAt(j).toUpperCase();
                 let charScore = letterValue(letterChar);
-                //console.log("charScore " + charScore);
                 totalScore += charScore;
                 j++;    
             }
@@ -297,8 +295,6 @@ $(function () {
         });
         randomTile(boardArray).addClass('bonus');
         bonus = randomTile(bonusArr);
-
-        console.log("bonus: " + bonus);
         
         //localStorage.setItem('dailyBonus', bonus);
         if(bonus === "doubleWord") {
@@ -322,8 +318,6 @@ $(function () {
                 findBonus.push($(this).text());
             }
         });
-        //console.log("findBonus: " + findBonus + "length: " + findBonus.length);
-        //console.log("bonusIndex: " + bonusIndex);
     };
 
     function randomTile(items) {
@@ -346,9 +340,7 @@ $(function () {
             } else {
                 arrayTest2.push($(this).text());
             }
-        });
-        //console.log("arrayTest2: " + arrayTest2);
-        
+        });   
         var invalidWord = [];
         let blackList = [];
         var verticleArray = [];
@@ -376,9 +368,6 @@ $(function () {
                 word = "";
             }
         }
-
-        console.log("vertical: " + verticleArray);
-
         // Get Horizontal Words
         for (let rows = 0; rows < chunkThisArray.length; rows++) {
             let allSpaces = getAllIndexes(chunkThisArray[rows], "");
@@ -405,8 +394,6 @@ $(function () {
                 }
             }
         }
-
-        console.log("horizontal: " + horizontalArray);
         
         let tempCombWords = verticleArray.concat(horizontalArray);
 
@@ -436,17 +423,7 @@ $(function () {
                 index++;
             }
         }
-        console.log("invalidWord: " + invalidWord);
 
-        /*
-        let userCurrentScore = playerScore(usersWord);
-        if (userCurrentScore > player.score) {
-            player.score = userCurrentScore;
-        }
-        console.log(userCurrentScore);
-        */
-    
-       
         $('.tempInPlay').addClass('permInPlay');
         $('.tempInPlay').removeClass('tempInPlay');
         arrayTest2 = [];
@@ -469,7 +446,6 @@ $(function () {
 
     $(".submitWord").on("click", function() {
         submitWord();
-        $(".stats-overlay, .popup-content").addClass("active");
     });
 
     $(".game-stats").on("click", function() {
