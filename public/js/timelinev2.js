@@ -178,6 +178,7 @@ document.getElementById("submit").addEventListener("click", function(e) {
     xhr.send("caption=" + formData.caption + "&timelineID=" + formData.timelineID + "&userID=" + formData.userID + "&playimage=" + formData.playimage);
 });
 
+
 function removePost(clicked_id) {
     //console.log(clicked_id);
     var result = confirm("Are you sure you want to delete this post?");
@@ -200,4 +201,5 @@ function removePost(clicked_id) {
     } 
     
 }
+
 
