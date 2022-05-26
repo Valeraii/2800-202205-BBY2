@@ -38,6 +38,40 @@ app.use(session(
     })
 );
 
+app.get('/getHighScore', function(req, res) {
+     let connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'COMP2800'
+    });
+    connection.connect();
+    connection.query('SELECT scoreValue FROM bby_2_score WHERE userID = ?',
+    [req.session.userID],
+    function (error, results, fields) {
+        if (error) {}
+        res.send({ status: "success", rows: results });
+    });
+    connection.end();
+})
+
+app.get('/getDaysPlayed', function(req, res) {
+    let connection = mysql.createConnection({
+     host: 'localhost',
+     user: 'root',
+     password: '',
+     database: 'COMP2800'
+   });
+   connection.connect();
+   connection.query('SELECT * FROM bby_2_score WHERE userID = ?',
+   [req.session.userID],
+   function (error, results, fields) {
+       if (error) {}
+       res.send({ status: "success", rows: results });
+   });
+   connection.end();
+})
+
 app.get("/", function (req, res) {
 
     if (req.session.loggedIn) {
@@ -90,7 +124,7 @@ app.get("/profile", function (req, res) {
             let profileDOM = new JSDOM(profile);
             profileDOM.window.document.getElementById("profile_name").innerHTML
             = "Welcome Back " + req.session.firstName + "!";
-
+            
             profileDOM.window.document.getElementById("profilePicture").src
             =  "img/userImages/" + req.session.userID + "id.jpg";
 
@@ -175,7 +209,7 @@ app.get('/get-timeline', function (req, res) {
       database: 'COMP2800'
     });
     connection.connect();
-    connection.query('SELECT * FROM bby_2_score', function (error, results, fields) {
+    connection.query('SELECT * FROM bby_2_timeline', function (error, results, fields) {
         if (error) {
            
         }
@@ -224,6 +258,7 @@ app.get('/get-one-user', function (req, res) {
     connection.end();
 });
 
+
 app.post('/add-timeline', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
 
@@ -235,8 +270,8 @@ app.post('/add-timeline', function (req, res) {
     });
     connection.connect();
     console.log(req.body.userID, req.body.caption);
-    connection.query('INSERT INTO bby_2_score (userID, scoreValue, caption, playdate, playtime, playimage) values (?, ?, ?, CURDATE(), CURTIME(), ?)',
-          [req.body.userID, req.body.scoreValue, req.body.caption, req.body.playimage],
+    connection.query('INSERT INTO bby_2_timeline (userID, caption, playdate, playtime, playimage) values (?, ?, CURDATE(), CURTIME(), ?)',
+          [req.body.userID, req.body.caption, req.body.playimage],
           function (error, results, fields) {
       if (error) {
           console.log(error);
@@ -278,6 +313,7 @@ app.post('/update-user-email', function (req, res) {
       database: 'COMP2800'
     });
     connection.connect();
+    console.log(req.body.email);
     connection.query('UPDATE bby_2_user SET email = ? WHERE userID = ?',
           [req.body.email, req.body.userID],
           function (error, results, fields) {
@@ -382,9 +418,9 @@ app.post('/update-timeline-caption', function (req, res) {
       database: 'comp2800'
     });
     connection.connect();
-    console.log("update values", req.body.caption, req.body.scoreID)
-    connection.query('UPDATE bby_2_score SET caption = ? WHERE scoreID = ?',
-          [req.body.caption, req.body.scoreID],
+    console.log("update values", req.body.caption, req.body.timelineID)
+    connection.query('UPDATE bby_2_timeline SET caption = ? WHERE timelineID = ?',
+          [req.body.caption, req.body.timelineID],
           function (error, results, fields) {
       if (error) {
         console.log(error);
@@ -393,29 +429,6 @@ app.post('/update-timeline-caption', function (req, res) {
     });
     connection.end();
 });
-
-/*
-app.post('/update-timeline-date', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-
-    let connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'comp2800'
-    });
-    connection.connect();
-    console.log("update values", req.body.scoreDate, req.body.userID)
-    connection.query('UPDATE bby_2_scores SET scoreDate = ? WHERE userID = ?',
-          [req.body.scoreDate, req.body.userID],
-          function (error, results, fields) {
-      if (error) {
-        console.log(error);
-      }
-      res.send({ status: "success", msg: "Recorded updated." });
-    });
-    connection.end();
-}); */
 
 app.post('/delete-user', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -430,7 +443,7 @@ app.post('/delete-user', function (req, res) {
           [req.body.userID],
           function (error, results, fields) {
       if (error) {
-       
+        res.send({ status: "fail", msg: "User account not found." });
       }
       res.send({ status: "success", msg: "Recorded all deleted." });
     });
@@ -447,8 +460,8 @@ app.post('/delete-post', function (req, res) {
     });
     connection.connect();
     console.log(req.body.scoreID);
-    connection.query('DELETE FROM bby_2_score WHERE scoreID = ?',
-          [req.body.scoreID],
+    connection.query('DELETE FROM bby_2_timeline WHERE timelineID = ?',
+          [req.body.timelineID],
           function (error, results, fields) {
       if (error) {
        
@@ -484,7 +497,10 @@ const timelineStorage = multer.diskStorage({
             hour: "2-digit",
             minute: "2-digit",
         });
-        callback(null, time + ".jpg".split('/').pop().trim());
+        let text = time.toString();
+        text = text.replace(/:/g, '');
+        text = text.replace(/\s/g, '');
+        callback(null, text + ".jpg".split('/').pop().trim());
     }
 });
 const uploadTimeline = multer({ storage: timelineStorage });

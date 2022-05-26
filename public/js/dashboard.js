@@ -1,7 +1,6 @@
 $('#menu-btn').click(function(){
     $('#menu').toggleClass("active");
- })
-
+});
 
  function getUsers() {
     const xhr = new XMLHttpRequest();
@@ -101,7 +100,7 @@ function editAdmin(e) {
                 } else {
                    
                 }
-            }
+            };
             xhr.open("POST", "/update-user-admin");
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -144,7 +143,7 @@ function editEmail(e) {
                 } else {
                    
                 }
-            }
+            };
             xhr.open("POST", "/update-user-email");
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -187,7 +186,7 @@ function editFirstName(e) {
                 } else {
                  
                 }
-            }
+            };
             xhr.open("POST", "/update-user-firstName");
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -230,7 +229,7 @@ function editLastName(e) {
                 } else {
                
                 }
-            }
+            };
             xhr.open("POST", "/update-user-lastName");
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -269,13 +268,9 @@ function editPassword(e) {
                     if (xhr.status === 200) {
                       document.getElementById("add-status").innerHTML = "Record updated.";
                       getUsers();
-                    } else {
-                     
                     }
-                } else {
-                 ;
                 }
-            }
+            };
             xhr.open("POST", "/update-user-password");
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -288,12 +283,13 @@ function editPassword(e) {
 
 document.getElementById("submit").addEventListener("click", function(e) {
     e.preventDefault();
-    let formData = { adminRights: document.getElementById("adminRights").value,
+    var mylist = document.getElementById("adminRights");
+    let formData = { adminRights: mylist.options[mylist.selectedIndex].text,
                      firstName: document.getElementById("firstName").value,
                      lastName: document.getElementById("lastName").value,
                      email: document.getElementById("email").value,
                      pass: document.getElementById("pass").value};
-    document.getElementById("adminRights").value = "";
+
     document.getElementById("firstName").value = "";
     document.getElementById("lastName").value = "";
     document.getElementById("email").value = "";
@@ -305,37 +301,40 @@ document.getElementById("submit").addEventListener("click", function(e) {
             if (xhr.status === 200) {
               getUsers();
               document.getElementById("add-status").innerHTML = "DB updated.";
-            } else {
-             
             }
-        } else {
-         
         }
-    }
+    };
     xhr.open("POST", "/add-user");
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send("adminRights=" + formData.adminRights + "&firstName=" + formData.firstName + "&lastName=" + formData.lastName + "&email=" + formData.email + "&pass=" + formData.pass);
-})
+});
 
 document.getElementById("delete").addEventListener("click", function(e) {
     e.preventDefault();
     let deleteUser = {userID: document.getElementById("deleteUser").value};
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-              getUsers();
-              document.getElementById("delete-status").innerHTML = "Record deleted.";
-            } else {
-            
+    if(!isNaN(deleteUser.userID)) {
+        var result = confirm("Are you sure you want to delete this user?");
+        if(result) {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (this.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        getUsers();
+                        document.getElementById("errorMsg").innerHTML = "User deleted.";
+                    } else {
+                        
+                    }
+                } else {
+                
+                }
             }
-        } else {
-           
+            xhr.open("POST", "/delete-user");
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send("userID=" + deleteUser.userID);
         }
-    }
-    xhr.open("POST", "/delete-user");
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send("userID=" + deleteUser.userID);
+    } else {
+        document.getElementById("delete-status").innerHTML = "Enter an integer.";
+   }
 });

@@ -12,10 +12,13 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Open+Sans&family=Roboto+Condensed:ital,wght@1,300&family=Square+Peg&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Open+Sans&family=Roboto+Condensed:ital,wght@1,300&family=Square+Peg&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/game.js"></script>
 </head>
 
@@ -27,121 +30,139 @@
                     <div class="container nav-container">
                         <input class="checkbox" type="checkbox" name="checkbox" id="checkbox" />
                         <div class="hamburger-lines">
-                        <span class="line line1"></span>
-                        <span class="line line2"></span>
-                        <span class="line line3"></span>
-                        </div>  
-                    <div class="menu-items">
-                        <div class="help">
-                            <button class="icon" data-modal-target="#modal"><span class="material-symbols-outlined">help</span>Help</button>
-                            <div class="modal" id="modal">
-                                <div class="modal-header">
-                                    <div class="title">Game Rules</div>
-                                    <button data-close-button class="close-button">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <ul>
-                                        <li>Draw Letters (number of letters you get depends on difficulty</li>
-                                        <li>Combine letters to form a word and place it on the board</li>
-                                        <li>Use the bonus tile when forming a word to get bonus points</li>
-                                        <li>A new board and selection of letters will be available each day</li>
-                                        <li>Every player gets same word + same board everyday, Compete with your friends to see who can get the highest score</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div id="overlay"></div>
+                            <span class="line line1"></span>
+                            <span class="line line2"></span>
+                            <span class="line line3"></span>
                         </div>
-                        <br>
-                        <div class="timeline-link">
-                            <a class="icon" href="html/timelinev2.html"><span class="material-symbols-outlined">view_timeline</span>Timeline</a>
-                        </div>
-                        <p id="sharetext" class="offscreen" aria-hidden="true">My WordJam Score Today was 9000!<br>https://boiling-sea-13536.herokuapp.com/login</p>
-                        <br>
-                        <div class="stats">
-                            <button class="icon" data-modal-target="#modal-stats"><span class="material-symbols-outlined">bar_chart</span>Stats</button>
-                            <div class="modal" id="modal-stats">
-                                <div class="modal-header">
-                                    <div class="title">Your Statistics</div>
-                                    <button id="share" onclick="copyToClipboard('#sharetext')" class="icon"><span class="material-symbols-outlined"> share</span></button>
-                                    <button data-close-button class="close-button">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <ul>
-                                        <li>Highest Score</li>
-                                        <li>Days Played</li>
-                                        <li>Recent Score <span id="word-score"></span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div id="overlay1"></div>
-                        </div>
-                        <br>
-                        <div class="score">
-                            <button class="icon" data-modal-target="#modal-score"><span class="material-symbols-outlined">scoreboard</span>Scoring</button>
-                            <div class="modal" id="modal-score">
-                                <div class="modal-header">
-                                    <div class="title">Tile Distribution and Point Values</div>
-                                    <button data-close-button class="close-button">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <ul>
-                                        <li>E: 12 tiles, 1 point</li>
-                                        <li>A: 12 tiles, 1 point</li>
-                                        <li>I: 12 tiles, 1 point</li>
-                                        <li>O: 12 tiles, 1 point</li>
-                                        <li>N: 6 tiles, 1 point</li>
-                                        <li>R: 6 tiles, 1 point</li>
-                                        <li>T: 6 tiles, 1 point</li>
-                                        <li>L: 4 tiles, 1 point</li>
-                                        <li>S: 4 tiles, 1 point</li>
-                                        <li>U: 9 tiles, 1 point</li>
-                                        <li>D: 4 tiles, 2 point</li>
-                                        <li>G: 3 tiles, 2 point</li>
-                                        <li>B: 2 tiles, 3 point</li>
-                                        <li>C: 2 tiles, 3 point</li>
-                                        <li>M: 2 tiles, 3 point</li>
-                                        <li>P: 2 tiles, 3 point</li>
-                                        <li>F: 2 tiles, 4 point</li>
-                                        <li>H: 2 tiles, 4 point</li>
-                                        <li>V: 2 tiles, 4 point</li>
-                                        <li>W: 2 tiles, 4 point</li>
-                                        <li>Y: 2 tiles, 4 point</li>
-                                        <li>K: 1 tiles, 5 point</li> 
-                                        <li>J: 1 tiles, 8 point</li>
-                                        <li>X: 1 tiles, 8 point</li>
-                                        <li>Q: 1 tiles, 10 point</li>
-                                        <li>Z: 1 tiles, 10 point</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div id="overlay2"></div>
-                        </div>
-                        <br>
-                        <div class="settings">
-                            <button class="icon" data-modal-target="#modal-settings"><span class="material-symbols-outlined">account_circle</span>Profile</button>
-                            <div class="modal" id="modal-settings">
-                                <div class="modal-header">
-                                    <div class="title">Profile Settings</div>
-                                    <button data-close-button class="close-button">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <img src="img/userImages/userProfile.jpg" id = "profilePicture" alt="profilePic">
-                                    <div id="container">
-                                        <form id="upload-images-form">
-                                          <input id="image-upload" type="file" accept="image/png, image/jpeg"/>
-                                          <input id="submit" type="submit" value="Submit"/>
-                                          <table id="users"></table>
-                                        </form>
+                        <div class="menu-items">
+                            <div class="help">
+                                <button class="icon" data-modal-target="#modal"><span
+                                        class="material-symbols-outlined">help</span>Help</button>
+                                <div class="modal" id="modal">
+                                    <div class="modal-header">
+                                        <div class="text-style0">
+                                            <div class="title">Game Rules</div>
+                                        </div>
+                                        <button data-close-button class="close-button">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="text-style1">
+                                            <ul>
+                                                <li>1) Draw 14 random letters</li>
+                                                <li>2) Form words by placing letters on the board</li>
+                                                <li>3) Use the bonus tile when forming a word to get bonus points</li>
+                                                <ul>
+                                                    <li>TL = triple letter</li>
+                                                    <li>DL = double letter</li>
+                                                </ul>
+                                                <li>4) Compete with your friends to see who can get the highest score!</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
+                                <div id="overlay"></div>
                             </div>
-                            <div id="overlay3"></div>
+                            <br>
+                            <div class="timeline-link">
+                                <a class="icon" href="html/timelinev2.html"><span
+                                        class="material-symbols-outlined">view_timeline</span>Timeline</a>
+                            </div>
+                            <p id="sharetext" class="offscreen" aria-hidden="true">My WordJam Score Today was <span
+                                    id="stat-score"></span>!<br>https://wordjambby2.herokuapp.com/</p>
+                            <br>
+                            
+                            <div class="score">
+                                <button class="icon" data-modal-target="#modal-score"><span
+                                        class="material-symbols-outlined">scoreboard</span>Scoring</button>
+                                <div class="modal" id="modal-score">
+                                    <div class="modal-header">
+                                        <div class="text-style0">
+                                            <div class="title">Tile Distribution and Point Values</div>
+                                        </div>
+                                        <button data-close-button class="close-button">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="text-style1">
+                                            <ul>
+                                                <li>E: 12 tiles, 1 point</li>
+                                                <li>A: 12 tiles, 1 point</li>
+                                                <li>I: 12 tiles, 1 point</li>
+                                                <li>O: 12 tiles, 1 point</li>
+                                                <li>N: 6 tiles, 1 point</li>
+                                                <li>R: 6 tiles, 1 point</li>
+                                                <li>T: 6 tiles, 1 point</li>
+                                                <li>L: 4 tiles, 1 point</li>
+                                                <li>S: 4 tiles, 1 point</li>
+                                                <li>U: 9 tiles, 1 point</li>
+                                                <li>D: 4 tiles, 2 point</li>
+                                                <li>G: 3 tiles, 2 point</li>
+                                                <li>B: 2 tiles, 3 point</li>
+                                                <li>C: 2 tiles, 3 point</li>
+                                                <li>M: 2 tiles, 3 point</li>
+                                                <li>P: 2 tiles, 3 point</li>
+                                                <li>F: 2 tiles, 4 point</li>
+                                                <li>H: 2 tiles, 4 point</li>
+                                                <li>V: 2 tiles, 4 point</li>
+                                                <li>W: 2 tiles, 4 point</li>
+                                                <li>Y: 2 tiles, 4 point</li>
+                                                <li>K: 1 tiles, 5 point</li>
+                                                <li>J: 1 tiles, 8 point</li>
+                                                <li>X: 1 tiles, 8 point</li>
+                                                <li>Q: 1 tiles, 10 point</li>
+                                                <li>Z: 1 tiles, 10 point</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="overlay2"></div>
+                            </div>
+                            <br>
+                            <div class="settings">
+                                <button class="icon" data-modal-target="#modal-settings"><span
+                                        class="material-symbols-outlined">account_circle</span>Profile</button>
+                                <div class="modal" id="modal-settings">
+                                    <div class="modal-header">
+                                        <div class="text-style0">
+                                            <div class="title">Profile Settings</div>
+                                        </div>
+                                        <button data-close-button class="close-button">&times;</button>  
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="text-style1">
+                                            <img id = "profilePicture" alt="profilePic" onerror="imgError()">
+                                            <div class="game-stats">
+                                                <a href="#" class="stats-font">Game Stats</a>
+                                            </div>  
+                                            <br>
+                                            <div id="container">
+                                                <form id="upload-images-form">
+                                                    <input id="image-upload" type="file"
+                                                        accept="image/png, image/jpeg" />
+                                                    <div id="ID"></div>
+                                                    <div id="firstName"></div>
+                                                    <div id="lastName"></div>
+                                                    <div id="email"></div>
+                                                    <div id="pass"></div>
+                                                </form>
+                                                <div id="submit">
+                                                    <input id="submit-font" type="submit" value="Submit" />
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div id="overlay3"></div>
+                            </div>
+                            <br>
+                            <div class="btn-logout">
+                                <a class="icon" href="\logout"><span
+                                        class="material-symbols-outlined">logout</span>Logout</a>
+                            </div>
                         </div>
-                        <br>
-                        <div class="btn-logout">
-                            <a class="icon" href="\logout"><span class="material-symbols-outlined">logout</span>Logout</a>
-                        </div>
-                    </div>
                     </div>
                     <div id="logo" class="logo-center">
                         <img src="img/logo.svg" alt="WordJam Logo" class="logo-img">
@@ -166,6 +187,8 @@
     </div>
 
     <div id="profile_name">NAME</div>
+
+    <br>
 
     <div id="scoreCount-container" type="button" onclick="show()">
         <div id="scoreCount">Score</div>
@@ -217,6 +240,30 @@
         </button>
     </div>
 
+    <div class="stats-overlay">
+        <div class="popup-content">
+            <div class="text-style0">
+                <h1>Statistics  <button class="close-stats">x</button>  </h1>
+            </div>
+            <button id="share" onclick="copyToClipboard('#sharetext')" class="icon"><span
+                    class="material-symbols-outlined"> share</span></button>
+            <div class="text-style">
+                <p>Highest Score: <span id="highScore"></span></p>
+                <p>Games Played: <span id="daysPlayed"></span></p>
+                <p>Today's Score: <span id="word-score"></span></p>
+            </div>
+            <br>
+            <button class="playAgain" id="btn-playAgain">Play Again</button>
+        </div>
+    </div>
+
+    <div class="error-overlay">
+        <div class="error-popup-content">
+            <div id="incorrect-word"></div>
+            <button class="close" id="btn-close">Close</button>
+        </div>
+    </div>
+
     <div id="hidden_msg">
         <p>A massive thank you to each one of you from the developer team WordJam! </p>
     </div>
@@ -225,8 +272,9 @@
         <button class="backToRack" id="btn-restart">Back to Rack</button>
         <button class="submitWord" id="btn-submit">Submit WordJam</button>
     </div>
-   
 
+    <div class="offscreen" id="userID"></div>
+   
     <footer class="site-footer">
         <div class="container-footer">
             <div class="about-us">
@@ -262,6 +310,6 @@
     <script src="js/theme.js"></script>
     <script src="js/homepage.js"></script>
     <script src="js/editProfile.js"></script>
+</body>
 
-    </body>
 </html>

@@ -1,5 +1,5 @@
-body {   
-    font-family: 'Roboto Condensed', sans-serif;    
+body {
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 html {
@@ -21,7 +21,7 @@ html {
 }
 
 .navbar {
-    display: flex;    
+    display: flex;
     margin-bottom: 2rem;
 }
 
@@ -48,33 +48,6 @@ html {
     text-decoration: none;
     margin: 40px 20px;
 }
-
-
-/* #nav-list {
-    list-style: none;
-    display: grid;
-    gap: 20px;
-    padding: 0;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column: 2 / 5;
-    align-self: center;
-}
-
-#nav-list a {
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    display: block;
-    padding: 0.8rem;
-    text-align: center;
-    text-justify: center;
-    font-size: 1.1rem;
-}
-
-#nav-list>* {
-    background-color: red;
-    border: 1px solid black;
-} */
 
 /* Footer CSS */
 
@@ -135,13 +108,13 @@ html {
     transition: 200ms ease-in-out;
     border: 1px solid black;
     border-radius: 10px;
-    z-index: 10;
+    z-index: 9999;
     background-color: white;
     width: 500px;
     max-width: 80%;
 }
 
-.modal.active{
+.modal.active {
     transform: translate(-50%, -50%) scale(1);
 }
 
@@ -171,6 +144,30 @@ html {
     padding: 10px 15px;
 }
 
+.text-style {
+    text-align: unset;
+    margin: 0px auto;
+    color: rgb(45, 42, 42);
+    top: 50%;
+    font-weight: 600;
+    text-shadow: -1px -1px 0px rgb(67, 65, 65)
+}
+
+.text-style0 {
+    color: rgb(45, 42, 42);
+    font-weight: 600;
+    text-shadow: -1px -1px 0px rgb(67, 65, 65)
+}
+
+.text-style1 {
+    text-align: unset;
+    margin: 0px auto;
+    color: rgb(45, 42, 42);
+    top: 50%;
+    font-weight: 600;
+    text-shadow: -0.5px -0.5px 0px rgb(67, 65, 65)
+}
+
 #overlay {
     position: fixed;
     opacity: 0;
@@ -184,10 +181,11 @@ html {
 #overlay.active {
     opacity: 1;
     pointer-events: all;
+    left: 25%;
 
 }
 
-#profilePicture{
+#profilePicture {
     border-radius: 50%;
     display: block;
     margin-left: auto;
@@ -195,6 +193,13 @@ html {
     width: 50%;
     height: 75px;
     width: 75px;
+    border-style: solid;
+    border: 3px solid #aaa
+}
+
+#users {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 @media (max-width: 700px) {
@@ -214,7 +219,7 @@ html {
         background-color: #EBCF76;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 10px 10px 10px 10px;
+        grid-template-rows: 100px 100px 100px 100px 100px;
     }
 
     .about-us {
@@ -232,7 +237,7 @@ html {
     }
 
     .copyright {
-        grid-row: 4 / 5;
+        grid-row: 5 / 6;
 
     }
 
@@ -250,7 +255,3 @@ html {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
 }
-
-
-
-
