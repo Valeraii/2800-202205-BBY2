@@ -452,6 +452,10 @@ $(function () {
         $(".stats-overlay, .popup-content").addClass("active");
     });
 
+    $(".close-stats").on("click", function() {
+        $(".stats-overlay, .popup-content").removeClass("active");
+    });
+
     $(".close, .error-overlay").on("click", function() {
         $(".error-overlay, .error-popup-content").removeClass("active");
     });
@@ -466,6 +470,8 @@ $(function () {
         $(".stats-overlay, .popup-content").removeClass("active");
         location.reload();
     });
+
+
     startingProcedure();
     
 });
