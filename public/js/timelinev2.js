@@ -44,7 +44,7 @@ function getTimeline() {
                     content.innerHTML = row.caption;
 
                     let notificationHeader = document.createElement("div");
-                    notificationHeader.setAttribute("class", "notification-header")
+                    notificationHeader.setAttribute("class", "notification-header");
 
                     let time = document.createElement("div");
                     time.setAttribute("id", "notification-time");
@@ -85,7 +85,7 @@ function getTimeline() {
         } else {
            
         }
-    }
+    };
     xhr.open("GET", "/get-timeline");
     xhr.send();
 }
@@ -118,7 +118,7 @@ function editCaption(e) {
                 } else {
                   
                 }
-            }
+            };
             xhr.open("POST", "/update-timeline-caption");
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -170,32 +170,34 @@ document.getElementById("submit").addEventListener("click", function(e) {
         } else {
          
         }
-    }
+    };
     xhr.open("POST", "/add-timeline");
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
     xhr.send("caption=" + formData.caption + "&timelineID=" + formData.timelineID + "&userID=" + formData.userID + "&playimage=" + formData.playimage);
-})
+});
 
 function removePost(clicked_id) {
-    console.log(clicked_id);
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-              getTimeline();
-             
-            } else {
-            
+    //console.log(clicked_id);
+    var result = confirm("Are you sure you want to delete this post?");
+    if(result) {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            if (this.readyState == XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    getTimeline();
+                } else { 
             }
         } else {
            
         }
-    }
+    };
     xhr.open("POST", "/delete-post");
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send("timelineID=" + clicked_id);
+    } 
+    
 }
 

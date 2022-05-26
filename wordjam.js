@@ -124,7 +124,7 @@ app.get("/profile", function (req, res) {
             let profileDOM = new JSDOM(profile);
             profileDOM.window.document.getElementById("profile_name").innerHTML
             = "Welcome Back " + req.session.firstName + "!";
-
+            
             profileDOM.window.document.getElementById("profilePicture").src
             =  "img/userImages/" + req.session.userID + "id.jpg";
 
@@ -313,6 +313,7 @@ app.post('/update-user-email', function (req, res) {
       database: 'COMP2800'
     });
     connection.connect();
+    console.log(req.body.email);
     connection.query('UPDATE bby_2_user SET email = ? WHERE userID = ?',
           [req.body.email, req.body.userID],
           function (error, results, fields) {
@@ -442,7 +443,7 @@ app.post('/delete-user', function (req, res) {
           [req.body.userID],
           function (error, results, fields) {
       if (error) {
-       
+        res.send({ status: "fail", msg: "User account not found." });
       }
       res.send({ status: "success", msg: "Recorded all deleted." });
     });

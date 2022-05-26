@@ -48,12 +48,14 @@
                                     <div class="modal-body">
                                         <div class="text-style1">
                                             <ul>
-                                                <li>Draw Letters (number of letters you get depends on difficulty</li>
-                                                <li>Combine letters to form a word and place it on the board</li>
-                                                <li>Use the bonus tile when forming a word to get bonus points</li>
-                                                <li>A new board and selection of letters will be available each day</li>
-                                                <li>Every player gets same word + same board everyday, Compete with your
-                                                    friends to see who can get the highest score</li>
+                                                <li>1) Draw 14 random letters</li>
+                                                <li>2) Form words by placing letters on the board</li>
+                                                <li>3) Use the bonus tile when forming a word to get bonus points</li>
+                                                <ul>
+                                                    <li>TL = triple letter</li>
+                                                    <li>DL = double letter</li>
+                                                </ul>
+                                                <li>4) Compete with your friends to see who can get the highest score!</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -123,20 +125,29 @@
                                         <div class="text-style0">
                                             <div class="title">Profile Settings</div>
                                         </div>
-                                        <a href="#" class="game-stats">Game Stats</a>
-                                        <button data-close-button class="close-button">&times;</button>
-                                        
+                                        <button data-close-button class="close-button">&times;</button>  
                                     </div>
                                     <div class="modal-body">
                                         <div class="text-style1">
                                             <img id = "profilePicture" alt="profilePic" onerror="imgError()">
+                                            <div class="game-stats">
+                                                <a href="#" class="stats-font">Game Stats</a>
+                                            </div>  
+                                            <br>
                                             <div id="container">
                                                 <form id="upload-images-form">
                                                     <input id="image-upload" type="file"
                                                         accept="image/png, image/jpeg" />
-                                                    <input id="submit" type="submit" value="Submit" />
-                                                    <table id="users"></table>
+                                                    <div id="ID"></div>
+                                                    <div id="firstName"></div>
+                                                    <div id="lastName"></div>
+                                                    <div id="email"></div>
+                                                    <div id="pass"></div>
                                                 </form>
+                                                <div id="submit">
+                                                    <input id="submit-font" type="submit" value="Submit" />
+                                                </div>
+                                               
                                             </div>
                                         </div>
                                         

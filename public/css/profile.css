@@ -301,7 +301,6 @@ body.dark {
   grid-column: 3/3;
 }
 
-
 .selected {
   border-color: red;
 }
@@ -484,13 +483,44 @@ body.dark {
   text-align: center;
 }
 
-.game-stats {
-  border: 1px solid black;
+#submit {
+  text-align: center;
+  margin: 1rem;
 }
 
-.game-stats:hover {
+#submit-font {
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  padding: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+
+#image-upload {
+  padding-bottom: 1rem;
+}
+
+#ID, #firstName, #lastName, #email, #pass {
+  padding: .25rem;
+}
+
+#submit-font:hover {
   background-color: #EBCF76;
-  
+}
+
+.game-stats {
+  text-align: center;
+  margin: 1rem;
+}
+
+.stats-font {
+  border: 1px solid black;
+  margin: 1rem;
+}
+
+.stats-font:hover {
+  background-color: #EBCF76;
 }
 
 @media (max-width: 700px) {
