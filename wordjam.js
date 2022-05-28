@@ -269,12 +269,11 @@ app.post('/add-timeline', function (req, res) {
       database: 'COMP2800'
     });
     connection.connect();
-    console.log(req.body.userID, req.body.caption);
     connection.query('INSERT INTO bby_2_timeline (userID, caption, playdate, playtime, playimage) values (?, ?, CURDATE(), CURTIME(), ?)',
           [req.body.userID, req.body.caption, req.body.playimage],
           function (error, results, fields) {
       if (error) {
-          console.log(error);
+ 
       }
       res.send({ status: "success", msg: "Record added." });
     });
@@ -313,7 +312,6 @@ app.post('/update-user-email', function (req, res) {
       database: 'COMP2800'
     });
     connection.connect();
-    console.log(req.body.email);
     connection.query('UPDATE bby_2_user SET email = ? WHERE userID = ?',
           [req.body.email, req.body.userID],
           function (error, results, fields) {
@@ -408,28 +406,6 @@ app.post('/update-user-admin', function (req, res) {
     connection.end();
 });
 
-app.post('/update-timeline-caption', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-
-    let connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'comp2800'
-    });
-    connection.connect();
-    console.log("update values", req.body.caption, req.body.timelineID)
-    connection.query('UPDATE bby_2_timeline SET caption = ? WHERE timelineID = ?',
-          [req.body.caption, req.body.timelineID],
-          function (error, results, fields) {
-      if (error) {
-        console.log(error);
-      }
-      res.send({ status: "success", msg: "Recorded updated." });
-    });
-    connection.end();
-});
-
 app.post('/delete-user', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let connection = mysql.createConnection({
@@ -459,7 +435,6 @@ app.post('/delete-post', function (req, res) {
       database: 'COMP2800'
     });
     connection.connect();
-    console.log(req.body.scoreID);
     connection.query('DELETE FROM bby_2_timeline WHERE timelineID = ?',
           [req.body.timelineID],
           function (error, results, fields) {
@@ -506,12 +481,10 @@ const timelineStorage = multer.diskStorage({
 const uploadTimeline = multer({ storage: timelineStorage });
 
 app.post('/upload-timeline', uploadTimeline.array("files"), function (req, res) {
-    console.log(req.files);
     for(let i = 0; i < req.files.length; i++) {
         req.files[i].filename = req.files[i].originalname;
     }
 });
-
 
 let port = 8000;
 app.listen(port, function () {

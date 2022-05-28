@@ -58,7 +58,6 @@ function getOneUser() {
 getOneUser();
 
 function editEmail(e) {
-    console.log(document.getElementById("IDValue").innerHTML);
     let spanText = e.target.innerHTML;
     let parent = e.target.parentNode;
     let input = document.createElement("input");

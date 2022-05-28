@@ -4,7 +4,6 @@ function getTimeline() {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
               let data = JSON.parse(this.responseText);
-              console.log(data);
               if(data.status == "success") {
                 for (let i = 0; i < data.rows.length; i++) {
                     let row = data.rows[i];
@@ -42,7 +41,7 @@ function getTimeline() {
                     notificationCard.setAttribute("class", "notification-card");
 
                     let content = document.createElement("div");
-                    content.setAttribute("id", "notification-content");
+                    content.setAttribute("id", row.timelineID);
                     content.setAttribute("class", "notification-content");
                     content.innerHTML = row.caption;
 
@@ -75,10 +74,7 @@ function getTimeline() {
                     notificationHeader.appendChild(time);
                     notificationHeader.appendChild(cardText1);
                 }
-                    let caption = document.querySelectorAll(".notification-content");
-                    for(let j = 0; j < caption.length; j++) {
-                        caption[j].addEventListener("click", editCaption);
-                    }
+
                 } else {
                    
                 }
@@ -93,44 +89,6 @@ function getTimeline() {
     xhr.send();
 }
 getTimeline();
-
-function editCaption(e) {
-    let spanText = e.target.innerHTML;
-    let parent = e.target.parentNode;
-    let input = document.createElement("input");
-    input.value = spanText;
-    input.addEventListener("keyup", function(e) {
-        let v = null;
-        if(e.which == 13) {
-            v = input.value;
-            let newSpan = document.createElement("span");
-            newSpan.addEventListener("click", editCaption);
-            newSpan.innerHTML = v;
-            parent.innerHTML = "";
-            parent.appendChild(newSpan);
-            let dataToSend = {timelineID: document.getElementById("timelineID").innerHTML,
-                              caption: v};         
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () {
-                if (this.readyState == XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                      getTimeline();
-                    } else {
-                   
-                    }
-                } else {
-                  
-                }
-            };
-            xhr.open("POST", "/update-timeline-caption");
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send("timelineID=" + dataToSend.timelineID + "&caption=" + dataToSend.caption);
-        }
-    });
-    parent.innerHTML = "";
-    parent.appendChild(input);
-}
 
 document.getElementById("submit").addEventListener("click", function(e) {
     e.preventDefault();
@@ -183,7 +141,6 @@ document.getElementById("submit").addEventListener("click", function(e) {
 
 
 function removePost(clicked_id) {
-    //console.log(clicked_id);
     var result = confirm("Are you sure you want to delete this post?");
     if(result) {
         const xhr = new XMLHttpRequest();
